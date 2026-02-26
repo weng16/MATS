@@ -1,0 +1,14 @@
+# 消融实验：关闭分段处理
+defaults:
+  - /_base_/base
+  - /_base_/datasets/etth1
+  - /_base_/model/mats_base
+
+experiment:
+  name: "ABL-NoSeg-ETTh1-96"
+  type: ablation
+  ablation_type: no_segment        # 结果到 results/ablation/no_segment/ETTh1_96/
+
+model:
+  pred_len: 96
+  use_segment_processing: false    # 唯一差异

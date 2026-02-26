@@ -1,0 +1,12 @@
+# 主实验：ETTh1 pred_len=96
+defaults:
+  - /_base_/base
+  - /_base_/datasets/etth1
+  - /_base_/model/mats_base
+
+experiment:
+  name: "MATS-Full-ETTh1-96"
+  type: main          # 结果将写到 results/main/ETTh1/96/
+
+model:
+  pred_len: 96
