@@ -1,0 +1,126 @@
+# StructRouter Configuration
+# 时序预测框架配置文件
+
+# ==================== 数据配置 ====================
+data:
+  # 数据集: ETTh1, ETTh2, ETTm1, ETTm2, Weather, Traffic, Electricity, Exchange, ILI
+  dataset: "ETTh1"
+  root_path: "./data"      # 数据目录
+  
+  # 序列长度配置
+  seq_len: 96              # 输入序列长度 (历史窗口)
+  pred_len: 96             # 预测序列长度
+  label_len: 48            # 标签序列长度 (decoder起始token)
+  
+  # 特征模式: M(多变量预测多变量), S(单变量), MS(多变量预测单变量)
+  features: "M"
+  target: "OT"             # 目标列名
+  
+  # 数据划分比例
+  train_ratio: 0.7
+  val_ratio: 0.1
+  # test_ratio = 1 - train_ratio - val_ratio = 0.2
+
+# ==================== 模型配置 ====================
+model:
+  name: "StructRouter"
+  hidden_dim: 256
+  num_experts: 5           # 专家数量: Periodic, Trend, Noise, Abrupt, General
+  num_agents: 5            # 智能体数量 (因果通信)
+  max_segments: 10         # 最大分段数
+  max_lag: 3               # 时序因果最大滞后
+  
+  # 功能开关
+  use_segment_processing: true   # 启用Segment级处理
+  use_temporal_causal: false     # 使用时序因果 (开启会增加计算量，建议数据量>10k时启用)
+  use_verification: true         # 启用验证智能体
+  use_rft: true                  # 启用RFT
+  
+  # Structure Encoder
+  encoder:
+    num_layers: 3
+    kernel_size: 3
+    num_heads: 8
+    dropout: 0.1
+    
+  # Weight Estimator
+  weight_estimator:
+    lambda_sim: 0.5        # MLP与原型相似度的平衡系数
+    temperature: 1.0
+    
+  # Expert Networks
+  experts:
+    num_layers: 2
+    dropout: 0.1
+    
+  # Verification Agent
+  verification:
+    consistency_threshold: 0.3
+    validity_threshold: 0.5
+    uncertainty_threshold: 0.7
+    max_retry: 3
+
+# ==================== 训练配置 ====================
+training:
+  # Stage 1: 自监督预训练
+  stage1:
+    enabled: true
+    epochs: 50
+    lr: 1.0e-3
+    batch_size: 64
+    warmup_epochs: 5
+    
+  # Stage 2: 端到端微调 (主要训练阶段)
+  stage2:
+    epochs: 100
+    lr: 5.0e-4
+    batch_size: 32
+    warmup_epochs: 10
+    weight_decay: 0.01
+    
+  # Stage 3: RFT强化微调
+  stage3:
+    enabled: true
+    epochs: 20
+    lr: 1.0e-4
+    batch_size: 16
+    ppo_epochs: 4
+    clip_epsilon: 0.2
+    gamma: 0.99
+    gae_lambda: 0.95
+
+# ==================== 损失函数权重 ====================
+loss:
+  # L_total = L_task + α·L_consist + β·L_sparse + γ·L_causal + δ·L_balance
+  alpha: 0.1     # 结构一致性损失权重
+  beta: 0.01     # 稀疏性损失权重
+  gamma: 0.1     # DAG约束损失权重
+  delta: 0.01    # 负载均衡损失权重
+
+# ==================== 实验配置 ====================
+experiment:
+  seed: 42
+  device: "cuda"           # cuda 或 cpu
+  num_workers: 4           # DataLoader工作线程
+  
+  # 日志
+  log_interval: 100        # 每N个batch打印一次
+  save_interval: 10        # 每N个epoch保存一次
+  
+  # 输出目录
+  output_dir: "./outputs"
+  checkpoint_dir: "./checkpoints"
+  
+  # Weights & Biases (可选)
+  wandb:
+    enabled: false
+    project: "StructRouter"
+    entity: null
+
+# ==================== 预测长度配置 (用于消融实验) ====================
+# 常用配置: pred_len in [96, 192, 336, 720]
+prediction_lengths:
+  - 96
+  - 192
+  - 336
+  - 720

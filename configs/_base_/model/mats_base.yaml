@@ -1,0 +1,7 @@
+# MATS 默认超参
+model:
+  _target_: src.basicts_adapter.mats_arch.MATSArch
+  hidden_dim: 256
+  use_segment_processing: true
+  use_verification: true
+  use_rft: true
