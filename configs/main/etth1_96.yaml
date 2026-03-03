@@ -1,12 +1,13 @@
-# 主实验：ETTh1 pred_len=96
+# @package _global_
 defaults:
   - /_base_/base
   - /_base_/datasets/etth1
   - /_base_/model/mats_base
+  - _self_
 
 experiment:
   name: "MATS-Full-ETTh1-96"
-  type: main          # 结果将写到 results/main/ETTh1/96/
+  type: main
 
-model:
-  pred_len: 96
+output_len: 96
+input_len: 336

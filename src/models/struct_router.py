@@ -344,7 +344,7 @@ class StructRouter(nn.Module):
 
         # ========== Stage 6: 多任务预测 ==========
         task_name = {v: k for k, v in self.TASK_TYPES.items()}.get(task, 'forecast')
-        head = self.task_heads.get(task_name, self.task_heads['forecast'])
+        head = self.task_heads[task_name] if task_name in self.task_heads else self.task_heads['forecast']
 
         if task_name == 'classification':
             # 分类任务：时序维度做 mean pooling 后再分类

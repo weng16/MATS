@@ -1,23 +1,63 @@
 #!/usr/bin/env python3
-"""
-统一训练入口（Hydra 驱动）
-用法:
-    python scripts/train.py --config-name main/etth1_96
-"""
 import hydra
-from omegaconf import DictConfig
+from omegaconf import DictConfig, OmegaConf
 import basicts
-# 注册模型
+import importlib
+from basicts.configs import BasicTSForecastingConfig
 from src.basicts_adapter.mats_arch import MATSArch
+
+def resolve_class(path: str):
+    """把 'torch.optim.lr_scheduler.CosineAnnealingLR' 解析成 class"""
+    module_path, class_name = path.rsplit(".", 1)
+    module = importlib.import_module(module_path)
+    return getattr(module, class_name)
 
 @hydra.main(version_base=None, config_path="../configs", config_name=None)
 def main(cfg: DictConfig):
-    # 根据 experiment.type 自动决定输出根目录
+    OmegaConf.set_struct(cfg, False)
+    
+    # 决定输出目录
     if cfg.experiment.type == "main":
         root = "results/main"
     else:
         root = f"results/ablation/{cfg.experiment.ablation_type}"
-    basicts.run(cfg, default_root_dir=root)
+
+    # 把 OmegaConf 转成普通 dict
+    cfg_dict = OmegaConf.to_container(cfg, resolve=True)
+    
+    # 去掉 BasicTSForecastingConfig 不认识的字段
+    cfg_dict.pop("experiment", None)
+    cfg_dict.pop("input_dim", None)
+    cfg_dict.pop("output_dim", None)
+    cfg_dict.pop("data_path", None)
+
+    # model 字段需要是 class 对象
+    cfg_dict["model"] = MATSArch
+    
+    # model_params -> model_config 用 BasicTSModelConfig
+    from basicts.configs import BasicTSModelConfig
+    model_params = cfg_dict.pop("model_params", {})
+    # cfg_dict["model_config"] = BasicTSModelConfig(MATSArch, **model_params)
+    cfg_dict["model_config"] = BasicTSModelConfig(model_params)
+
+
+    # dataset_params 补充预测长度
+    cfg_dict.setdefault("dataset_params", {})
+    cfg_dict["gpus"] = "0"
+    cfg_dict["dataset_params"]["input_len"] = cfg_dict.pop("input_len", 336)
+    cfg_dict["dataset_params"]["output_len"] = cfg_dict.pop("output_len", 96)
+    cfg_dict["dataset_params"]["local"] = False
+
+    # Resolve lr_scheduler and optimizer classes
+    if isinstance(cfg_dict.get("lr_scheduler"), str):
+        cfg_dict["lr_scheduler"] = resolve_class(cfg_dict["lr_scheduler"])
+    if isinstance(cfg_dict.get("optimizer"), str):
+        cfg_dict["optimizer"] = resolve_class(cfg_dict["optimizer"])
+
+    ts_cfg = BasicTSForecastingConfig(**cfg_dict)
+    ts_cfg.ckpt_save_dir = f"{root}/{cfg.experiment.name}"
+    
+    basicts.BasicTSLauncher.launch_training(ts_cfg)
 
 if __name__ == "__main__":
     main()

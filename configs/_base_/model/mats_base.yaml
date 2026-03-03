@@ -1,7 +1,11 @@
-# MATS 默认超参
-model:
-  _target_: src.basicts_adapter.mats_arch.MATSArch
+# @package _global_
+model: src.basicts_adapter.mats_arch.MATSArch
+model_params:
   hidden_dim: 256
   use_segment_processing: true
   use_verification: true
   use_rft: true
+  seq_len: 336
+  pred_len: 96
+  input_dim: 7
+  output_dim: 7

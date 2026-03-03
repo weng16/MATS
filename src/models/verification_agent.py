@@ -176,11 +176,11 @@ class VerificationAgent(nn.Module):
         feature_score = self.validity_checker(combined).squeeze(-1)  # [B]
         
         # 异常值检测 (IQR方法)
-        q1 = torch.quantile(prediction.view(B, -1), 0.25, dim=1)
-        q3 = torch.quantile(prediction.view(B, -1), 0.75, dim=1)
+        q1 = torch.quantile(prediction.reshape(B, -1), 0.25, dim=1)
+        q3 = torch.quantile(prediction.reshape(B, -1), 0.75, dim=1)
         iqr = q3 - q1
-        outlier_ratio = ((prediction.view(B, -1) < (q1 - 1.5 * iqr).unsqueeze(1)) | 
-                        (prediction.view(B, -1) > (q3 + 1.5 * iqr).unsqueeze(1))).float().mean(dim=1)
+        outlier_ratio = ((prediction.reshape(B, -1) < (q1 - 1.5 * iqr).unsqueeze(1)) | 
+                        (prediction.reshape(B, -1) > (q3 + 1.5 * iqr).unsqueeze(1))).float().mean(dim=1)
         outlier_score = 1 - outlier_ratio
         
         # 综合有效性分数

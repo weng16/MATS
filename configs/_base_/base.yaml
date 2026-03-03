@@ -1,16 +1,11 @@
-# 所有实验共享的基础配置
-# 硬件、训练器、日志、随机种子
-trainer:
-  _target_: basicts.runners.SimpleTimeSeriesForecastingRunner
-  num_epochs: 100
-  batch_size: 32
-  optimizer:
-    _target_: torch.optim.Adam
-    lr: 5.0e-4
-    weight_decay: 0.01
-  lr_scheduler:
-    _target_: torch.optim.lr_scheduler.CosineAnnealingLR
-    T_max: 100
-
-metrics: ["MSE", "MAE"]
+# @package _global_
 seed: 42
+num_epochs: 100
+batch_size: 32
+metrics: ["MAE", "MSE", "RMSE", "MAPE", "WAPE"]
+optimizer_params:
+  lr: 5.0e-4
+  weight_decay: 0.01
+lr_scheduler: torch.optim.lr_scheduler.CosineAnnealingLR
+lr_scheduler_params:
+  T_max: 100
