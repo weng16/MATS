@@ -1,4 +1,9 @@
 #!/usr/bin/env python3
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+
 import hydra
 from omegaconf import DictConfig, OmegaConf
 import basicts
@@ -12,7 +17,7 @@ def resolve_class(path: str):
     module = importlib.import_module(module_path)
     return getattr(module, class_name)
 
-@hydra.main(version_base=None, config_path="../configs", config_name=None)
+@hydra.main(version_base=None, config_path="../configs", config_name="main/etth1_96")
 def main(cfg: DictConfig):
     OmegaConf.set_struct(cfg, False)
     
@@ -29,7 +34,7 @@ def main(cfg: DictConfig):
     cfg_dict.pop("experiment", None)
     cfg_dict.pop("input_dim", None)
     cfg_dict.pop("output_dim", None)
-    cfg_dict.pop("data_path", None)
+    data_path = cfg_dict.pop("data_path", None)
 
     # model 字段需要是 class 对象
     cfg_dict["model"] = MATSArch
@@ -41,12 +46,18 @@ def main(cfg: DictConfig):
     cfg_dict["model_config"] = BasicTSModelConfig(model_params)
 
 
-    # dataset_params 补充预测长度
+    # dataset_params 补充预测长度和数据路径
     cfg_dict.setdefault("dataset_params", {})
     cfg_dict["gpus"] = "0"
     cfg_dict["dataset_params"]["input_len"] = cfg_dict.pop("input_len", 336)
     cfg_dict["dataset_params"]["output_len"] = cfg_dict.pop("output_len", 96)
-    cfg_dict["dataset_params"]["local"] = False
+    
+    # 设置数据路径 (使用本地数据)
+    dataset_name = cfg_dict.get("dataset_name", "ETTh1")
+    if data_path:
+        cfg_dict["data_file_path"] = str(Path(data_path).parent)
+    else:
+        cfg_dict["data_file_path"] = f"./data/{dataset_name}"
 
     # Resolve lr_scheduler and optimizer classes
     if isinstance(cfg_dict.get("lr_scheduler"), str):
