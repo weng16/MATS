@@ -10,7 +10,7 @@ from pathlib import Path
 from typing import List, Tuple
 
 # 配置
-PROJECT_ROOT = Path("/mlx_devbox/users/wangwenzhuo.46/playground/MATS")
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
 DATA_DIR = PROJECT_ROOT / "data"
 
 # 数据集配置：(数据集名称, 文件名, URL)

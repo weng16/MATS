@@ -215,10 +215,20 @@ def load_dataset(
                         f"Available: {list(DATASET_CONFIG.keys())}")
     
     config = DATASET_CONFIG[dataset_name]
-    file_path = os.path.join(root_path, config['file'])
-    
-    if not os.path.exists(file_path):
-        warnings.warn(f"Dataset file not found: {file_path}. Generating synthetic data.")
+
+    # Try multiple path layouts: data/ETTh1.csv, data/ETTh1/ETTh1.csv
+    candidates = [
+        os.path.join(root_path, config['file']),
+        os.path.join(root_path, dataset_name, config['file']),
+    ]
+    file_path = None
+    for c in candidates:
+        if os.path.exists(c):
+            file_path = c
+            break
+
+    if file_path is None:
+        warnings.warn(f"Dataset file not found at {candidates}. Generating synthetic data.")
         num_features = config['features']
         data = generate_synthetic_data(2000, num_features)
         columns = ['OT'] + [f'feature_{i}' for i in range(num_features - 1)]

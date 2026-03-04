@@ -8,7 +8,9 @@ from .joint_loss import (
     StructureConsistencyLoss,
     SparsityLoss,
     DAGConstraintLoss,
-    LoadBalanceLoss
+    LoadBalanceLoss,
+    PrototypeOrthogonalityLoss,
+    ExpertBalanceVarianceLoss,
 )
 
 __all__ = [
@@ -17,5 +19,7 @@ __all__ = [
     'StructureConsistencyLoss',
     'SparsityLoss',
     'DAGConstraintLoss',
-    'LoadBalanceLoss'
+    'LoadBalanceLoss',
+    'PrototypeOrthogonalityLoss',
+    'ExpertBalanceVarianceLoss',
 ]

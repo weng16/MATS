@@ -1,0 +1,17 @@
+# @package _global_
+defaults:
+  - /_base_/base
+  - /_base_/datasets/weather
+  - /_base_/model/mats_base
+  - _self_
+
+experiment:
+  name: "ABL-NoSeg-Weather-96"
+  type: ablation
+  ablation_type: no_segment
+
+output_len: 96
+input_len: 336
+
+model_params:
+  use_segment_processing: false

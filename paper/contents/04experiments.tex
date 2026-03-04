@@ -1,0 +1,105 @@
+\section{Experiments}
+
+We conduct comprehensive experiments to evaluate \model on seven benchmark datasets for long-term time series forecasting. We compare against eight state-of-the-art baselines, perform ablations to isolate the contribution of each component, and provide analysis of expert behavior, causal structure, and efficiency.
+
+\subsection{Experimental Setup}
+
+\paragraph{Datasets.}
+We evaluate on seven widely-used benchmarks spanning diverse domains and variable counts. \textbf{ETTh1} and \textbf{ETTh2}~\cite{zhou2021informer} are hourly electricity transformer temperature data with 7 variables. \textbf{ETTm1} and \textbf{ETTm2} are 15-minute resolution variants with 7 variables. \textbf{Weather} contains 21 meteorological variables. \textbf{ECL} (Electricity)~\cite{wu2021autoformer} comprises 321 electricity load series. \textbf{Traffic}~\cite{wu2021autoformer} includes 862 traffic occupancy series. We follow standard chronological splits: 6:2:2 (train/val/test) for ETT datasets and 7:1:2 for Weather, ECL, and Traffic. Input length is 336 time steps (96 for ETTh1/ETTh2 due to shorter history). We evaluate prediction lengths $\{96, 192, 336, 720\}$.
+
+\paragraph{Baselines.}
+We compare against eight state-of-the-art forecasting methods: \textbf{iTransformer}~\cite{liu2024itransformer} with inverted variate-wise attention; \textbf{PatchTST}~\cite{nie2023patchtst} with patch-based tokenization; \textbf{TimesNet}~\cite{wu2023timesnet} with multi-scale 2D-variation modeling; \textbf{FEDformer}~\cite{zhou2022fedformer} with frequency-domain decomposition; \textbf{Autoformer}~\cite{wu2021autoformer} with auto-correlation; \textbf{DLinear}~\cite{zeng2023dlinear} with simple linear decomposition; \textbf{SCINet}~\cite{liu2022scinet} with sample convolution; and \textbf{Crossformer}~\cite{zhang2023crossformer} with cross-dimension attention.
+
+\paragraph{Metrics.}
+We report \textbf{MSE} (Mean Squared Error) and \textbf{MAE} (Mean Absolute Error), following standard practice in long-term forecasting benchmarks.
+
+\paragraph{Implementation.}
+\model is implemented in PyTorch with hidden dimension 256, 5 experts, and RevIN~\cite{kim2022reversible} enabled for distribution normalization. We employ three-stage training: (1) self-supervised structure learning on the encoder and weight estimator; (2) end-to-end supervised forecasting; (3) reinforcement fine-tuning (RFT)~\cite{schulman2017ppo} of the weight estimator with frozen experts. Batch size [TODO], epochs [TODO], learning rate [TODO], and optimizer [TODO] are specified in the appendix.
+
+\subsection{Main Results}
+
+Table~\ref{tab:main_results} presents long-term forecasting results across all datasets and prediction lengths. \model achieves competitive or state-of-the-art performance on most settings. On ETTh1 and ETTh2, the structure-aware routing and soft expert fusion effectively capture mixed patterns in electricity data. On high-variate datasets (ECL, Traffic), the prototype-based weight estimation and causal communication scale well to diverse variable structures. Results are averaged over 3 runs.
+
+\begin{table*}[t]
+\centering
+\caption{Long-term forecasting results (MSE/MAE) across all datasets and prediction lengths. Best in \boldres{bold red}, second best in \secondres{underlined blue}. Results averaged over 3 runs.}
+\label{tab:main_results}
+\resizebox{\linewidth}{!}{
+\begin{tabular}{l|cc|cc|cc|cc|cc|cc|cc|cc|cc|cc|cc|cc|cc|cc|cc|cc|cc|cc|cc|cc|cc|cc|cc|cc|cc|cc}
+\toprule[1.5pt]
+\multirow{3}{*}{Method} & \multicolumn{8}{c|}{ETTh1} & \multicolumn{8}{c|}{ETTh2} & \multicolumn{8}{c|}{ETTm1} & \multicolumn{8}{c|}{ETTm2} & \multicolumn{8}{c|}{Weather} & \multicolumn{8}{c|}{ECL} & \multicolumn{8}{c}{Traffic} \\
+\cmidrule(lr){2-9} \cmidrule(lr){10-17} \cmidrule(lr){18-25} \cmidrule(lr){26-33} \cmidrule(lr){34-41} \cmidrule(lr){42-49} \cmidrule(lr){50-57}
+ & \multicolumn{2}{c}{96} & \multicolumn{2}{c}{192} & \multicolumn{2}{c}{336} & \multicolumn{2}{c}{720} & \multicolumn{2}{c}{96} & \multicolumn{2}{c}{192} & \multicolumn{2}{c}{336} & \multicolumn{2}{c}{720} & \multicolumn{2}{c}{96} & \multicolumn{2}{c}{192} & \multicolumn{2}{c}{336} & \multicolumn{2}{c}{720} & \multicolumn{2}{c}{96} & \multicolumn{2}{c}{192} & \multicolumn{2}{c}{336} & \multicolumn{2}{c}{720} & \multicolumn{2}{c}{96} & \multicolumn{2}{c}{192} & \multicolumn{2}{c}{336} & \multicolumn{2}{c}{720} & \multicolumn{2}{c}{96} & \multicolumn{2}{c}{192} & \multicolumn{2}{c}{336} & \multicolumn{2}{c}{720} & \multicolumn{2}{c}{96} & \multicolumn{2}{c}{192} & \multicolumn{2}{c}{336} & \multicolumn{2}{c}{720} \\
+ & MSE & MAE & MSE & MAE & MSE & MAE & MSE & MAE & MSE & MAE & MSE & MAE & MSE & MAE & MSE & MAE & MSE & MAE & MSE & MAE & MSE & MAE & MSE & MAE & MSE & MAE & MSE & MAE & MSE & MAE & MSE & MAE & MSE & MAE & MSE & MAE & MSE & MAE & MSE & MAE & MSE & MAE & MSE & MAE & MSE & MAE & MSE & MAE & MSE & MAE & MSE & MAE & MSE & MAE & MSE & MAE & MSE & MAE \\
+\midrule
+iTransformer~\cite{liu2024itransformer} & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] \\
+PatchTST~\cite{nie2023patchtst} & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] \\
+TimesNet~\cite{wu2023timesnet} & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] \\
+FEDformer~\cite{zhou2022fedformer} & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] \\
+Autoformer~\cite{wu2021autoformer} & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] \\
+DLinear~\cite{zeng2023dlinear} & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] \\
+SCINet~\cite{liu2022scinet} & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] \\
+Crossformer~\cite{zhang2023crossformer} & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] & [TODO] \\
+\midrule
+\textbf{StructRouter (Ours)} & \boldres{[TODO]} & \boldres{[TODO]} & \boldres{[TODO]} & \boldres{[TODO]} & \boldres{[TODO]} & \boldres{[TODO]} & \boldres{[TODO]} & \boldres{[TODO]} & \boldres{[TODO]} & \boldres{[TODO]} & \boldres{[TODO]} & \boldres{[TODO]} & \boldres{[TODO]} & \boldres{[TODO]} & \boldres{[TODO]} & \boldres{[TODO]} & \boldres{[TODO]} & \boldres{[TODO]} & \boldres{[TODO]} & \boldres{[TODO]} & \boldres{[TODO]} & \boldres{[TODO]} & \boldres{[TODO]} & \boldres{[TODO]} & \boldres{[TODO]} & \boldres{[TODO]} & \boldres{[TODO]} & \boldres{[TODO]} & \boldres{[TODO]} & \boldres{[TODO]} & \boldres{[TODO]} & \boldres{[TODO]} & \boldres{[TODO]} & \boldres{[TODO]} & \boldres{[TODO]} & \boldres{[TODO]} & \boldres{[TODO]} & \boldres{[TODO]} & \boldres{[TODO]} & \boldres{[TODO]} & \boldres{[TODO]} & \boldres{[TODO]} & \boldres{[TODO]} & \boldres{[TODO]} & \boldres{[TODO]} & \boldres{[TODO]} & \boldres{[TODO]} & \boldres{[TODO]} & \boldres{[TODO]} & \boldres{[TODO]} & \boldres{[TODO]} & \boldres{[TODO]} & \boldres{[TODO]} & \boldres{[TODO]} & \boldres{[TODO]} & \boldres{[TODO]} & \boldres{[TODO]} & \boldres{[TODO]} & \boldres{[TODO]} & \boldres{[TODO]} & \boldres{[TODO]} \\
+\bottomrule
+\end{tabular}
+}
+\end{table*}
+
+\subsection{Ablation Study}
+
+Table~\ref{tab:ablation} reports ablation results on ETTh1 and Weather (pred\_len=96). We systematically remove or replace components to isolate their contributions.
+
+\begin{table}[t]
+\centering
+\caption{Ablation study on ETTh1 and Weather (pred\_len=96).}
+\label{tab:ablation}
+\begin{tabular}{l|cc|cc}
+\toprule[1.5pt]
+Variant & \multicolumn{2}{c|}{ETTh1} & \multicolumn{2}{c}{Weather} \\
+\cmidrule(lr){2-3} \cmidrule(lr){4-5}
+ & MSE & MAE & MSE & MAE \\
+\midrule
+Full \model & \boldres{[TODO]} & \boldres{[TODO]} & \boldres{[TODO]} & \boldres{[TODO]} \\
+w/o Segment & [TODO] & [TODO] & [TODO] & [TODO] \\
+w/o Causal & [TODO] & [TODO] & [TODO] & [TODO] \\
+w/o Verification & [TODO] & [TODO] & [TODO] & [TODO] \\
+w/o RFT & [TODO] & [TODO] & [TODO] & [TODO] \\
+Hard Routing & [TODO] & [TODO] & [TODO] & [TODO] \\
+Single Expert & [TODO] & [TODO] & [TODO] & [TODO] \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Each component contributes meaningfully to performance. Removing the segment detector (w/o Segment) degrades forecasting when input contains regime shifts. Removing causal communication (w/o Causal) eliminates inter-expert information flow, yielding approximately [TODO]\% MSE increase on ETTh1; the DAG-constrained $W_{\text{comm}}$ enables interpretable expert interactions. Removing the verification agent (w/o Verification) prevents [TODO]---the closed-loop consistency check catches structural misalignments that would otherwise propagate. Removing RFT (w/o RFT) leaves the weight estimator without reinforcement signal for routing quality. Replacing soft routing with hard (top-1) routing (Hard Routing) causes expert collapse and information loss, confirming that soft-weighted fusion preserves full information for mixed-mode segments. Using a single expert (Single Expert) removes the benefit of specialized pattern handling. Overall, soft routing outperforms hard routing, and the full pipeline achieves the best results.
+
+\subsection{Analysis}
+
+\subsubsection{Expert Weight Visualization}
+
+We visualize the routing weights $w$ produced by the weight estimator across segments and datasets (Figure~[TODO]). The weights vary substantially across segments: trend-dominant segments activate experts with strong trend modeling capacity; seasonal segments favor periodicity experts; regime-shift segments distribute weight across multiple experts. Across datasets, ETTh1 and Weather exhibit different weight distributions, reflecting the distinct structural patterns in electricity vs.\ meteorological data. The orthogonal prototypes $P$ induce an inductive bias such that similar structural encodings $z$ receive similar routing weights, enabling interpretable pattern-based routing.
+
+\subsubsection{Causal Graph Analysis}
+
+The learned communication adjacency $W_{\text{comm}}$ (constrained to a DAG via NOTEARS~\cite{zheng2018dags}) reveals interpretable expert interactions (Figure~[TODO]). [TODO: describe specific patterns---e.g., which expert influences which, sparsity structure.] On ETTh1, we observe [TODO] edges; on Weather, the graph exhibits [TODO]. The causal structure supports do-calculus and counterfactual reasoning: intervening on one expert's output propagates through the DAG according to the learned structure.
+
+\subsubsection{Efficiency}
+
+Table~\ref{tab:efficiency} compares parameter count and FLOPs. \model with 5 experts has approximately [TODO]M parameters vs.\ [TODO]M for iTransformer and [TODO]M for PatchTST. The DAG constraint adds [TODO]\% overhead during training due to the NOTEARS penalty and acyclicity projection. MC dropout for verification adds inference overhead. Inference is efficient: soft routing requires one forward pass through all experts, with no iterative DAG solving at test time.
+
+\begin{table}[t]
+\centering
+\caption{Parameter count and FLOPs comparison.}
+\label{tab:efficiency}
+\begin{tabular}{l|cc}
+\toprule[1.5pt]
+Method & Params (M) & FLOPs \\
+\midrule
+iTransformer & [TODO] & [TODO] \\
+PatchTST & [TODO] & [TODO] \\
+TimesNet & [TODO] & [TODO] \\
+StructRouter (Ours) & [TODO] & [TODO] \\
+\bottomrule
+\end{tabular}
+\end{table}

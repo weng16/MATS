@@ -33,6 +33,7 @@ from .segment_processor import (
     MultiSegmentRouteComposition,
     SegmentFusion
 )
+from .revin import RevIN
 from .struct_router import StructRouter
 
 __all__ = [
@@ -62,6 +63,8 @@ __all__ = [
     'PatternAbstraction',
     'MultiSegmentRouteComposition',
     'SegmentFusion',
+    # Normalization
+    'RevIN',
     # Main Model
     'StructRouter'
 ]

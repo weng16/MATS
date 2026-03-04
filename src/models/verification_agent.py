@@ -302,13 +302,16 @@ class VerificationAgent(nn.Module):
         
         返回三个维度的验证结果和综合判断
         """
-        # 提取结构特征
+        # Input structure is ground-truth reference — detach to avoid training on it.
+        # Output structure MUST retain gradients so that L_consist can backprop
+        # through the prediction path (this was previously wrapped in no_grad,
+        # causing the consistency loss to receive zero gradient).
         with torch.no_grad():
             input_z = self.structure_encoder(input_seq)
-            output_z = self.structure_encoder(output_seq)
-            
             input_structure = weight_estimator(input_z)
-            output_structure = weight_estimator(output_z)
+
+        output_z = self.structure_encoder(output_seq)
+        output_structure = weight_estimator(output_z)
         
         # 1. Consistency 检查
         consistency_result = self.check_consistency(input_structure, output_structure)

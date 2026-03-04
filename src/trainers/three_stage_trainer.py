@@ -312,13 +312,10 @@ class Stage1Pretrainer:
 
 class Stage2Finetuner:
     """
-    阶段二: 端到端联合微调
-    
-    目标: 在下游任务上优化整个框架
-    
-    方法: 使用完整的联合损失 L_total
+    Stage 2: End-to-end joint fine-tuning with per-module learning rates,
+    DAG warmup, gradient clipping, and prototype orthogonality regularization.
     """
-    
+
     def __init__(
         self,
         model,
@@ -326,45 +323,77 @@ class Stage2Finetuner:
         lr: float = 5e-4,
         warmup_epochs: int = 10,
         total_epochs: int = 100,
-        weight_decay: float = 0.01
+        weight_decay: float = 0.01,
+        max_grad_norm: float = 1.0,
+        prototype_lr_scale: float = 0.1,
+        wcomm_lr_scale: float = 3.0,
     ):
         self.model = model
         self.joint_loss = joint_loss
         self.warmup_epochs = warmup_epochs
         self.total_epochs = total_epochs
-        
-        # 优化器
-        self.optimizer = torch.optim.AdamW(
-            model.parameters(),
-            lr=lr,
-            weight_decay=weight_decay
+        self.max_grad_norm = max_grad_norm
+
+        # Per-module parameter groups with different learning rates
+        param_groups = self._build_param_groups(
+            model, lr, weight_decay, prototype_lr_scale, wcomm_lr_scale
         )
-        
-        # 学习率调度: Warmup + Cosine Decay
+        self.optimizer = torch.optim.AdamW(param_groups)
+
         self.scheduler = self._create_scheduler(lr)
-    
+
+    @staticmethod
+    def _build_param_groups(model, lr, wd, proto_scale, wcomm_scale):
+        """Assign different LRs to different modules.
+
+        - Prototype parameters: slower (proto_scale × lr)
+        - W_comm: faster (wcomm_scale × lr)
+        - Everything else: base lr
+        """
+        proto_params, wcomm_params, other_params = [], [], []
+        proto_names = {'weight_estimator.pattern_prototypes'}
+        wcomm_names = {'communication.W_comm', 'communication.W_instant',
+                       'communication.W_temporal'}
+
+        for name, param in model.named_parameters():
+            if not param.requires_grad:
+                continue
+            if name in proto_names:
+                proto_params.append(param)
+            elif name in wcomm_names:
+                wcomm_params.append(param)
+            else:
+                other_params.append(param)
+
+        return [
+            {'params': other_params, 'lr': lr, 'weight_decay': wd},
+            {'params': proto_params, 'lr': lr * proto_scale, 'weight_decay': wd,
+             'name': 'prototypes'},
+            {'params': wcomm_params, 'lr': lr * wcomm_scale, 'weight_decay': 0.0,
+             'name': 'W_comm'},
+        ]
+
     def _create_scheduler(self, lr: float):
-        """创建学习率调度器"""
+        """LR warmup (linear) then cosine annealing."""
         def lr_lambda(epoch):
             if epoch < self.warmup_epochs:
-                return epoch / self.warmup_epochs
-            else:
-                progress = (epoch - self.warmup_epochs) / (self.total_epochs - self.warmup_epochs)
-                return 0.5 * (1 + np.cos(np.pi * progress))
-        
+                return max(epoch / max(self.warmup_epochs, 1), 1e-2)
+            progress = (epoch - self.warmup_epochs) / max(self.total_epochs - self.warmup_epochs, 1)
+            return 0.5 * (1 + np.cos(np.pi * progress))
+
         return torch.optim.lr_scheduler.LambdaLR(self.optimizer, lr_lambda)
-    
+
     def train_epoch(
         self,
         dataloader: DataLoader,
         epoch: int
     ) -> Dict[str, float]:
-        """训练一个epoch"""
+        """Train one epoch."""
         self.model.train()
 
         total_losses = {
             'total': 0, 'task': 0, 'consist': 0,
-            'sparse': 0, 'causal': 0, 'balance': 0
+            'sparse': 0, 'causal': 0, 'balance': 0, 'ortho': 0
         }
 
         pbar = tqdm(dataloader, desc=f"Stage2 Epoch {epoch}")
@@ -374,12 +403,14 @@ class Stage2Finetuner:
             x = batch['x'].to(device)
             y = batch['y'].to(device)
 
-            # 前向传播
             output = self.model(x)
             prediction = output['prediction']
 
-            # 计算联合损失
-            # W_comm 从 output 字典取（struct_router 已在 forward 中写入）
+            # Pass prototypes for orthogonality regularization
+            prototypes = None
+            if hasattr(self.model, 'weight_estimator'):
+                prototypes = self.model.weight_estimator.pattern_prototypes
+
             losses = self.joint_loss(
                 prediction=prediction,
                 target=y,
@@ -387,16 +418,19 @@ class Stage2Finetuner:
                 output_structure=output['output_structure'],
                 expert_weights=output['expert_weights'],
                 W_comm=output['W_comm'],
-                router_logits=output.get('router_logits'),  # 供 LoadBalanceLoss 使用
+                router_logits=output.get('router_logits'),
+                prototypes=prototypes,
             )
 
-            # 优化
             self.optimizer.zero_grad()
             losses['total'].backward()
-            torch.nn.utils.clip_grad_norm_(self.model.parameters(), 1.0)
+            torch.nn.utils.clip_grad_norm_(self.model.parameters(), self.max_grad_norm)
             self.optimizer.step()
 
-            # 记录
+            # Advance DAG warmup counter
+            if hasattr(self.joint_loss, 'step'):
+                self.joint_loss.step()
+
             for key in total_losses:
                 if key in losses:
                     total_losses[key] += losses[key].item()
@@ -405,12 +439,12 @@ class Stage2Finetuner:
                 'loss': f'{losses["total"].item():.4f}',
                 'task': f'{losses["task"].item():.4f}',
                 'dag':  f'{losses["causal"].item():.4f}',
+                'γ':    f'{self.joint_loss.gamma:.4f}',
             })
 
-        # 更新学习率
         self.scheduler.step()
 
-        return {k: v / len(dataloader) for k, v in total_losses.items()}
+        return {k: v / max(len(dataloader), 1) for k, v in total_losses.items()}
     
     def validate(
         self,
@@ -523,7 +557,7 @@ class Stage3RFTTrainer:
             task_name = {v: k for k, v in self.model.TASK_TYPES.items()}.get(
                 self.model.task_type, 'forecast'
             )
-            head = self.model.task_heads.get(task_name, self.model.task_heads['forecast'])
+            head = self.model.task_heads[task_name] if task_name in self.model.task_heads else self.model.task_heads['forecast']
             prediction = head(fused)
             if self.model.seq_transform is not None:
                 prediction = prediction.transpose(1, 2)
@@ -651,7 +685,10 @@ class ThreeStageTrainer:
             joint_loss,
             lr=config.get('stage2_lr', 5e-4),
             warmup_epochs=config.get('warmup_epochs', 10),
-            total_epochs=config.get('stage2_epochs', 100)
+            total_epochs=config.get('stage2_epochs', 100),
+            max_grad_norm=config.get('max_grad_norm', 1.0),
+            prototype_lr_scale=config.get('prototype_lr_scale', 0.1),
+            wcomm_lr_scale=config.get('wcomm_lr_scale', 3.0),
         )
 
         # ---- Stage 3: RFT ----

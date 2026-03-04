@@ -1,14 +1,18 @@
 # 消融实验：关闭分段处理
+# @package _global_
 defaults:
   - /_base_/base
   - /_base_/datasets/etth1
   - /_base_/model/mats_base
+  - _self_
 
 experiment:
   name: "ABL-NoSeg-ETTh1-96"
   type: ablation
-  ablation_type: no_segment        # 结果到 results/ablation/no_segment/ETTh1_96/
+  ablation_type: no_segment
 
-model:
-  pred_len: 96
-  use_segment_processing: false    # 唯一差异
+output_len: 96
+input_len: 96
+
+model_params:
+  use_segment_processing: false

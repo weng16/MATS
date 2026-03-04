@@ -3,3 +3,7 @@ dataset_name: ETTh1
 input_dim: 7
 output_dim: 7
 data_path: ./data/ETTh1/ETTh1.csv
+
+model_params:
+  input_dim: 7
+  output_dim: 7

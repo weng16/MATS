@@ -6,7 +6,7 @@
 import subprocess
 import itertools
 
-datasets = ["ETTh1", "ETTh2", "Weather", "ECL", "Traffic"]
+datasets = ["ETTh1", "ETTh2", "ETTm1", "ETTm2", "Weather", "ECL", "Traffic"]
 pred_lens = [96, 192, 336, 720]
 
 print("=========================================")

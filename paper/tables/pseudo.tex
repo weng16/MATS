@@ -1,0 +1,67 @@
+\begin{algorithm}[H]
+\caption{Vision-enhanced Spatio-Temporal Forecasting}
+\label{alg:vist}
+\begin{algorithmic}[1]
+    \REQUIRE Historical observations $\mathbf{X}\!\in\!\mathbb{R}^{B\times T\times N\times D}$,
+             adjacency $\mathbf{A}\!\in\!\mathbb R^{N\times N}$,
+             description text $\mathcal{D}$
+    \ENSURE  Forecast $\widehat{\mathbf{Y}}\!\in\!\mathbb R^{B\times H'\times N\times \mathcal{D}'}$
+    \Function{STIM}{\mathbf{X},\mathbf{A}}
+        \STATE $\mathbf{E}_{\text{node}}\leftarrow\text{NodeEmbed}(\mathbf{X,A})$
+        \STATE $(\mathbf{E}_{\text{tod}},\mathbf{E}_{\text{dow}})\leftarrow\text{TimeEmbed}(\mathbf{X})$
+        \STATE $\mathbf{E}_{\text{adp}}\leftarrow\text{Conv}(\mathbf{X})$
+        \STATE $\mathbf{H}_t\!\leftarrow\!\text{Conv}\bigl(
+               \sigma(\mathbf{E}_{\text{adp}})
+               \,\|\,\sigma(\mathbf{E}_{\text{node}})
+               \,\|\,\sigma(\mathbf{E}_{\text{tod}})
+               \,\|\,\sigma(\mathbf{E}_{\text{dow}})
+               \bigr)$
+        \RETURN $\mathbf{H_t}$
+    %\EndFunction
+    \Function{MVE}{\mathbf{H}_t,\mathbf{X},\mathbf{A}}
+        % \STATE $\mathbf{V}_s\leftarrow\text{SCG}(\mathbf{X},\mathbf{A})$
+        % \STATE $\mathbf{V}_t\leftarrow\text{TCG}(\mathbf{X})$
+        % \STATE $\mathbf{V}_c\leftarrow\text{CCG}(\mathbf{X},\mathbf{H}_t,\mathbf{A})$
+        %\STATE $\mathbf{V}_s, \mathbf{V}_t, \mathbf{V}_c \leftarrow\text{SCG}(\mathbf{X},\mathbf{A}),\text{TCG}(\mathbf{X}),\text{CCG}(\mathbf{X},\mathbf{H}_t,\mathbf{A})$
+        % \STATE $\mathbf{V}\leftarrow[\mathbf{V}_s;\mathbf{V}_t;\mathbf{V}_c]$ % \Comment{concat on channel}
+        \STATE $\mathbf{V}\leftarrow [\text{SCG}(\mathbf{X},\mathbf{A});\text{TCG}(\mathbf{X});\text{CCG}(\mathbf{X},\mathbf{H}_t,\mathbf{A})]$
+        
+        \RETURN $\mathbf{V}$
+    %\EndFunction
+    \Function{ConditionGeneration}{\mathbf{X},\mathbf{A},\mathcal{D}}
+        \STATE $\mathbf{C}_g\leftarrow\text{MultiScaleGraph}(\mathbf{A},\mathbf{X})$
+        \STATE $\mathbf{C}_t\leftarrow\text{TextEncoder}(\text{Prompt}(\mathbf{X},\mathcal{D}))$
+        \RETURN $(\mathbf{C}_g,\mathbf{C}_t)$
+    %\EndFunction
+    \Function{CVFR}{\mathbf{V},\mathbf{C}_g,\mathbf{C}_t}
+        \STATE $\mathbf{F}_{\text{temp}}\leftarrow\Phi_{\text{temp}}(\mathbf{V})$
+        \STATE $\mathbf{F}_{\text{str}}\leftarrow\Phi_{\text{str}}\bigl([\mathbf{F}_{\text{temp}};\mathbf{C}_t]\bigr)$
+        \STATE $\mathbf{F}_{\text{text}}\leftarrow\Phi_{\text{text}}\bigl([\mathbf{F}_{\text{str}};\sigma(\mathbf{C}_g)]\bigr)$
+        \STATE $\mathbf{H}_v\leftarrow\text{Reshape}\!\bigl(\Phi_{\text{vis}}(\mathbf{V},\mathbf{F}_{\text{text}})\bigr)$
+        \RETURN $\mathbf{H}_v$
+    %%\EndFunction
+    \Function{CrossModalFusion}{\mathbf{H}_t,\mathbf{H}_v}
+        \STATE $\{\mathbf{H}_v^{(j)}\}, \{\mathbf{H}_t^{(i)}\} \leftarrow\text{BlockPartition}(\mathbf{H}_v,\mathbf{H}_t)$
+        \FORALL{paired blocks $(i,j)$}
+            \STATE $\widehat{\mathbf{H}}_t^{(i)}\leftarrow\text{Attention}(
+\mathbf{H}_t^{(i)},\mathbf{H}_v^{(j)},\mathbf{H}_v^{(j)})$
+            \STATE $\widehat{\mathbf{H}}_v^{(j)}\leftarrow\text{Attention}(                   \mathbf{H}_v^{(j)},\mathbf{H}_t^{(i)},\mathbf{H}_t^{(i)})$
+        \ENDFOR
+        \STATE $g_t,g_v\leftarrow\text{Softmax}\bigl(\text{MLP}([\widehat{\mathbf{H}}_t;\widehat{\mathbf{H}}_v])\bigr)$
+        \STATE $\mathbf{H}_g\leftarrow g_t\!\cdot\!\widehat{\mathbf{H}}_t
+                      + g_v\!\cdot\!\widehat{\mathbf{H}}_v$
+        \STATE $\mathbf{H}_f\leftarrow\text{FFN}(\text{LayerNorm}(\mathbf{H}_g))+\mathbf{H}_g$
+        \RETURN $\mathbf{H}_f$
+    %\EndFunction
+    \FORALL{mini-batch $(\mathbf{X},\mathbf{A},\mathcal{D},\mathbf{Y})$}
+        \STATE $\mathbf{H}_t\leftarrow$\text{STIM}$(\mathbf{X},\mathbf{A})$
+        \STATE $\mathbf{V}\leftarrow$\text{MVE}$(\mathbf{H}_t,\mathbf{X},\mathbf{A})$
+        \STATE $(\mathbf{C}_g,\mathbf{C}_t)\leftarrow$\text{ConditionGen}$(\mathbf{X},\mathbf{A})$
+        \STATE $\mathbf{H}_v\leftarrow$\text{CVFR}$(\mathbf{V},\mathbf{C}_g,\mathbf{C}_t)$
+        \STATE $\mathbf{H}_f\leftarrow$\text{CrossModalFusion}$(\mathbf{H}_t,\mathbf{H}_v)$
+        \STATE $\widehat{\mathbf{Y}}\leftarrow\text{MLP}(\text{Conv}(\mathbf{H}_f))$
+        \STATE $\mathcal L\leftarrow\text{MaskedMAE}(\widehat{\mathbf{Y}},\mathbf{Y})$
+        \STATE Update parameters with Adam using $\mathcal L$
+    \ENDFOR
+\end{algorithmic}
+\end{algorithm}

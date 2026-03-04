@@ -1,0 +1,176 @@
+\section{Methodology}
+
+In this section, we present \model, a structure-aware multi-agent framework for mixed-mode time series analysis. We describe each component with full mathematical detail, from problem formulation through the joint loss and three-stage training.
+
+\subsection{Problem Formulation}
+\label{sec:problem}
+
+Let $\mathbf{x} \in \mathbb{R}^{L \times D}$ denote a multivariate time series input with lookback length $L$ and $D$ variates. The goal is to predict future values $\hat{\mathbf{y}} \in \mathbb{R}^{P \times D}$ for forecasting horizon $P$ (prediction length). \model learns to decompose $\mathbf{x}$ into $K$ structural patterns and route to specialized experts. Formally, we learn a mapping $f_\theta: \mathbf{x} \mapsto \hat{\mathbf{y}}$ that:
+\begin{enumerate}[leftmargin=*]
+    \item Encodes structural features from $\mathbf{x}$;
+    \item Estimates soft routing weights over $K$ pattern prototypes;
+    \item Fuses outputs from $K$ experts via soft weighting;
+    \item Enables causal communication among experts via a DAG-constrained adjacency;
+    \item Verifies predictions and adjusts routing when consistency fails.
+\end{enumerate}
+
+\subsection{Structure Encoder}
+\label{sec:encoder}
+
+The structure encoder extracts global and sequential representations from $\mathbf{x}$. We apply RevIN~\cite{kim2022reversible} for reversible instance normalization before encoding. The encoder comprises:
+
+\textbf{Causal Temporal Convolution.} We use CausalConv1d layers with exponential dilation $d_l = 2^l$ for layer $l$, ensuring no future leakage:
+\begin{equation}
+\mathbf{H}^{(0)} = \text{CausalConv1d}(\mathbf{x}), \quad \mathbf{H}^{(l)} = \sigma(\text{CausalConv1d}_l(\mathbf{H}^{(l-1)})).
+\end{equation}
+
+\textbf{Multi-Head Self-Attention.} The convolutional features are passed through multi-head self-attention~\cite{vaswani2017attention}:
+\begin{equation}
+\mathbf{H}_{\text{attn}} = \text{LayerNorm}(\mathbf{H}^{(L)} + \text{MultiHeadAttn}(\mathbf{H}^{(L)})).
+\end{equation}
+
+\textbf{Statistics Fusion.} We extract statistics features: mean $\boldsymbol{\mu}$, standard deviation $\boldsymbol{\sigma}$, trend (linear regression slope), change intensity (temporal variance of differences), and autocorrelation at lag 1. These are projected and fused:
+\begin{equation}
+\mathbf{z}_{\text{stats}} = \text{MLP}([\boldsymbol{\mu}; \boldsymbol{\sigma}; \text{trend}; \text{change\_intensity}; \text{autocorr}]).
+\end{equation}
+
+\textbf{Pooling and Output.} The final encoder outputs are:
+\begin{align}
+\mathbf{z}_{\text{global}} &= \frac{1}{2}\left( \text{avgpool}(\mathbf{H}_{\text{attn}}) + \text{maxpool}(\mathbf{H}_{\text{attn}}) \right) + \mathbf{z}_{\text{stats}} \in \mathbb{R}^H, \\
+\mathbf{z}_{\text{seq}} &= \mathbf{H}_{\text{attn}} \in \mathbb{R}^{L \times H}.
+\end{align}
+where $H$ is the hidden dimension. We denote $\mathbf{z} = \mathbf{z}_{\text{global}}$ for routing.
+
+\subsection{Multi-Pattern Weight Estimation (C1)}
+\label{sec:weight}
+
+The weight estimator fuses MLP-based routing with prototype similarity. Let $\mathbf{P} \in \mathbb{R}^{K \times H}$ denote $K$ orthogonal pattern prototypes, initialized via $\texttt{nn.init.orthogonal\_}$.
+
+\textbf{Similarity.} We compute cosine similarity between the encoded representation and prototypes, with learned normalization:
+\begin{equation}
+\text{Sim}(\mathbf{z}, \mathbf{P}) = \mathbf{z}_{\text{norm}} \cdot \mathbf{P}_{\text{norm}}^\top \in \mathbb{R}^K,
+\end{equation}
+where $\mathbf{z}_{\text{norm}}$ and $\mathbf{P}_{\text{norm}}$ are L2-normalized (optionally with a learned linear transform).
+
+\textbf{Core Formula.} The routing weights are:
+\begin{equation}
+\label{eq:weight}
+\mathbf{w} = \text{Softmax}\left( \frac{\text{MLP}(\mathbf{z}) + \text{softplus}(\lambda) \cdot \text{Sim}(\mathbf{z}, \mathbf{P})}{\tau} \right),
+\end{equation}
+where $\lambda \in \mathbb{R}$ is a learnable balance parameter, $\tau$ is temperature, and $\mathbf{w} \in \mathbb{R}^K$ sums to 1.
+
+\textbf{Prototype Orthogonality Regularization.} To encourage diversity among prototypes, we add:
+\begin{equation}
+\label{eq:ortho}
+\mathcal{L}_{\text{ortho}} = \left\| \mathbf{P}_{\text{norm}}^\top \mathbf{P}_{\text{norm}} - \mathbf{I} \right\|_F^2.
+\end{equation}
+
+\subsection{Soft-Weighted Expert Fusion (C2)}
+\label{sec:fusion}
+
+Unlike hard routing, all experts contribute in every forward pass:
+\begin{equation}
+\label{eq:fusion}
+\text{Output} = \sum_{i=1}^{K} w_i \cdot \text{Expert}_i(\mathbf{x}) + \text{Residual}(\mathbf{x}).
+\end{equation}
+
+We use five experts: \textbf{Periodic} (FFT-based frequency decomposition), \textbf{Trend} (linear decomposition), \textbf{Noise} (denoising autoencoder), \textbf{Abrupt} (change-point sensitive), and \textbf{General} (MLP). Expert dropout is applied for regularization during training.
+
+\subsection{SCM Causal Communication (C4)}
+\label{sec:causal}
+
+Experts are treated as agents. We stack their outputs into agent states $\mathbf{S} \in \mathbb{R}^{B \times N \times H}$ where $N$ is the number of agents (experts). Message passing updates agent $j$ as:
+\begin{equation}
+\label{eq:message}
+\mathbf{S}_j^{\text{new}} = \mathbf{S}_j^{\text{old}} + \text{gate} \cdot \text{Receive}\left( \sum_{i} W[i,j] \cdot \text{Message}(\mathbf{S}_i) \right).
+\end{equation}
+
+The communication matrix $\mathbf{W}_{\text{comm}} \in \mathbb{R}^{N \times N}$ is constrained as follows:
+\begin{itemize}[leftmargin=*]
+    \item \textbf{Softmax normalization} along the sender dimension so that $\sum_i W[i,j] = 1$ (or similar normalization);
+    \item \textbf{Diagonal masking}: $W[j,j] = 0$ (no self-loops);
+    \item \textbf{DAG constraint} via NOTEARS~\cite{zheng2018dags}:
+    \begin{equation}
+    \label{eq:dag}
+    h(\mathbf{W}) = \text{tr}(\exp(\mathbf{W} \odot \mathbf{W})) - N = 0;
+    \end{equation}
+    \item \textbf{Clamping}: $\mathbf{W}$ is clamped to $[-2, 2]$ for numerical stability.
+\end{itemize}
+
+The matrix $\mathbf{W}$ is learned jointly with the rest of the model; $h(\mathbf{W}) = 0$ is enforced via a penalty term in the loss.
+
+\subsection{Verification Agent (C6)}
+\label{sec:verification}
+
+The verification agent performs a three-dimensional check:
+
+\textbf{1. Consistency.} We compute cosine similarity between input structure $\mathbf{S}_{\text{in}}$ and output structure $\mathbf{S}_{\text{out}}$, plus a learned consistency score:
+\begin{equation}
+c_{\text{consist}} = \cos(\mathbf{S}_{\text{in}}, \mathbf{S}_{\text{out}}) + \text{MLP}_{\text{score}}([\mathbf{S}_{\text{in}}; \mathbf{S}_{\text{out}}]).
+\end{equation}
+
+\textbf{2. Validity.} Statistical checks on the prediction: range (within expected bounds), outliers (z-score), skewness. A binary or scalar validity score $c_{\text{valid}}$ is produced.
+
+\textbf{3. Uncertainty.} Monte Carlo dropout yields aleatoric and epistemic uncertainty estimates:
+\begin{equation}
+c_{\text{uncertainty}} = f(\sigma_{\text{aleatoric}}, \sigma_{\text{epistemic}}).
+\end{equation}
+
+\textbf{Inverse Consistency Check.} When verification fails, we compute suggested weights $\mathbf{w}_{\text{suggested}}$ via a learned adjustment module. Gradient-aware rerouting: compute $\hat{\mathbf{y}}_2$ with $\mathbf{w}_{\text{suggested}}$, then mix with the original prediction using detached confidence:
+\begin{equation}
+\hat{\mathbf{y}}_{\text{final}} = (1 - \alpha) \cdot \hat{\mathbf{y}}_1 + \alpha \cdot \hat{\mathbf{y}}_2, \quad \alpha = \text{detach}(\text{confidence}).
+\end{equation}
+
+\textbf{Gradient fix:} The output structure retains gradients (only the mixing coefficient $\alpha$ is detached). The input to the adjustment is detached so that gradients flow through the prediction path, enabling the model to correct routing in a closed loop.
+
+\subsection{Joint Loss Function (C7)}
+\label{sec:loss}
+
+The total loss is:
+\begin{equation}
+\label{eq:total_loss}
+\mathcal{L}_{\text{total}} = \mathcal{L}_{\text{task}} + \alpha \mathcal{L}_{\text{consist}} + \beta \mathcal{L}_{\text{sparse}} + \gamma(t) \mathcal{L}_{\text{causal}} + \delta \mathcal{L}_{\text{balance}} + \varepsilon \mathcal{L}_{\text{ortho}}.
+\end{equation}
+
+\textbf{Task loss.} $\mathcal{L}_{\text{task}} = \text{MSE}(\hat{\mathbf{y}}, \mathbf{y})$ or MAE for forecasting.
+
+\textbf{Consistency loss.} $\mathcal{L}_{\text{consist}}$ penalizes low consistency scores from the verification agent.
+
+\textbf{Sparse regularization.} $\mathcal{L}_{\text{sparse}} = \|\mathbf{W}_{\text{comm}}\|_1$ encourages sparse causal graphs.
+
+\textbf{DAG penalty with warmup.} $\mathcal{L}_{\text{causal}} = h(\mathbf{W})^2$. The weight $\gamma(t)$ uses linear warmup:
+\begin{equation}
+\label{eq:gamma}
+\gamma(t) = \gamma_{\text{target}} \cdot \min\left( \frac{\text{step}}{\text{warmup\_steps}}, 1 \right).
+\end{equation}
+This avoids DAG penalty explosion early in training.
+
+\textbf{Expert balance loss.} To prevent expert collapse, we use variance of mean usage across the batch plus an auxiliary load-balancing loss (Switch Transformer style~\cite{fedus2022switch}):
+\begin{equation}
+\mathcal{L}_{\text{balance}} = \text{Var}(\bar{\mathbf{w}}_{\text{batch}}) + \mathcal{L}_{\text{aux}},
+\end{equation}
+where $\bar{\mathbf{w}}_{\text{batch}}$ is the mean routing weight per expert over the batch.
+
+\textbf{Prototype orthogonality.} $\mathcal{L}_{\text{ortho}}$ is defined in Eq.~\eqref{eq:ortho} to encourage prototype diversity.
+
+\subsection{Three-Stage Training (C8)}
+\label{sec:training}
+
+\textbf{Stage 1: Self-Supervised.} Train the encoder and weight estimator only. Objectives: contrastive loss (similar segments have similar $\mathbf{z}$), mask reconstruction (predict masked tokens), and structure prediction (predict statistics from $\mathbf{z}$). No expert or causal modules are trained.
+
+\textbf{Stage 2: End-to-End.} Train the full model with $\mathcal{L}_{\text{total}}$. Use per-module learning rates: slower for weight estimator prototypes, faster for $\mathbf{W}_{\text{comm}}$. Apply gradient clipping. LR warmup (e.g., 10 epochs) followed by cosine annealing.
+
+\textbf{Stage 3: Reinforcement Fine-Tuning (RFT).} Freeze the backbone (encoder, experts). Train the router (weight estimator) and tool adapter with PPO. The reward reflects forecasting accuracy and verification consistency.
+
+\subsection{RevIN Integration}
+\label{sec:revin}
+
+We apply RevIN~\cite{kim2022reversible} for reversible instance normalization. Before the encoder:
+\begin{equation}
+\mathbf{x}_{\text{norm}} = \frac{\mathbf{x} - \boldsymbol{\mu}_{\text{inst}}}{\boldsymbol{\sigma}_{\text{inst}} + \epsilon},
+\end{equation}
+where $\boldsymbol{\mu}_{\text{inst}}$ and $\boldsymbol{\sigma}_{\text{inst}}$ are computed per instance (along the time dimension). After the prediction head:
+\begin{equation}
+\hat{\mathbf{y}} = \hat{\mathbf{y}}_{\text{raw}} \cdot \boldsymbol{\sigma}_{\text{inst}} + \boldsymbol{\mu}_{\text{inst}}.
+\end{equation}
+Learnable affine parameters can be added for channel-wise scaling. RevIN mitigates distribution shift across segments and improves convergence.

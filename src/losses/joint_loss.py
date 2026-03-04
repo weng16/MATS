@@ -318,78 +318,122 @@ class LoadBalanceLoss(nn.Module):
         return loss
 
 
+class PrototypeOrthogonalityLoss(nn.Module):
+    """Penalize deviation of prototype Gram matrix from identity.
+
+    L_ortho = ||P_norm^T P_norm - I||²_F
+
+    Keeps prototypes diverse throughout training, preventing mode collapse
+    in the weight estimator.
+    """
+
+    def forward(self, prototypes: torch.Tensor) -> torch.Tensor:
+        """
+        Args:
+            prototypes: [K, H] pattern prototype matrix.
+        """
+        P_norm = F.normalize(prototypes, dim=-1)        # [K, H]
+        gram = P_norm @ P_norm.T                        # [K, K]
+        I = torch.eye(gram.size(0), device=gram.device)
+        return ((gram - I) ** 2).mean()
+
+
+class ExpertBalanceVarianceLoss(nn.Module):
+    """Penalize variance of mean expert usage across a batch.
+
+    L_var = Var_k( (1/B) Σ_b w_{b,k} )
+
+    Stronger than CV for preventing collapse to a single expert.
+    """
+
+    def forward(self, weights: torch.Tensor) -> torch.Tensor:
+        """
+        Args:
+            weights: [B, K] expert weights per sample.
+        """
+        mean_usage = weights.mean(dim=0)  # [K]
+        return mean_usage.var()
+
+
 class JointLoss(nn.Module):
     """
-    创新点C7: 多目标联合损失
-    
-    L_total = L_task + α·L_consist + β·L_sparse + γ·L_causal + δ·L_balance
-    
-    特点:
-    1. 可配置的权重系数
-    2. 支持动态权重调整
-    3. 返回详细的损失分解
+    C7: Joint loss / 多目标联合损失
+
+    L_total = L_task + α·L_consist + β·L_sparse + γ(t)·L_causal
+              + δ·L_balance + ε·L_ortho
+
+    Improvements over the original:
+    - DAG penalty warmup: γ(t) linearly ramps from 0 to γ_target over
+      the first ``dag_warmup_fraction`` of total steps.
+    - Expert balance uses variance-of-mean-usage (stronger signal).
+    - Prototype orthogonality regularization prevents prototype drift.
     """
-    
+
     def __init__(
         self,
-        alpha: float = 0.1,    # 结构一致性权重
-        beta: float = 0.01,    # 稀疏性权重
-        gamma: float = 0.1,    # DAG约束权重
-        delta: float = 0.01,   # 负载均衡权重
+        alpha: float = 0.1,
+        beta: float = 0.01,
+        gamma: float = 0.1,
+        delta: float = 0.01,
+        epsilon: float = 0.01,
         task_type: str = 'forecasting',
         task_loss_type: str = 'mse',
         consist_loss_type: str = 'mse',
         sparsity_mode: str = 'entropy',
         balance_mode: str = 'cv',
         num_experts: int = 5,
-        dynamic_weights: bool = False
+        dynamic_weights: bool = False,
+        dag_warmup_steps: int = 0,
     ):
-        """
-        参数:
-            alpha, beta, gamma, delta: 各损失项的权重系数
-            task_type: 任务类型
-            task_loss_type: 任务损失类型
-            consist_loss_type: 一致性损失类型
-            sparsity_mode: 稀疏性模式
-            balance_mode: 均衡模式
-            num_experts: 专家数量
-            dynamic_weights: 是否使用动态权重 (基于训练进度调整)
-        """
         super().__init__()
-        
-        # 损失权重
+
         self.alpha = alpha
         self.beta = beta
-        self.gamma = gamma
+        self.gamma_target = gamma
         self.delta = delta
+        self.epsilon = epsilon
         self.dynamic_weights = dynamic_weights
-        
-        # 各损失组件
+
+        # DAG warmup bookkeeping
+        self.dag_warmup_steps = dag_warmup_steps
+        self.register_buffer('_step', torch.tensor(0, dtype=torch.long))
+
         self.task_loss = TaskLoss(task_type, task_loss_type)
         self.consist_loss = StructureConsistencyLoss(consist_loss_type)
         self.sparse_loss = SparsityLoss(sparsity_mode)
         self.dag_loss = DAGConstraintLoss(num_experts)
         self.balance_loss = LoadBalanceLoss(num_experts, balance_mode)
-        
-        # 动态权重参数 (如果启用)
+        self.balance_var_loss = ExpertBalanceVarianceLoss()
+        self.ortho_loss = PrototypeOrthogonalityLoss()
+
         if dynamic_weights:
             self.log_alpha = nn.Parameter(torch.log(torch.tensor(alpha)))
             self.log_beta = nn.Parameter(torch.log(torch.tensor(beta)))
             self.log_gamma = nn.Parameter(torch.log(torch.tensor(gamma)))
             self.log_delta = nn.Parameter(torch.log(torch.tensor(delta)))
-    
+
+    @property
+    def gamma(self) -> float:
+        """Current DAG penalty weight with linear warmup."""
+        if self.dag_warmup_steps <= 0:
+            return self.gamma_target
+        progress = min(self._step.item() / self.dag_warmup_steps, 1.0)
+        return self.gamma_target * progress
+
+    def step(self):
+        """Call once per training step to advance the warmup counter."""
+        self._step += 1
+
     def get_weights(self) -> Tuple[float, float, float, float]:
-        """获取当前权重值"""
         if self.dynamic_weights:
             return (
                 torch.exp(self.log_alpha).item(),
                 torch.exp(self.log_beta).item(),
                 torch.exp(self.log_gamma).item(),
-                torch.exp(self.log_delta).item()
+                torch.exp(self.log_delta).item(),
             )
-        else:
-            return self.alpha, self.beta, self.gamma, self.delta
-    
+        return self.alpha, self.beta, self.gamma, self.delta
+
     def forward(
         self,
         prediction: torch.Tensor,
@@ -400,52 +444,47 @@ class JointLoss(nn.Module):
         W_comm: torch.Tensor,
         router_logits: Optional[torch.Tensor] = None,
         mask: Optional[torch.Tensor] = None,
-        return_components: bool = True
+        prototypes: Optional[torch.Tensor] = None,
+        return_components: bool = True,
     ) -> Dict[str, torch.Tensor]:
+        """Compute the joint loss.
+
+        Args:
+            prediction: [B, L, D] model prediction.
+            target: [B, L, D] ground truth.
+            input_structure: [B, K] structure weights of input.
+            output_structure: [B, K] structure weights of output.
+            expert_weights: [B, K] per-sample expert weights.
+            W_comm: [N, N] causal adjacency matrix.
+            router_logits: [B, K] raw router logits (optional).
+            mask: [B, L, D] loss mask for imputation (optional).
+            prototypes: [K, H] pattern prototypes for orthogonality reg (optional).
+            return_components: whether to return individual loss terms.
         """
-        计算联合损失
-        
-        参数:
-            prediction: [B, L, D] 预测值
-            target: [B, L, D] 目标值
-            input_structure: [B, K] 输入结构特征
-            output_structure: [B, K] 输出结构特征
-            expert_weights: [B, K] 专家权重
-            W_comm: [N, N] 因果邻接矩阵
-            router_logits: [B, K] 路由器原始输出 (可选)
-            mask: [B, L, D] 掩码 (可选)
-            return_components: 是否返回各组件损失
-            
-        返回:
-            损失字典
-        """
-        # 获取权重
-        alpha, beta, gamma, delta = self.get_weights()
-        
-        # 1. 任务损失
+        alpha, beta, gamma_static, delta = self.get_weights()
+        gamma = self.gamma if not self.dynamic_weights else gamma_static
+
         L_task = self.task_loss(prediction, target, mask)
-        
-        # 2. 结构一致性损失
         L_consist = self.consist_loss(input_structure, output_structure)
-        
-        # 3. 稀疏性损失
         L_sparse = self.sparse_loss(expert_weights)
-        
-        # 4. DAG约束损失
         L_causal = self.dag_loss(W_comm)
-        
-        # 5. 负载均衡损失
         L_balance = self.balance_loss(expert_weights, router_logits)
-        
-        # 总损失
+        L_balance_var = self.balance_var_loss(expert_weights)
+
         L_total = (
-            L_task +
-            alpha * L_consist +
-            beta * L_sparse +
-            gamma * L_causal +
-            delta * L_balance
+            L_task
+            + alpha * L_consist
+            + beta * L_sparse
+            + gamma * L_causal
+            + delta * (L_balance + L_balance_var)
         )
-        
+
+        # Prototype orthogonality regularization
+        L_ortho = torch.tensor(0.0, device=prediction.device)
+        if prototypes is not None:
+            L_ortho = self.ortho_loss(prototypes)
+            L_total = L_total + self.epsilon * L_ortho
+
         if return_components:
             return {
                 'total': L_total,
@@ -453,15 +492,17 @@ class JointLoss(nn.Module):
                 'consist': L_consist,
                 'sparse': L_sparse,
                 'causal': L_causal,
-                'balance': L_balance,
+                'balance': L_balance + L_balance_var,
+                'ortho': L_ortho,
                 'weights': {
                     'alpha': alpha,
                     'beta': beta,
                     'gamma': gamma,
-                    'delta': delta
-                }
+                    'delta': delta,
+                    'epsilon': self.epsilon,
+                },
             }
-        
+
         return {'total': L_total}
 
 

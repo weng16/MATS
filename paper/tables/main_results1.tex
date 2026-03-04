@@ -1,0 +1,71 @@
+% \begin{table*}[t]
+% \centering
+% \caption{Large-scale traffic forecasting performance comparison of our \model and baselines on the SD dataset. \boldres{Red}: best, \secondres{Blue}: second best.}
+% %\caption{Large-scale traffic forecasting performance comparison of our \model and baselines. \boldres{ViST-V} represents predictions using only visual embeddings, \boldres{while ViST} represents full \model framework. \boldres{"OOM"} indicates the out-of-memory issue or other computational limitations. \boldres{Red}: best, \secondres{Blue}: second best.}
+% \resizebox{1.0\linewidth}{!}{
+% \begin{tabular}{c|c|ccc|ccc|ccc|ccc}
+% \toprule[1.5pt]
+% \multicolumn{1}{c|}{\multirow{2}{*}{Datasets}} & \multicolumn{1}{c|}{\multirow{2}{*}{Methods}} & \multicolumn{3}{c|}{Horizon 3} & \multicolumn{3}{c|}{Horizon 6} & \multicolumn{3}{c|}{Horizon 12} & \multicolumn{3}{c}{Average}\\
+% \cmidrule{3-14}
+%     &  & MAE & RMSE & MAPE ($\%$) & MAE & RMSE & MAPE ($\%$) & MAE & RMSE & MAPE ($\%$) & MAE & RMSE & MAPE ($\%$)\\
+% \midrule
+% \midrule
+% \multirow{15}{*}{SD} & LSTM & 19.03 & 30.53 & 11.81 & 25.84 & 40.87 & 16.44 & 37.63 & 59.07 & 25.45 & 26.44 & 41.73 & 17.20 \\
+% & DCRNN & 17.14 & 27.47 & 11.12 & 20.99 & 33.29 & 13.95 & 26.99 & 42.86 & 18.67 & 21.03 & 33.37 & 14.13 \\
+% & AGCRN	& 15.71 & 27.85 & 11.48 & \secondres{18.06} & 31.51 & 13.06 & \secondres{21.86} & 39.44 & 16.52 & \secondres{18.09} & 32.01 & 13.28 \\
+% & STGCN & 17.45 & 29.99 & 12.42 & 19.55 & 33.69 & 13.68 & 23.21 & 41.23 & 16.32 & 19.67 & 34.14 & 13.86 \\
+% & ASTGCN & 19.56 & 31.33 & 12.18 & 24.13 & 37.95 & 15.38 & 30.96 & 49.17 & 21.98 & 23.70 & 37.63 & 15.65 \\
+% & STTN & 16.22 & 26.22 & 10.63 & 18.76 & 30.98 & 12.80 & 22.62 & 39.09 & 16.14 & 18.69 & 31.11 & 12.82 \\
+% & DSTAGNN & 18.13 & 28.96 & 11.38 & 21.71 & 34.44 & 13.93 & 27.51 & 43.95 & 19.34 & 21.82 & 34.68 & 14.40 \\
+% & DGCRN & \secondres{15.34} & \secondres{25.35} & \secondres{10.01} & 21.08 & 34.03 & 16.94 & 25.25 & 40.63 & 21.15 & 20.91 & 33.83 & 16.88 \\
+% & D2STGNN & 17.54 & 28.94 & 12.12 & 20.92 & 33.92 & 14.89 & 25.48 & 40.99 & 19.83 & 20.71 & 33.65 & 15.04 \\
+% & STWave & 15.80 & 25.89 & 10.34 & 18.18 & \secondres{30.03} & \secondres{11.96} & 21.98 & \secondres{36.99} & \secondres{15.30} & 18.22 & \secondres{30.12} & \secondres{12.20} \\
+%  % & \boldres{ViST-V} & 15.37 & 25.65 & \secondres{9.94} & 19.49 & 32.75 & 13.34 & 23.47 & 41.09 & 17.26 & 19.28 & 33.16 & 13.35 \\
+% & BigST & 16.42 & 26.99 & 10.86 & 18.88 & 31.60 & 13.24 & 23.00 & 38.59 & 15.92 & 18.80 & 31.73 & 12.91 \\
+%  & \boldres{ViST} & \boldres{15.18} & \boldres{25.35} & \boldres{9.47} & \boldres{17.60} & \boldres{29.48} & \boldres{11.01} & \boldres{21.21} & \boldres{36.23} & \boldres{13.86} & \boldres{17.59} & \boldres{29.88} & \boldres{11.15} \\
+% \bottomrule
+% \end{tabular}
+% \label{tab:main_results}
+% }
+% \end{table*}
+
+\begin{table*}[ht]
+\centering
+\resizebox{1.0\linewidth}{!}{
+\begin{tabular}{c|ccc|ccc|ccc|ccc}
+\toprule[1.5pt]
+\multicolumn{1}{c|}{\multirow{2}{*}{Methods}} & \multicolumn{3}{c|}{Horizon 3} & \multicolumn{3}{c|}{Horizon 6} & \multicolumn{3}{c|}{Horizon 12} & \multicolumn{3}{c}{Average}\\
+\cmidrule{2-13}
+Time Series \& Spatio-temporal Models & MAE & RMSE & MAPE ($\%$) & MAE & RMSE & MAPE ($\%$) & MAE & RMSE & MAPE ($\%$) & MAE & RMSE & MAPE ($\%$)\\
+\midrule
+\midrule
+LSTM ~\citep{hochreiter1997long}& 19.03 & 30.53 & 11.81 & 25.84 & 40.87 & 16.44 & 37.63 & 59.07 & 25.45 & 26.44 & 41.73 & 17.20 \\
+PatchTST ~\citep{nie2022time}& 26.25 & 41.63 & 15.99 & 44.49 & 69.46 & 27.74 & 81.52 & 121.68 & 53.22 & 47.79 & 79.59 & 30.25 \\
+iTransformer ~\citep{liu2023itransformer}& 20.59 & 33.85 & 12.85 & 30.59 & 50.28 & 20.24 & 49.41 & 79.83 & 37.96 & 31.92 & 55.01 & 22.18 \\
+DLinear ~\citep{zeng2023transformers}& 28.08 & 45.04 & 19.02 & 47.44 & 73.72 & 34.40 & 81.74 & 118.39 & 73.37 & 49.79 & 81.04 & 39.06 \\
+\hline
+DCRNN~\citep{li2017diffusion} & 17.14 & 27.47 & 11.12 & 20.99 & 33.29 & 13.95 & 26.99 & 42.86 & 18.67 & 21.03 & 33.37 & 14.13 \\
+AGCRN~\citep{bai2020adaptive}& 15.71 & 27.85 & 11.48 & 18.06 & 31.51 & 13.06 & \secondres{21.86} & 39.44 & 16.52 & 18.09 & 32.01 & 13.28 \\
+STGCN~\citep{yu2017spatio} & 17.45 & 29.99 & 12.42 & 19.55 & 33.69 & 13.68 & 23.21 & 41.23 & 16.32 & 19.67 & 34.14 & 13.86 \\
+ASTGCN~\citep{guo2019attention}& 19.56 & 31.33 & 12.18 & 24.13 & 37.95 & 15.38 & 30.96 & 49.17 & 21.98 & 23.70 & 37.63 & 15.65 \\
+STTN~\citep{xu2020spatial} & 16.22 & 26.22 & 10.63 & 18.76 & 30.98 & 12.80 & 22.62 & 39.09 & 16.14 & 18.69 & 31.11 & 12.82 \\
+STGODE~\citep{fang2021spatial} & 16.75 & 28.04 & 11.00 & 19.71 & 33.56 & 13.16 & 23.67 & 42.12 & 16.58 & 19.55 & 33.57 & 13.22\\
+DSTAGNN~\citep{lan2022dstagnn} & 18.13 & 28.96 & 11.38 & 21.71 & 34.44 & 13.93 & 27.51 & 43.95 & 19.34 & 21.82 & 34.68 & 14.40 \\
+DGCRN~\citep{li2023dynamic} & \secondres{15.34} & \secondres{25.35} & \secondres{10.01} & \secondres{18.05} & 30.06 & \secondres{11.90} & 22.06 & 37.51 & \secondres{15.27} & \secondres{18.02} & \secondres{30.09} & \secondres{12.07} \\ 
+%D2STGNN~\citep{shao2022decoupled} & 14.92 & 24.95 & 9.56 &	17.52 & 29.24 & 11.36 & 22.62 & 37.14 & 14.86 & 17.85 & 29.51 & 11.54 \\
+% GMAN
+% One fits all
+% STID
+% PatchSTG
+% FusionST
+STWave~\citep{fang2023spatio} & 15.80 & 25.89 & 10.34 & 18.18 & \secondres{30.03} & 11.96 & 21.98 & \secondres{36.99} & 15.30 & 18.22 & 30.12 & 12.20 \\
+ % & \boldres{ViST-V} & 15.37 & 25.65 & \secondres{9.94} & 19.49 & 32.75 & 13.34 & 23.47 & 41.09 & 17.26 & 19.28 & 33.16 & 13.35 \\
+BigST~\citep{han2024bigst} & 16.42 & 26.99 & 10.86 & 18.88 & 31.60 & 13.24 & 23.00 & 38.59 & 15.92 & 18.80 & 31.73 & 12.91 \\
+\textbf{ViST (Ours)} & \boldres{15.18} & \boldres{25.35} & \boldres{9.47} & \boldres{17.60} & \boldres{29.48} & \boldres{11.01} & \boldres{21.21} & \boldres{36.23} & \boldres{13.86} & \boldres{17.59} & \boldres{29.88} & \boldres{11.15} \\
+\bottomrule
+\end{tabular}
+}
+\caption{Large-scale traffic forecasting performance comparison of our \model and baselines on the SD dataset. Our ViST consistently achieves the best performance across all prediction horizons and metrics. \boldres{Bold}: best; \secondres{Underline}: second best.}
+\label{tab:main_results}
+\vspace{-4mm}
+\end{table*}

@@ -59,6 +59,7 @@ from .segment_processor import (
     MultiSegmentRouteComposition,
     SegmentFusion
 )
+from .revin import RevIN
 
 
 class CognitiveRouter(nn.Module):
@@ -128,7 +129,9 @@ class StructRouter(nn.Module):
         use_temporal_causal: bool = False,
         use_verification: bool = True,
         use_rft: bool = True,
-        task_type: str = 'forecast'
+        task_type: str = 'forecast',
+        use_revin: bool = True,
+        channel_independent: bool = False,
     ):
         super().__init__()
         
@@ -143,6 +146,13 @@ class StructRouter(nn.Module):
         self.use_verification = use_verification
         self.use_rft = use_rft
         self.task_type = self.TASK_TYPES.get(task_type, 0)
+        self.channel_independent = channel_independent
+
+        # RevIN: normalize before encoder, denormalize after head
+        if use_revin:
+            self.revin = RevIN(num_features=input_dim, affine=True)
+        else:
+            self.revin = None
         
         # ==================== 1. Learnable Structure Encoder ====================
         self.structure_encoder = StructureEncoder(
@@ -286,6 +296,10 @@ class StructRouter(nn.Module):
         B, L, D = x.shape
         task = task_type if task_type is not None else self.task_type
 
+        # ========== RevIN: instance normalization ==========
+        if self.revin is not None:
+            x = self.revin.normalize(x)
+
         # ========== Stage 1: Structure Encoding ==========
         z_global = self.structure_encoder(x)           # [B, H]
         z_seq    = self.structure_encoder(x, return_sequence=True)  # [B, L, H]
@@ -413,6 +427,10 @@ class StructRouter(nn.Module):
             output_z           = self.structure_encoder(prediction)
             output_structure   = self.weight_estimator(output_z)
 
+        # ========== RevIN: denormalize prediction ==========
+        if self.revin is not None:
+            prediction = self.revin.denormalize(prediction)
+
         # ========== 返回结果 ==========
         result = {
             'prediction':        prediction,
@@ -531,7 +549,7 @@ class StructRouter(nn.Module):
 
 
 def create_struct_router(config: Dict) -> StructRouter:
-    """工厂函数"""
+    """Factory function for creating StructRouter from a config dict."""
     return StructRouter(
         input_dim=config.get('input_dim', 7),
         output_dim=config.get('output_dim', 7),
@@ -546,7 +564,9 @@ def create_struct_router(config: Dict) -> StructRouter:
         use_temporal_causal=config.get('use_temporal_causal', False),
         use_verification=config.get('use_verification', True),
         use_rft=config.get('use_rft', True),
-        task_type=config.get('task_type', 'forecast')
+        task_type=config.get('task_type', 'forecast'),
+        use_revin=config.get('use_revin', True),
+        channel_independent=config.get('channel_independent', False),
     )
 
 

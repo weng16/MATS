@@ -1,0 +1,17 @@
+# @package _global_
+defaults:
+  - /_base_/base
+  - /_base_/datasets/weather
+  - /_base_/model/mats_base
+  - _self_
+
+experiment:
+  name: "ABL-HardRouting-Weather-96"
+  type: ablation
+  ablation_type: hard_routing
+
+output_len: 96
+input_len: 336
+
+model_params:
+  hard_routing: true

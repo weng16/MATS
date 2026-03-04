@@ -1,0 +1,35 @@
+\begin{table*}[t]
+\centering
+\resizebox{1.0\linewidth}{!}{
+\begin{tabular}{c|ccc|ccc|ccc|ccc|ccc}
+\toprule[1.5pt]
+\multicolumn{1}{c|}{Dataset} & \multicolumn{3}{c|}{GBA (N=2352)} & \multicolumn{3}{c|}{GLA (N=3834)} & \multicolumn{3}{c|}{ECL (N=321)} & \multicolumn{3}{c|}{ETTh2 (N=7)} & \multicolumn{3}{c}{Weather (N=21)}\\
+\cmidrule{1-16}
+Methods & MAE & RMSE & MAPE ($\%$) & MAE & RMSE & MAPE ($\%$) & MAE & RMSE & MAPE ($\%$)
+& MAE & RMSE & MAPE ($\%$) & MAE & RMSE & MAPE ($\%$)\\
+\midrule
+\midrule
+
+PatchTST~\citep{nie2022time} & 45.56 & 73.40 & 37.55 & 47.75 & 78.50 & 29.74 & 0.52 & 0.76 & 2.94 & 0.26 & 0.42 & 1.46 & 0.09 & 0.29 & 0.89 \\
+iTransformer ~\citep{liu2023itransformer} & 32.20 & 55.27 & 28.21 & 40.63 & 68.82 & 27.48 & 0.37 & 0.58 & 2.31 & 0.26 & 0.41 & 1.37 & 0.09 & 0.29 & 0.88 \\
+DLinear ~\citep{zeng2023transformers}  & 47.58 & 74.11 & 44.27 & 51.22 & 81.99 & 40.10 & 0.57 & 0.78 & 2.59 & 0.27 & 0.43 & 1.49 & 0.10 & 0.32 & 0.99 \\
+% OneFitAll
+% STID 
+% 
+\hline
+DCRNN~\citep{li2017diffusion} & 23.13 &	36.35 & 20.84 &	23.17 &	36.19 & 14.40 & 0.70 & 0.88 & 2.81 & 0.69 & 0.94	& 1.98	& 0.14	& 0.30	& 1.49 \\
+STGCN~\citep{yu2017spatio} & 23.42 &	38.57 &	18.46 &	22.64 &	38.81 &	\secondres{14.17} & 0.30 & 0.44 & 2.09 & 0.30 & 0.44 & 1.62 & 0.09 & 0.28 & 0.79 \\
+% ASTGCN & 26.47 & 40.99 & 23.65 & 28.99 & 44.33 & 19.62 & 0.83 & 1.01 & 1.00 & 1.36 & 1.77 & 1.01 & XX & XX & XX \\
+STGODE~\citep{fang2021spatial} & 21.79 & 35.37 & 18.26 & OOM & OOM & OOM & \secondres{0.27} & \secondres{0.40} & \secondres{1.72} & 0.29 & 0.43 & \boldres{1.14} & 0.09 & 0.27 & 0.86\\
+DGCRN~\citep{li2023dynamic} & 20.91 &	33.83 &	16.88 &	25.54 &	41.54 &	15.85 &	0.30 & 0.44	& 1.80 & 0.29 & 0.43 & 1.30	& 0.08 & 0.28 & \secondres{0.81} \\
+D2STGNN~\citep{shao2022decoupled} & \secondres{20.71} & \secondres{33.65} & \secondres{15.04} & OOM & OOM & OOM & 0.37 & 0.54 & 2.43 & 0.28 & 0.42 & 1.31 & 0.09 & \secondres{0.27} & 0.82 \\
+STWave~\citep{fang2023spatio} & 20.81 & 33.77 & 15.76 & OOM & OOM & OOM & 0.25 & 0.38 & 1.72 & 0.27 & \secondres{0.41} & 1.38 & \secondres{0.08} & 0.28 & 0.82\\
+BigST~\citep{han2024bigst} & 21.95 & 35.54 & 18.50 & \secondres{22.08} & \secondres{36.00} & 14.57 & 0.41 & 0.58	& 2.39 & \secondres{0.27} & 0.42 & 1.52 & 0.09 & 0.28 & 0.94 \\
+\textbf{ViST (Ours)} & \boldres{19.44} & \boldres{32.82} & \boldres{14.89} & \boldres{21.91} & \boldres{34.14} & \boldres{13.68} & \boldres{0.25} & \boldres{0.38} & \boldres{1.68} & \boldres{0.25} & \boldres{0.39} & \secondres{1.18} & \boldres{0.08} & \boldres{0.27} & \boldres{0.81} \\
+\bottomrule
+\end{tabular}
+}
+\caption{Average 12-step forecasting performance comparison of our \model and baselines across datasets of different scales and domains. \textbf{OOM} indicates the out-of-memory issue or other computational limitations. \boldres{Bold}: best; \secondres{Underline}: second best.}
+\label{tab:main_results2}
+\vspace{-4mm}
+\end{table*}

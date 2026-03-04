@@ -1,0 +1,63 @@
+\begin{table*}[t]
+\centering
+\caption{Large-scale traffic forecasting performance comparison of our \model and baselines. \textbf{ViST-V} represents predictions using only visual embeddings, \textbf{while ViST} represents full \model framework. \textbf{"OOM"} indicates the out-of-memory issue or other computational limitations. \boldres{Red}: best, \secondres{Blue}: second best.}
+\resizebox{1.0\linewidth}{!}{
+\begin{tabular}{c|c|ccc|ccc|ccc|ccc}
+\toprule[1.5pt]
+\multicolumn{1}{c|}{\multirow{2}{*}{Datasets}} & \multicolumn{1}{c|}{\multirow{2}{*}{Methods}} & \multicolumn{3}{c|}{Horizon 3} & \multicolumn{3}{c|}{Horizon 6} & \multicolumn{3}{c|}{Horizon 12} & \multicolumn{3}{c}{Average}\\
+\cmidrule{3-14}
+    &  & MAE & RMSE & MAPE ($\%$) & MAE & RMSE & MAPE ($\%$) & MAE & RMSE & MAPE ($\%$) & MAE & RMSE & MAPE ($\%$)\\
+\midrule
+\midrule
+\multirow{15}{*}{SD} & LSTM & 19.03 & 30.53 & 11.81 & 25.84 & 40.87 & 16.44 & 37.63 & 59.07 & 25.45 & 26.44 & 41.73 & 17.20 \\
+ % & STID & 15.15 & 25.29 & 9.82 & 17.95 & 30.39 & 11.93 & 21.82 & 38.63 & 15.09 & 17.86 & 31.00 & 11.94 \\
+ & DCRNN & 17.14 & 27.47 & 11.12 & 20.99 & 33.29 & 13.95 & 26.99 & 42.86 & 18.67 & 21.03 & 33.37 & 14.13 \\
+ % & AGCRN & 15.71 & 27.85 & 11.48 & 18.06 & 31.51 & 13.06 & 21.86 & 39.44 & 16.52 & 18.09 & 32.01 & 13.28 \\
+ & STGCN & 17.45 & 29.99 & 12.42 & 19.55 & 33.69 & 13.68 & 23.21 & 41.23 & 16.32 & 19.67 & 34.14 & 13.86 \\
+ % & GWNET & 15.24 & 25.13 & 9.86 & 17.74 & 29.51 & 11.70 & 21.56 & 36.82 & 15.13 & 17.74 & 29.62 & 11.88 \\
+ & ASTGCN & 19.56 & 31.33 & 12.18 & 24.13 & 37.95 & 15.38 & 30.96 & 49.17 & 21.98 & 23.70 & 37.63 & 15.65 \\
+ & STTN & 16.22 & 26.22 & 10.63 & 18.76 & 30.98 & 12.80 & 22.62 & 39.09 & 16.14 & 18.69 & 31.11 & 12.82 \\
+ % & STGODE & 16.75 & 28.04 & 11.00 & 19.71 & 33.56 & 13.16 & 23.67 & 42.12 & 16.58 & 19.55 & 33.57 & 13.22 \\
+ & DSTAGNN & 18.13 & 28.96 & 11.38 & 21.71 & 34.44 & 13.93 & 27.51 & 43.95 & 19.34 & 21.82 & 34.68 & 14.40 \\
+ & DGCRN & \secondres{15.34} & \secondres{25.35} & 10.01 & 21.08 & 34.03 & 16.94 & 25.25 & 40.63 & 21.15 & 20.91 & 33.83 & 16.88 \\
+ & D2STGNN & 17.54 & 28.94 & 12.12 & 20.92 & 33.92 & 14.89 & 25.48 & 40.99 & 19.83 & 20.71 & 33.65 & 15.04 \\
+ & STWave & 15.80 & 25.89 & 10.34 & \secondres{18.18} & \secondres{30.03} & \secondres{11.96} & \secondres{21.98} & \secondres{36.99} & \secondres{15.30} & \secondres{18.22} & \secondres{30.12} & \secondres{12.20} \\
+ & \textbf{ViST-V} & 15.37 & 25.65 & \secondres{9.94} & 19.49 & 32.75 & 13.34 & 23.47 & 41.09 & 17.26 & 19.28 & 33.16 & 13.35 \\
+ & \textbf{ViST} & \boldres{15.18} & \boldres{25.35} & \boldres{9.47} & \boldres{17.60} & \boldres{29.48} & \boldres{11.01} & \boldres{21.21} & \boldres{36.23} & \boldres{13.86} & \boldres{17.59} & \boldres{29.88} & \boldres{11.15} \\
+\midrule
+\multirow{15}{*}{GBA} & LSTM & 20.38 & 33.34 & 15.47 & 27.56 & 43.57 & 23.52 & 39.03 & 60.59 & 37.48 & 27.96 & 44.21 & 24.48 \\
+ % & STID & 17.36 & 29.39 & 13.28 & 20.45 & 34.51 & 16.03 & 24.38 & 41.33 & 19.90 & 20.22 & 34.61 & 15.91 \\
+ & DCRNN & 18.71 & 30.36 & 14.72 & 23.06 & 36.16 & 20.45 & 29.85 & 46.06 & 29.93 & 23.13 & 36.35 & 20.84 \\
+ % & AGCRN & 18.31 & 30.24 & 14.27 & 21.27 & 34.72 & 16.89 & 24.85 & 40.18 & 20.80 & 21.01 & 34.25 & 16.90 \\
+ & STGCN & 21.05 & 34.51 & 16.42 & 23.63 & 38.92 & 18.35 & 26.87 & 44.45 & 21.92 & 23.42 & 38.57 & 18.46 \\
+ % & GWNET & 17.85 & 29.12 & 13.92 & 21.11 & 33.69 & 17.79 & 25.58 & 40.19 & 23.48 & 20.91 & 33.41 & 17.66 \\
+ & ASTGCN & 21.46 & 33.86 & 17.24 & 26.96 & 41.38 & 24.22 & 34.29 & 52.44 & 32.53 & 26.47 & 40.99 & 23.65 \\
+ & STTN & 18.25 & 29.64 & 14.05 & 21.06 & 33.87 & 17.03 & 25.29 & 40.58 & 21.20 & 20.97 & 33.78 & 16.84 \\
+ % & STGODE & 18.84 & 30.51 & 15.43 & 22.04 & 35.61 & 18.42 & 26.22 & 42.90 & 22.83 & 21.79 & 35.37 & 18.26 \\
+ & DSTAGNN & 19.73 & 31.39 & 15.42 & 24.21 & 37.70 & 20.99 & 30.12 & 46.40 & 28.16 & 23.82 & 37.29 & 20.16 \\
+ & DGCRN & 18.02 & 29.49 & 14.13 & 21.08 & 34.03 & 16.94 & 25.25 & 40.63 & 21.15 & 20.91 & 33.83 & 16.88 \\
+ & D2STGNN & \boldres{17.54} & \boldres{28.94} & \boldres{12.12} & 20.92 & \boldres{33.92} & \boldres{14.89} & 25.48 & 40.99 & 19.83 & 20.71 & \boldres{33.65} & 15.04 \\
+ & STWave & 17.95 & 29.42 & 13.01 & 20.99 & 34.01 & 15.62 & 24.96 & \boldres{40.31} & 20.08 & 20.81 & 33.77 & 15.76 \\
+ & \textbf{ViST-V} & 18.27 & 30.04 & 13.47 & 22.29 & 36.09 & 16.67 & 26.43 & 42.84 & 20.97 & 21.66 & 35.67& 16.33 \\
+ & \textbf{ViST} & 17.95 & 30.18 & 12.84 & \boldres{20.71} & 34.56 & 15.03 & \boldres{24.47} & 40.51 & \boldres{18.88} & \boldres{20.57} & 34.61 & \boldres{15.14} \\
+\midrule
+\multirow{15}{*}{GLA} & LSTM & 20.02 & 32.41 & 11.36 & 27.73 & 44.05 & 16.49 & 39.55 & 61.65 & 25.68 & 28.05 & 44.38 & 17.23 \\
+ % & STID & 16.54 & 27.73 & 10.00 & 19.98 & 34.23 & 12.38 & 24.29 & 42.50 & 16.02 & 19.76 & 34.56 & 12.41 \\
+ & DCRNN & \secondres{18.41} & \boldres{29.23} & 10.94 & 23.16 & \boldres{36.15} & 14.14 & 30.26 & \secondres{46.85} & 19.68 & 23.17 & \boldres{36.19} & 14.40 \\
+ % & AGCRN & 17.27 & 29.70 & 10.78 & 20.38 & 34.82 & 12.70 & 24.59 & 42.59 & 16.03 & 20.25 & 34.84 & 12.87 \\
+ & STGCN & 19.86 & 34.10 & 12.40 & \secondres{22.75} & 38.91 & 14.11 & \boldres{26.70} & \boldres{45.78} & \boldres{17.00} & 22.64 & 38.81 & 14.17 \\
+ % & GWNET & 17.28 & 27.68 & 10.18 & 21.31 & 33.70 & 13.02 & 26.99 & 42.51 & 17.64 & 21.20 & 33.58 & 13.18 \\
+ & ASTGCN & 21.89 & 34.17 & 13.29 & 29.54 & 45.01 & 19.36 & 39.02 & 58.81 & 29.23 & 28.99 & 44.33 & 19.62 \\
+ & STTN & OOM & OOM & OOM & OOM & OOM & OOM & OOM & OOM & OOM & OOM & OOM & OOM \\
+ % & STGODE & \boldres{18.10} & \boldres{30.02} & 11.18 & \boldres{21.71} & \boldres{36.46} & 13.64 & \boldres{26.45} & \boldres{45.09} & \boldres{17.60} & \boldres{21.49} & \boldres{36.14} & 13.72 \\
+ & DSTAGNN & 19.49 & 31.08 & 11.50 & 24.27 & 38.43 & 15.24 & 30.92 & 48.52 & 20.45 & 24.13 & 38.15 & 15.07 \\
+ & DGCRN & OOM & OOM & OOM & OOM & OOM & OOM & OOM & OOM & OOM & OOM & OOM & OOM \\
+ & D2STGNN & OOM & OOM & OOM & OOM & OOM & OOM & OOM & OOM & OOM & OOM & OOM & OOM \\
+ & STWave & OOM & OOM & OOM & OOM & OOM & OOM & OOM & OOM & OOM & OOM & OOM & OOM \\
+ & \textbf{ViST-V} & 18.45 & \secondres{30.65} & \secondres{10.64} & 22.82 & 37.99 & \secondres{13.73} & \secondres{28.38} & 46.97 & 18.82 & \secondres{22.42} & \secondres{37.93} & \secondres{13.74} \\
+ & \textbf{ViST} & \boldres{18.18} & 32.33 & \boldres{10.59} & \boldres{21.84} & \secondres{37.39} & \boldres{12.89} & 28.66 & 47.80 & \secondres{17.76} & \boldres{22.23} & 38.85 & \boldres{13.22} \\
+\bottomrule
+\end{tabular}
+\label{tab:main_results}
+}
+\end{table*}
