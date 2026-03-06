@@ -1,11 +1,13 @@
 # @package _global_
 model: src.basicts_adapter.mats_arch.MATSArch
 model_params:
-  hidden_dim: 256
-  use_segment_processing: false
-  use_verification: true
+  hidden_dim: 128
+  use_segment_processing: true
+  use_verification: false
   use_rft: false
   use_revin: true
   channel_independent: false
+  seq_len: ${input_len}
+  pred_len: ${output_len}
   input_dim: 7
   output_dim: 7
