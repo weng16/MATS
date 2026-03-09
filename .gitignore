@@ -8,3 +8,6 @@ __pycache__/
 .venv/
 outputs/
 data/
+*.md
+*.tar.gz
+

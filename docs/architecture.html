@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StructRouter — 方法框架与流程</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0f172a;--card:#1e293b;--border:#334155;
+  --text:#e2e8f0;--muted:#94a3b8;--accent:#38bdf8;
+  --green:#4ade80;--purple:#a78bfa;--orange:#fb923c;
+  --pink:#f472b6;--yellow:#facc15;--red:#f87171;
+  --teal:#2dd4bf;
+}
+body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,-apple-system,sans-serif;line-height:1.6;overflow-x:hidden}
+.container{max-width:1200px;margin:0 auto;padding:40px 24px}
+
+/* ---- Header ---- */
+header{text-align:center;padding:60px 0 40px}
+header h1{font-size:2.4rem;background:linear-gradient(135deg,var(--accent),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:-.02em}
+header p{color:var(--muted);font-size:1.1rem;margin-top:8px}
+.badge-row{display:flex;gap:10px;justify-content:center;margin-top:16px;flex-wrap:wrap}
+.badge{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:4px 14px;font-size:.82rem;color:var(--accent);font-weight:600}
+
+/* ---- Section titles ---- */
+.section-title{font-size:1.4rem;font-weight:700;margin:48px 0 20px;padding-left:14px;border-left:4px solid var(--accent);color:var(--text)}
+.section-subtitle{color:var(--muted);font-size:.95rem;margin:-12px 0 24px 18px}
+
+/* ---- Innovation cards ---- */
+.innovation-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}
+.inno-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;transition:transform .2s,box-shadow .2s;cursor:default}
+.inno-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,.3)}
+.inno-tag{display:inline-block;font-size:.72rem;font-weight:700;padding:2px 8px;border-radius:6px;margin-bottom:8px}
+.inno-card h3{font-size:1rem;margin-bottom:6px}
+.inno-card p{font-size:.85rem;color:var(--muted);line-height:1.5}
+
+/* ---- Architecture diagram ---- */
+.arch-wrapper{position:relative;margin:32px 0}
+.arch-svg{width:100%;max-width:1100px;margin:0 auto;display:block}
+.arch-fallback{display:none}
+
+/* ---- Pipeline ---- */
+.pipeline{display:flex;gap:0;align-items:stretch;overflow-x:auto;padding:8px 0}
+.pipe-step{flex:0 0 auto;width:160px;position:relative;text-align:center}
+.pipe-circle{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 10px;font-size:1.3rem;font-weight:700;color:#fff;border:3px solid rgba(255,255,255,.15)}
+.pipe-label{font-size:.82rem;font-weight:600;margin-bottom:4px}
+.pipe-desc{font-size:.72rem;color:var(--muted);padding:0 8px}
+.pipe-arrow{position:absolute;right:-18px;top:22px;font-size:1.2rem;color:var(--muted)}
+
+/* ---- Expert table ---- */
+.expert-table{width:100%;border-collapse:collapse;margin:16px 0}
+.expert-table th,.expert-table td{padding:12px 16px;text-align:left;border-bottom:1px solid var(--border);font-size:.88rem}
+.expert-table th{background:var(--card);color:var(--accent);font-weight:700;font-size:.8rem;text-transform:uppercase;letter-spacing:.05em}
+.expert-table tr:hover td{background:rgba(56,189,248,.04)}
+.expert-icon{width:28px;height:28px;border-radius:6px;display:inline-flex;align-items:center;justify-content:center;font-size:.9rem;margin-right:8px;vertical-align:middle}
+
+/* ---- Loss formula ---- */
+.formula-box{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:24px 28px;margin:16px 0;font-family:'Courier New',monospace;font-size:1rem;line-height:2;overflow-x:auto}
+.formula-box .term{display:inline-block;padding:2px 6px;border-radius:4px;margin:2px;font-size:.88rem}
+
+/* ---- Training stages ---- */
+.stages{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+@media(max-width:768px){.stages{grid-template-columns:1fr}}
+.stage-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:24px;position:relative;overflow:hidden}
+.stage-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px}
+.stage-card h3{font-size:1.05rem;margin-bottom:8px}
+.stage-card p{font-size:.85rem;color:var(--muted)}
+.stage-card ul{margin-top:10px;padding-left:18px}
+.stage-card li{font-size:.82rem;color:var(--muted);margin-bottom:4px}
+
+/* ---- Architecture interactive blocks ---- */
+.arch-block{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:24px;margin:12px 0;position:relative}
+.arch-block h3{font-size:1.05rem;display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.arch-block h3 .icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1rem}
+.arch-block p{font-size:.88rem;color:var(--muted)}
+.arch-block .formula{background:rgba(56,189,248,.06);border:1px solid rgba(56,189,248,.15);border-radius:8px;padding:12px 16px;margin:10px 0;font-family:'Courier New',monospace;font-size:.88rem;color:var(--accent);overflow-x:auto}
+.arch-connect{text-align:center;font-size:1.4rem;color:var(--muted);padding:4px 0}
+
+/* ---- Footer ---- */
+footer{text-align:center;padding:48px 0 32px;color:var(--muted);font-size:.82rem;border-top:1px solid var(--border);margin-top:60px}
+footer a{color:var(--accent);text-decoration:none}
+
+/* ---- Tooltip ---- */
+.tooltip{position:relative}
+.tooltip .tip-text{visibility:hidden;background:#000;color:#fff;font-size:.75rem;padding:6px 10px;border-radius:6px;position:absolute;bottom:120%;left:50%;transform:translateX(-50%);white-space:nowrap;z-index:10;opacity:0;transition:opacity .2s}
+.tooltip:hover .tip-text{visibility:visible;opacity:1}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>StructRouter</h1>
+  <p>结构感知的多智能体混合模式时序分析框架</p>
+  <div class="badge-row">
+    <span class="badge">ACM MM 2026</span>
+    <span class="badge">Soft Routing</span>
+    <span class="badge">Causal Communication</span>
+    <span class="badge">DAG Constraint</span>
+    <span class="badge">Three-Stage Training</span>
+  </div>
+</header>
+
+<div class="container">
+
+<!-- ============================================== -->
+<!-- SECTION: 核心创新 -->
+<!-- ============================================== -->
+<div class="section-title">核心创新点 (C1–C8)</div>
+<div class="section-subtitle">8 项关键技术创新，覆盖从结构建模到训练策略的完整流程</div>
+
+<div class="innovation-grid">
+  <div class="inno-card">
+    <span class="inno-tag" style="background:rgba(56,189,248,.15);color:var(--accent)">C1</span>
+    <h3>多模式权重估计</h3>
+    <p>MLP 路由 + 原型相似度双路径融合。正交模式原型提供可解释的结构归纳偏置。</p>
+  </div>
+  <div class="inno-card">
+    <span class="inno-tag" style="background:rgba(74,222,128,.15);color:var(--green)">C2</span>
+    <h3>软加权专家融合</h3>
+    <p>所有专家按权重参与前向传播，避免专家坍塌，梯度流向所有专家。</p>
+  </div>
+  <div class="inno-card">
+    <span class="inno-tag" style="background:rgba(251,146,60,.15);color:var(--orange)">C3</span>
+    <h3>工具适配器 (RFT)</h3>
+    <p>基于 PPO 的强化微调，将路由决策建模为策略优化问题。</p>
+  </div>
+  <div class="inno-card">
+    <span class="inno-tag" style="background:rgba(167,139,250,.15);color:var(--purple)">C4</span>
+    <h3>SCM 因果通信</h3>
+    <p>结构因果模型 + NOTEARS DAG 约束，专家间消息传递产生可解释的因果图。</p>
+  </div>
+  <div class="inno-card">
+    <span class="inno-tag" style="background:rgba(45,212,191,.15);color:var(--teal)">C5</span>
+    <h3>时序因果扩展</h3>
+    <p>支持滞后因果关系，建模跨时步的专家依赖结构。</p>
+  </div>
+  <div class="inno-card">
+    <span class="inno-tag" style="background:rgba(244,114,182,.15);color:var(--pink)">C6</span>
+    <h3>验证智能体</h3>
+    <p>一致性 / 有效性 / 不确定性三维检验 + 梯度感知重路由闭环校正。</p>
+  </div>
+  <div class="inno-card">
+    <span class="inno-tag" style="background:rgba(250,204,21,.15);color:var(--yellow)">C7</span>
+    <h3>联合损失函数</h3>
+    <p>任务损失 + 结构一致性 + DAG 约束（带预热）+ 负载均衡 + 正交正则。</p>
+  </div>
+  <div class="inno-card">
+    <span class="inno-tag" style="background:rgba(248,113,113,.15);color:var(--red)">C8</span>
+    <h3>三阶段渐进训练</h3>
+    <p>自监督 → 端到端 → 强化微调，逐步引入复杂目标，稳定训练。</p>
+  </div>
+</div>
+
+<!-- ============================================== -->
+<!-- SECTION: 完整架构流程 -->
+<!-- ============================================== -->
+<div class="section-title">完整架构流程</div>
+<div class="section-subtitle">从原始时序输入到最终预测输出的完整数据流</div>
+
+<!-- Step 0: Input -->
+<div class="arch-block" style="border-color:var(--accent)">
+  <h3><span class="icon" style="background:rgba(56,189,248,.15);color:var(--accent)">📊</span> 输入 & RevIN 归一化</h3>
+  <p>多变量时序输入 <b>x ∈ ℝ<sup>L×D</sup></b>（L=回看窗口，D=变量数）经过 RevIN 实例归一化消除分布偏移。</p>
+  <div class="formula">x_norm = (x − μ_inst) / (σ_inst + ε)&emsp;→&emsp;预测后反归一化恢复原始尺度</div>
+</div>
+
+<div class="arch-connect">▼</div>
+
+<!-- Step 1: Structure Encoder -->
+<div class="arch-block" style="border-color:var(--accent)">
+  <h3><span class="icon" style="background:rgba(56,189,248,.15);color:var(--accent)">🔬</span> Stage 1: 可学习结构编码器 (Structure Encoder)</h3>
+  <p>从时序中提取结构特征，输出全局表示和序列表示。</p>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px">
+    <div style="background:rgba(56,189,248,.05);border-radius:8px;padding:12px;text-align:center">
+      <div style="font-size:1.2rem;margin-bottom:4px">🌀</div>
+      <div style="font-size:.82rem;font-weight:600">因果时序卷积 (TCN)</div>
+      <div style="font-size:.75rem;color:var(--muted)">指数膨胀 d=1,2,4<br>捕获多尺度局部模式</div>
+    </div>
+    <div style="background:rgba(56,189,248,.05);border-radius:8px;padding:12px;text-align:center">
+      <div style="font-size:1.2rem;margin-bottom:4px">🎯</div>
+      <div style="font-size:.82rem;font-weight:600">多头自注意力</div>
+      <div style="font-size:.75rem;color:var(--muted)">8 头注意力<br>捕获全局时序依赖</div>
+    </div>
+    <div style="background:rgba(56,189,248,.05);border-radius:8px;padding:12px;text-align:center">
+      <div style="font-size:1.2rem;margin-bottom:4px">📈</div>
+      <div style="font-size:.82rem;font-weight:600">统计特征融合</div>
+      <div style="font-size:.75rem;color:var(--muted)">μ, σ, 趋势, 变化强度<br>自相关系数</div>
+    </div>
+  </div>
+  <div class="formula">z_global = ½(avgpool(H) + maxpool(H)) + z_stats ∈ ℝ<sup>H</sup>&emsp;|&emsp;z_seq ∈ ℝ<sup>L×H</sup></div>
+</div>
+
+<div class="arch-connect">▼</div>
+
+<!-- Step 2: Weight Estimation + Segment Processing -->
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+  <div class="arch-block" style="border-color:var(--green)">
+    <h3><span class="icon" style="background:rgba(74,222,128,.15);color:var(--green)">⚖️</span> C1: 多模式权重估计</h3>
+    <p>双路径融合：MLP 路由 + 原型余弦相似度。</p>
+    <div class="formula">w = Softmax((MLP(z) + softplus(λ)·Sim(z,P)) / τ)</div>
+    <p style="margin-top:8px;font-size:.82rem">
+      <b>P ∈ ℝ<sup>K×H</sup></b>：正交模式原型<br>
+      <b>λ</b>：可学习平衡参数<br>
+      <b>τ</b>：温度参数
+    </p>
+  </div>
+  <div class="arch-block" style="border-color:var(--teal)">
+    <h3><span class="icon" style="background:rgba(45,212,191,.15);color:var(--teal)">🔍</span> 分段处理 (Segment Processing)</h3>
+    <p>自动检测时序中的结构变化点，在段落级别进行权重估计。</p>
+    <div style="margin-top:10px">
+      <div style="font-size:.82rem;margin-bottom:6px"><b>1.</b> 变化点检测 → 自动分段</div>
+      <div style="font-size:.82rem;margin-bottom:6px"><b>2.</b> 段落级权重估计 → 段落内路由</div>
+      <div style="font-size:.82rem;margin-bottom:6px"><b>3.</b> 模式抽象 → 段落语义标签</div>
+      <div style="font-size:.82rem"><b>4.</b> 多段路由组合 → 全局专家权重</div>
+    </div>
+  </div>
+</div>
+
+<div class="arch-connect">▼</div>
+
+<!-- Step 3: Cognitive Router -->
+<div class="arch-block" style="border-color:var(--purple);border-width:2px">
+  <h3><span class="icon" style="background:rgba(167,139,250,.15);color:var(--purple)">🧠</span> Cognitive Router (核心编排)</h3>
+  <p>整合结构驱动路由和任务驱动选择，输出最终的软专家权重。</p>
+  <div style="display:flex;gap:12px;align-items:center;justify-content:center;margin:16px 0;flex-wrap:wrap">
+    <div style="background:rgba(167,139,250,.08);border-radius:8px;padding:10px 16px;text-align:center">
+      <div style="font-size:.78rem;color:var(--purple);font-weight:600">结构驱动路由</div>
+      <div style="font-size:.72rem;color:var(--muted)">可行性检查</div>
+    </div>
+    <div style="font-size:1.2rem;color:var(--muted)">→</div>
+    <div style="background:rgba(167,139,250,.08);border-radius:8px;padding:10px 16px;text-align:center">
+      <div style="font-size:.78rem;color:var(--purple);font-weight:600">任务驱动选择</div>
+      <div style="font-size:.72rem;color:var(--muted)">约束匹配</div>
+    </div>
+    <div style="font-size:1.2rem;color:var(--muted)">→</div>
+    <div style="background:rgba(167,139,250,.08);border-radius:8px;padding:10px 16px;text-align:center">
+      <div style="font-size:.78rem;color:var(--purple);font-weight:600">多段路由组合</div>
+      <div style="font-size:.72rem;color:var(--muted)">加权融合</div>
+    </div>
+    <div style="font-size:1.2rem;color:var(--muted)">→</div>
+    <div style="background:rgba(167,139,250,.12);border:1px solid var(--purple);border-radius:8px;padding:10px 16px;text-align:center">
+      <div style="font-size:.78rem;color:var(--purple);font-weight:700">最终专家权重 w</div>
+      <div style="font-size:.72rem;color:var(--muted)">[w₁, w₂, w₃, w₄, w₅]</div>
+    </div>
+  </div>
+</div>
+
+<div class="arch-connect">▼</div>
+
+<!-- Step 4: Expert Pool -->
+<div class="arch-block" style="border-color:var(--green)">
+  <h3><span class="icon" style="background:rgba(74,222,128,.15);color:var(--green)">🏭</span> C2: 任务专家池 + 软加权融合</h3>
+  <p>5 个专业化专家并行处理输入，按权重加权求和。</p>
+  <table class="expert-table">
+    <thead>
+      <tr><th>专家</th><th>职责</th><th>核心技术</th><th>适用场景</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="expert-icon" style="background:rgba(56,189,248,.15);color:var(--accent)">~</span><b>Periodic</b></td>
+        <td>周期性模式</td>
+        <td>傅里叶频率嵌入 + 周期感知自注意力</td>
+        <td>季节性、周期波动</td>
+      </tr>
+      <tr>
+        <td><span class="expert-icon" style="background:rgba(74,222,128,.15);color:var(--green)">↗</span><b>Trend</b></td>
+        <td>趋势性模式</td>
+        <td>多尺度平滑卷积 + 双向 LSTM</td>
+        <td>上升/下降趋势</td>
+      </tr>
+      <tr>
+        <td><span class="expert-icon" style="background:rgba(250,204,21,.15);color:var(--yellow)">▒</span><b>Noise</b></td>
+        <td>噪声处理</td>
+        <td>鲁棒编码器 + 中值滤波 + 去噪 Transformer</td>
+        <td>高噪声信号</td>
+      </tr>
+      <tr>
+        <td><span class="expert-icon" style="background:rgba(248,113,113,.15);color:var(--red)">⚡</span><b>Abrupt</b></td>
+        <td>突变点检测</td>
+        <td>差分编码 + 变化点检测器 + 分段注意力</td>
+        <td>结构突变、跳变</td>
+      </tr>
+      <tr>
+        <td><span class="expert-icon" style="background:rgba(167,139,250,.15);color:var(--purple)">★</span><b>General</b></td>
+        <td>通用兜底</td>
+        <td>Pre-Norm Transformer 编码器</td>
+        <td>复杂混合模式</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="formula">Output = Σᵢ wᵢ · Expertᵢ(x) + Residual(x)&emsp;→&emsp;fused ∈ ℝ<sup>L×H</sup></div>
+</div>
+
+<div class="arch-connect">▼</div>
+
+<!-- Step 5: Causal Communication -->
+<div class="arch-block" style="border-color:var(--purple)">
+  <h3><span class="icon" style="background:rgba(167,139,250,.15);color:var(--purple)">🔗</span> C4: SCM 因果通信</h3>
+  <p>专家被视为智能体，通过可学习通信矩阵 W<sub>comm</sub> 进行消息传递，精调专家权重。</p>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:12px">
+    <div>
+      <div class="formula" style="font-size:.82rem">
+        S_j' = S_j + gate · Receive(Σᵢ W[i,j] · Message(Sᵢ))<br><br>
+        <span style="color:var(--pink)">DAG 约束:</span> h(W) = tr(exp(W⊙W)) − N = 0
+      </div>
+    </div>
+    <div style="background:rgba(167,139,250,.05);border-radius:8px;padding:14px">
+      <div style="font-size:.82rem;font-weight:600;color:var(--purple);margin-bottom:6px">通信矩阵约束：</div>
+      <div style="font-size:.78rem;color:var(--muted);line-height:1.8">
+        ✓ Softmax 归一化（沿发送维度）<br>
+        ✓ 对角线置零（无自环）<br>
+        ✓ NOTEARS DAG 约束（无环）<br>
+        ✓ 稀疏正则化 L₁<br>
+        ✓ 值域截断 [-2, 2]
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="arch-connect">▼</div>
+
+<!-- Step 6: Prediction + Verification -->
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+  <div class="arch-block" style="border-color:var(--accent)">
+    <h3><span class="icon" style="background:rgba(56,189,248,.15);color:var(--accent)">📐</span> 时序投影 & 预测</h3>
+    <p>任务头 + 时序维度投影得到最终预测。</p>
+    <div class="formula" style="font-size:.82rem">
+      pred = TaskHead(fused)&emsp;[B, L, D]<br>
+      ŷ = SeqTransform(pred)&emsp;[B, P, D]<br>
+      ŷ_final = RevIN.denorm(ŷ)
+    </div>
+  </div>
+  <div class="arch-block" style="border-color:var(--pink)">
+    <h3><span class="icon" style="background:rgba(244,114,182,.15);color:var(--pink)">🛡️</span> C6: 验证智能体</h3>
+    <p>三维验证 + 闭环校正机制。</p>
+    <div style="margin-top:8px">
+      <div style="display:flex;gap:8px;margin-bottom:8px">
+        <span style="background:rgba(244,114,182,.1);padding:4px 10px;border-radius:6px;font-size:.78rem;font-weight:600;color:var(--pink)">一致性</span>
+        <span style="background:rgba(244,114,182,.1);padding:4px 10px;border-radius:6px;font-size:.78rem;font-weight:600;color:var(--pink)">有效性</span>
+        <span style="background:rgba(244,114,182,.1);padding:4px 10px;border-radius:6px;font-size:.78rem;font-weight:600;color:var(--pink)">不确定性</span>
+      </div>
+      <p style="font-size:.78rem;color:var(--muted)">验证失败 → 梯度感知重路由 → 二次预测 → 按置信度混合</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================== -->
+<!-- SECTION: 联合损失函数 -->
+<!-- ============================================== -->
+<div class="section-title">联合损失函数 (C7)</div>
+<div class="formula-box">
+  <div style="text-align:center;font-size:1.05rem;margin-bottom:12px;color:var(--text)">
+    <b>L<sub>total</sub></b> =
+    <span class="term" style="background:rgba(56,189,248,.12);color:var(--accent)">L<sub>task</sub></span> +
+    α · <span class="term" style="background:rgba(244,114,182,.12);color:var(--pink)">L<sub>consist</sub></span> +
+    β · <span class="term" style="background:rgba(167,139,250,.12);color:var(--purple)">L<sub>sparse</sub></span> +
+    γ(t) · <span class="term" style="background:rgba(251,146,60,.12);color:var(--orange)">L<sub>causal</sub></span> +
+    δ · <span class="term" style="background:rgba(74,222,128,.12);color:var(--green)">L<sub>balance</sub></span> +
+    ε · <span class="term" style="background:rgba(250,204,21,.12);color:var(--yellow)">L<sub>ortho</sub></span>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;font-size:.78rem">
+    <div><span style="color:var(--accent)">L<sub>task</sub></span><span style="color:var(--muted)"> — MSE / MAE 预测损失</span></div>
+    <div><span style="color:var(--pink)">L<sub>consist</sub></span><span style="color:var(--muted)"> — 输入输出结构一致性</span></div>
+    <div><span style="color:var(--purple)">L<sub>sparse</sub></span><span style="color:var(--muted)"> — 通信矩阵 L₁ 稀疏</span></div>
+    <div><span style="color:var(--orange)">L<sub>causal</sub></span><span style="color:var(--muted)"> — DAG 约束 h(W)²（带预热）</span></div>
+    <div><span style="color:var(--green)">L<sub>balance</sub></span><span style="color:var(--muted)"> — 专家负载均衡</span></div>
+    <div><span style="color:var(--yellow)">L<sub>ortho</sub></span><span style="color:var(--muted)"> — 原型正交正则化</span></div>
+  </div>
+</div>
+
+<!-- ============================================== -->
+<!-- SECTION: 三阶段训练 -->
+<!-- ============================================== -->
+<div class="section-title">三阶段渐进训练 (C8)</div>
+
+<div class="stages">
+  <div class="stage-card" style="border-top-color:var(--accent)">
+    <div style="position:absolute;top:0;left:0;right:0;height:4px;background:var(--accent);border-radius:12px 12px 0 0"></div>
+    <h3 style="color:var(--accent)">Stage 1: 自监督预训练</h3>
+    <p>仅训练编码器和权重估计器</p>
+    <ul>
+      <li>对比学习：相似段落 → 相似 z</li>
+      <li>掩码重建：预测被遮蔽的 token</li>
+      <li>结构预测：从 z 预测统计量</li>
+    </ul>
+  </div>
+  <div class="stage-card" style="border-top-color:var(--green)">
+    <div style="position:absolute;top:0;left:0;right:0;height:4px;background:var(--green);border-radius:12px 12px 0 0"></div>
+    <h3 style="color:var(--green)">Stage 2: 端到端微调</h3>
+    <p>全模型联合训练，L<sub>total</sub> 损失</p>
+    <ul>
+      <li>分模块学习率（原型 0.1×, W<sub>comm</sub> 3×）</li>
+      <li>DAG 约束线性预热</li>
+      <li>余弦退火学习率调度</li>
+      <li>梯度裁剪 (max_norm=1.0)</li>
+    </ul>
+  </div>
+  <div class="stage-card" style="border-top-color:var(--orange)">
+    <div style="position:absolute;top:0;left:0;right:0;height:4px;background:var(--orange);border-radius:12px 12px 0 0"></div>
+    <h3 style="color:var(--orange)">Stage 3: 强化微调 (RFT)</h3>
+    <p>冻结骨干，PPO 训练路由策略</p>
+    <ul>
+      <li>冻结编码器和专家网络</li>
+      <li>PPO 训练路由器 + 工具适配器</li>
+      <li>奖励 = 预测精度 + 验证一致性</li>
+      <li>Clip ε=0.2, GAE λ=0.95</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ============================================== -->
+<!-- SECTION: 数据流总览 -->
+<!-- ============================================== -->
+<div class="section-title">端到端数据流总览</div>
+
+<div class="pipeline">
+  <div class="pipe-step">
+    <div class="pipe-circle" style="background:linear-gradient(135deg,#334155,#475569)">x</div>
+    <div class="pipe-label">原始输入</div>
+    <div class="pipe-desc">x ∈ ℝ<sup>L×D</sup></div>
+    <div class="pipe-arrow">→</div>
+  </div>
+  <div class="pipe-step">
+    <div class="pipe-circle" style="background:linear-gradient(135deg,#0ea5e9,#38bdf8)">R</div>
+    <div class="pipe-label">RevIN</div>
+    <div class="pipe-desc">实例归一化</div>
+    <div class="pipe-arrow">→</div>
+  </div>
+  <div class="pipe-step">
+    <div class="pipe-circle" style="background:linear-gradient(135deg,#0284c7,#0ea5e9)">E</div>
+    <div class="pipe-label">结构编码</div>
+    <div class="pipe-desc">TCN + Attn → z</div>
+    <div class="pipe-arrow">→</div>
+  </div>
+  <div class="pipe-step">
+    <div class="pipe-circle" style="background:linear-gradient(135deg,#059669,#34d399)">W</div>
+    <div class="pipe-label">权重估计</div>
+    <div class="pipe-desc">MLP + Sim → w</div>
+    <div class="pipe-arrow">→</div>
+  </div>
+  <div class="pipe-step">
+    <div class="pipe-circle" style="background:linear-gradient(135deg,#7c3aed,#a78bfa)">R</div>
+    <div class="pipe-label">认知路由</div>
+    <div class="pipe-desc">分段路由组合</div>
+    <div class="pipe-arrow">→</div>
+  </div>
+  <div class="pipe-step">
+    <div class="pipe-circle" style="background:linear-gradient(135deg,#16a34a,#4ade80)">F</div>
+    <div class="pipe-label">专家融合</div>
+    <div class="pipe-desc">Σwᵢ·Expertᵢ</div>
+    <div class="pipe-arrow">→</div>
+  </div>
+  <div class="pipe-step">
+    <div class="pipe-circle" style="background:linear-gradient(135deg,#7c3aed,#c084fc)">C</div>
+    <div class="pipe-label">因果通信</div>
+    <div class="pipe-desc">SCM + DAG</div>
+    <div class="pipe-arrow">→</div>
+  </div>
+  <div class="pipe-step">
+    <div class="pipe-circle" style="background:linear-gradient(135deg,#db2777,#f472b6)">V</div>
+    <div class="pipe-label">验证校正</div>
+    <div class="pipe-desc">3D Check</div>
+    <div class="pipe-arrow">→</div>
+  </div>
+  <div class="pipe-step">
+    <div class="pipe-circle" style="background:linear-gradient(135deg,#ea580c,#fb923c)">ŷ</div>
+    <div class="pipe-label">最终预测</div>
+    <div class="pipe-desc">ŷ ∈ ℝ<sup>P×D</sup></div>
+  </div>
+</div>
+
+<!-- ============================================== -->
+<!-- SECTION: 代码映射 -->
+<!-- ============================================== -->
+<div class="section-title">代码模块映射</div>
+<div class="section-subtitle">论文创新点 → 代码文件 → 核心类名</div>
+
+<table class="expert-table">
+  <thead>
+    <tr><th>创新点</th><th>代码文件</th><th>核心类/函数</th><th>参数量占比</th></tr>
+  </thead>
+  <tbody>
+    <tr><td style="color:var(--accent)">结构编码器</td><td>structure_encoder.py</td><td>StructureEncoder</td><td>~18%</td></tr>
+    <tr><td style="color:var(--green)">C1 权重估计</td><td>weight_estimator.py</td><td>MultiPatternWeightEstimator</td><td>~1%</td></tr>
+    <tr><td style="color:var(--green)">C2 专家融合</td><td>expert_fusion.py + experts.py</td><td>SoftWeightedExpertFusion</td><td>~63%</td></tr>
+    <tr><td style="color:var(--orange)">C3 RFT</td><td>tool_adapter.py</td><td>ToolAdapterRFT</td><td>&lt;1%</td></tr>
+    <tr><td style="color:var(--purple)">C4 因果通信</td><td>causal_communication.py</td><td>CausalCommunicationSCM</td><td>~2%</td></tr>
+    <tr><td style="color:var(--pink)">C6 验证</td><td>verification_agent.py</td><td>VerificationAgent</td><td>~19%</td></tr>
+    <tr><td style="color:var(--yellow)">C7 联合损失</td><td>losses/joint_loss.py</td><td>JointLoss</td><td>—</td></tr>
+    <tr><td style="color:var(--red)">C8 训练器</td><td>trainers/three_stage_trainer.py</td><td>ThreeStageTrainer</td><td>—</td></tr>
+    <tr><td style="color:var(--teal)">分段处理</td><td>segment_processor.py</td><td>SegmentDetector, SegmentFusion</td><td>~10%</td></tr>
+    <tr><td style="color:var(--accent)">总编排</td><td>struct_router.py</td><td>StructRouter</td><td>100%</td></tr>
+  </tbody>
+</table>
+
+</div><!-- .container -->
+
+<footer>
+  <p>StructRouter — Structure-Aware Multi-Agent Framework for Mixed-Mode Time Series Analysis</p>
+  <p style="margin-top:4px">ACM Multimedia 2026 &nbsp;|&nbsp; <a href="https://github.com">GitHub</a></p>
+</footer>
+
+</body>
+</html>

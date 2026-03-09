@@ -39,18 +39,20 @@ def main(cfg: DictConfig):
     # model 字段需要是 class 对象
     cfg_dict["model"] = MATSArch
     
-    # model_params -> model_config 用 BasicTSModelConfig
-    from basicts.configs import BasicTSModelConfig
-    model_params = cfg_dict.pop("model_params", {})
-    # cfg_dict["model_config"] = BasicTSModelConfig(MATSArch, **model_params)
-    cfg_dict["model_config"] = BasicTSModelConfig(model_params)
-
-
     # dataset_params 补充预测长度和数据路径
     cfg_dict.setdefault("dataset_params", {})
     cfg_dict["gpus"] = "0"
-    cfg_dict["dataset_params"]["input_len"] = cfg_dict.pop("input_len", 336)
-    cfg_dict["dataset_params"]["output_len"] = cfg_dict.pop("output_len", 96)
+    input_len = cfg_dict.pop("input_len", 336)
+    output_len = cfg_dict.pop("output_len", 96)
+    cfg_dict["dataset_params"]["input_len"] = input_len
+    cfg_dict["dataset_params"]["output_len"] = output_len
+
+    # model_params -> model_config: sync seq_len/pred_len with actual data lengths
+    from basicts.configs import BasicTSModelConfig
+    model_params = cfg_dict.pop("model_params", {})
+    model_params["seq_len"] = input_len
+    model_params["pred_len"] = output_len
+    cfg_dict["model_config"] = BasicTSModelConfig(model_params)
     
     # 设置数据路径 (使用本地数据)
     dataset_name = cfg_dict.get("dataset_name", "ETTh1")

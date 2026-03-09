@@ -2,12 +2,10 @@
 model: src.basicts_adapter.mats_arch.MATSArch
 model_params:
   hidden_dim: 256
-  use_segment_processing: true
+  use_segment_processing: false
   use_verification: true
-  use_rft: true
+  use_rft: false
   use_revin: true
   channel_independent: false
-  seq_len: 336
-  pred_len: 96
   input_dim: 7
   output_dim: 7

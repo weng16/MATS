@@ -10,4 +10,4 @@ experiment:
   type: main
 
 output_len: 96
-input_len: 96
+input_len: 336

@@ -263,18 +263,30 @@ class StructRouter(nn.Module):
             )
         })
 
-        # Stage1 自监督重建头 — 注册为子模块，避免设备不同步
+        # Stage1 self-supervised reconstruction head
         self.reconstruction_head = nn.Linear(hidden_dim, input_dim)
 
+        # Causal communication → weight refinement projection
+        # Maps communicated agent states back to a weight adjustment [B, K]
+        self.comm_weight_proj = nn.Sequential(
+            nn.Linear(hidden_dim * num_experts, hidden_dim),
+            nn.GELU(),
+            nn.Linear(hidden_dim, num_experts),
+        )
+        self.comm_gate = nn.Parameter(torch.tensor(-3.0))
+
+        # Temporal projection: seq_len → pred_len
+        # Registered as a proper submodule so the optimizer can track it.
         if seq_len != pred_len:
-            self.seq_transform = nn.Linear(seq_len, pred_len)
+            self.seq_transform = nn.Linear(seq_len, pred_len, bias=False)
+            nn.init.xavier_uniform_(self.seq_transform.weight)
         else:
             self.seq_transform = None
+        self._actual_seq_len = seq_len
 
     # ==================== W_comm 属性 ====================
     @property
     def W_comm(self) -> torch.Tensor:
-        """直接暴露因果通信矩阵，供 JointLoss 使用"""
         return self.communication.W_comm
     
     def forward(
@@ -295,6 +307,7 @@ class StructRouter(nn.Module):
         """
         B, L, D = x.shape
         task = task_type if task_type is not None else self.task_type
+        seq_transform = self.seq_transform
 
         # ========== RevIN: instance normalization ==========
         if self.revin is not None:
@@ -333,7 +346,7 @@ class StructRouter(nn.Module):
             expert_weights   = global_weights
             router_logits    = None
 
-        # ========== Stage 3: RFT (可选) ==========
+        # ========== Stage 3: RFT (optional) ==========
         if use_rft and self.tool_adapter is not None:
             adjusted_weights, log_prob, value = self.tool_adapter(
                 z_global, expert_weights, deterministic=not self.training
@@ -342,21 +355,26 @@ class StructRouter(nn.Module):
         else:
             log_prob, value = None, None
 
-        # ========== Stage 4: Expert Fusion ==========
+        # ========== Stage 4: Causal Communication → Weight Refinement ==========
+        # Each expert gets a "state" from z_global projected through its weight.
+        # Agents communicate via SCM, then the communicated states refine routing.
+        agent_states = expert_weights.unsqueeze(-1) * z_global.unsqueeze(1)  # [B, K, H]
+        communicated_states = self.communication(agent_states)  # [B, K, H]
+
+        # Communicated states refine expert weights (the core multi-agent story)
+        comm_flat = communicated_states.reshape(B, -1)  # [B, K*H]
+        weight_delta = self.comm_weight_proj(comm_flat)  # [B, K]
+        expert_weights = F.softmax(
+            torch.log(expert_weights + 1e-8) + torch.sigmoid(self.comm_gate) * weight_delta,
+            dim=-1,
+        )
+
+        # ========== Stage 5: Expert Fusion ==========
         fused_features, expert_outputs = self.expert_fusion(
             x, expert_weights, return_expert_outputs=True
         )
 
-        # ========== Stage 5: Causal Communication ==========
-        agent_states = torch.stack(
-            [expert_outputs[name].mean(dim=1) for name in self.expert_fusion.expert_names],
-            dim=1
-        )  # [B, N, H]
-        communicated_states = self.communication(agent_states)
-        comm_context  = communicated_states.mean(dim=1)          # [B, H]
-        fused_features = fused_features + 0.1 * comm_context.unsqueeze(1)
-
-        # ========== Stage 6: 多任务预测 ==========
+        # ========== Stage 6: Prediction ==========
         task_name = {v: k for k, v in self.TASK_TYPES.items()}.get(task, 'forecast')
         head = self.task_heads[task_name] if task_name in self.task_heads else self.task_heads['forecast']
 
@@ -371,9 +389,9 @@ class StructRouter(nn.Module):
             # forecast / imputation
             prediction = head(fused_features)               # [B, L, D_out]
 
-        if self.seq_transform is not None and task_name in ('forecast', 'imputation'):
+        if seq_transform is not None and task_name in ('forecast', 'imputation'):
             prediction = prediction.transpose(1, 2)
-            prediction = self.seq_transform(prediction)
+            prediction = seq_transform(prediction)
             prediction = prediction.transpose(1, 2)
 
         # ========== Stage 7: Verification ==========
@@ -409,9 +427,9 @@ class StructRouter(nn.Module):
                 ).mean(dim=1)
                 fused2 = fused2 + 0.1 * comm_ctx2.unsqueeze(1)
                 prediction2  = head(fused2)
-                if self.seq_transform is not None and task_name in ('forecast', 'imputation'):
+                if seq_transform is not None and task_name in ('forecast', 'imputation'):
                     prediction2 = prediction2.transpose(1, 2)
-                    prediction2 = self.seq_transform(prediction2)
+                    prediction2 = seq_transform(prediction2)
                     prediction2 = prediction2.transpose(1, 2)
 
                 # 用置信度作为混合系数：置信度高的样本保持原预测
