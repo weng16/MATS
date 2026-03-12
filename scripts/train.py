@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 import sys
+import os
 from pathlib import Path
+
+os.environ["TQDM_DISABLE"] = "1"
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
@@ -41,7 +44,7 @@ def main(cfg: DictConfig):
     
     # dataset_params 补充预测长度和数据路径
     cfg_dict.setdefault("dataset_params", {})
-    cfg_dict["gpus"] = "0"
+    cfg_dict["gpus"] = os.environ.get("CUDA_VISIBLE_DEVICES", "0")
     input_len = cfg_dict.pop("input_len", 336)
     output_len = cfg_dict.pop("output_len", 96)
     cfg_dict["dataset_params"]["input_len"] = input_len
@@ -54,12 +57,13 @@ def main(cfg: DictConfig):
     model_params["pred_len"] = output_len
     cfg_dict["model_config"] = BasicTSModelConfig(model_params)
     
-    # 设置数据路径 (使用本地数据)
+    # 设置数据路径 (使用绝对路径)
+    project_root = Path(__file__).resolve().parent.parent
     dataset_name = cfg_dict.get("dataset_name", "ETTh1")
     if data_path:
         cfg_dict["data_file_path"] = str(Path(data_path).parent)
     else:
-        cfg_dict["data_file_path"] = f"./data/{dataset_name}"
+        cfg_dict["data_file_path"] = str(project_root / "data" / dataset_name)
 
     # Resolve lr_scheduler and optimizer classes
     if isinstance(cfg_dict.get("lr_scheduler"), str):
@@ -68,9 +72,11 @@ def main(cfg: DictConfig):
         cfg_dict["optimizer"] = resolve_class(cfg_dict["optimizer"])
 
     ts_cfg = BasicTSForecastingConfig(**cfg_dict)
-    ts_cfg.ckpt_save_dir = f"{root}/{cfg.experiment.name}"
+    
+    project_root = Path(__file__).resolve().parent.parent
+    ts_cfg.ckpt_save_dir = str(project_root / root / cfg.experiment.name)
     
     basicts.BasicTSLauncher.launch_training(ts_cfg)
 
-if __name__ == "__main__":
+if __name__ == "__main__":  
     main()

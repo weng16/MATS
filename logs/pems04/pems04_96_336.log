@@ -1,0 +1,69 @@
+2026-03-11 06:42:33,065 - BasicTS-launcher - INFO - Launching BasicTS training.
+2026-03-11 06:42:33,248 - easytorch-env - INFO - Use devices 1.
+2026-03-11 06:42:33,309 - easytorch-env - INFO - Disable TF32 mode
+2026-03-11 06:42:33,559 - BasicTS - INFO - Building model.
+/mnt/users/rwl/MATS/src/models/experts.py:491: UserWarning: enable_nested_tensor is True, but self.use_nested_tensor is False because encoder_layer.norm_first was True
+  self.transformer = nn.TransformerEncoder(
+2026-03-11 06:42:36,716 - BasicTS - INFO - Set ckpt save dir: "/mnt/users/rwl/MATS/results/main/MATS-Full-PEMS04-336/50ad48d8c9786aae3dcd253024ab20cc"
+2026-03-11 06:42:37,069 - BasicTS-training - INFO - Initializing training.
+2026-03-11 06:42:37,069 - BasicTS-training - INFO - Building train data loader.
+2026-03-11 06:42:37,090 - BasicTS-training - ERROR - Traceback (most recent call last):
+  File "/mnt/data/conda_env/mats/lib/python3.10/site-packages/basicts/data/tsf_dataset.py", line 58, in __init__
+    self._data = np.load(
+  File "/mnt/data/conda_env/mats/lib/python3.10/site-packages/numpy/lib/_npyio_impl.py", line 451, in load
+    fid = stack.enter_context(open(os.fspath(file), "rb"))
+FileNotFoundError: [Errno 2] No such file or directory: 'data/train_data.npy'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/mnt/data/conda_env/mats/lib/python3.10/site-packages/basicts/launcher.py", line 109, in training_func
+    runner.train()
+  File "/mnt/data/conda_env/mats/lib/python3.10/site-packages/basicts/runners/basicts_runner.py", line 304, in train
+    self.on_train_start()
+  File "/mnt/data/conda_env/mats/lib/python3.10/site-packages/basicts/runners/basicts_runner.py", line 540, in on_train_start
+    self._init_train()
+  File "/mnt/data/conda_env/mats/lib/python3.10/site-packages/basicts/runners/basicts_runner.py", line 216, in _init_train
+    self.train_data_loader = Builder._build_data_loader(self.cfg, BasicTSMode.TRAIN, self.logger)
+  File "/mnt/data/conda_env/mats/lib/python3.10/site-packages/basicts/runners/builder.py", line 92, in _build_data_loader
+    dataset = Builder._build_dataset(cfg, mode)
+  File "/mnt/data/conda_env/mats/lib/python3.10/site-packages/basicts/runners/builder.py", line 141, in _build_dataset
+    return cfg.dataset_type(**dataset_params)
+  File "/mnt/data/conda_env/mats/lib/python3.10/site-packages/basicts/data/tsf_dataset.py", line 66, in __init__
+    raise FileNotFoundError(f"Cannot load dataset from {data_file_path}, Please set a correct local path."\
+FileNotFoundError: Cannot load dataset from data, Please set a correct local path.If you want to download the dataset, please set the argument `local` to False.
+
+Error executing job with overrides: ['input_len=96']
+Traceback (most recent call last):
+  File "/mnt/data/conda_env/mats/lib/python3.10/site-packages/basicts/data/tsf_dataset.py", line 58, in __init__
+    self._data = np.load(
+  File "/mnt/data/conda_env/mats/lib/python3.10/site-packages/numpy/lib/_npyio_impl.py", line 451, in load
+    fid = stack.enter_context(open(os.fspath(file), "rb"))
+FileNotFoundError: [Errno 2] No such file or directory: 'data/train_data.npy'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/mnt/users/rwl/MATS/scripts/train.py", line 79, in main
+    basicts.BasicTSLauncher.launch_training(ts_cfg)
+  File "/mnt/data/conda_env/mats/lib/python3.10/site-packages/basicts/launcher.py", line 58, in launch_training
+    train_dist(cfg)
+  File "/mnt/data/conda_env/mats/lib/python3.10/site-packages/basicts/launcher.py", line 113, in training_func
+    raise e
+  File "/mnt/data/conda_env/mats/lib/python3.10/site-packages/basicts/launcher.py", line 109, in training_func
+    runner.train()
+  File "/mnt/data/conda_env/mats/lib/python3.10/site-packages/basicts/runners/basicts_runner.py", line 304, in train
+    self.on_train_start()
+  File "/mnt/data/conda_env/mats/lib/python3.10/site-packages/basicts/runners/basicts_runner.py", line 540, in on_train_start
+    self._init_train()
+  File "/mnt/data/conda_env/mats/lib/python3.10/site-packages/basicts/runners/basicts_runner.py", line 216, in _init_train
+    self.train_data_loader = Builder._build_data_loader(self.cfg, BasicTSMode.TRAIN, self.logger)
+  File "/mnt/data/conda_env/mats/lib/python3.10/site-packages/basicts/runners/builder.py", line 92, in _build_data_loader
+    dataset = Builder._build_dataset(cfg, mode)
+  File "/mnt/data/conda_env/mats/lib/python3.10/site-packages/basicts/runners/builder.py", line 141, in _build_dataset
+    return cfg.dataset_type(**dataset_params)
+  File "/mnt/data/conda_env/mats/lib/python3.10/site-packages/basicts/data/tsf_dataset.py", line 66, in __init__
+    raise FileNotFoundError(f"Cannot load dataset from {data_file_path}, Please set a correct local path."\
+FileNotFoundError: Cannot load dataset from data, Please set a correct local path.If you want to download the dataset, please set the argument `local` to False.
+
+Set the environment variable HYDRA_FULL_ERROR=1 for a complete stack trace.

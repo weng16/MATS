@@ -153,7 +153,7 @@ class StructureEncoder(nn.Module):
         kernel_size: int = 3,
         num_heads: int = 8,
         dropout: float = 0.1,
-        max_len: int = 512
+        max_len: int = 1024
     ):
         super().__init__()
         

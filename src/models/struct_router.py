@@ -160,7 +160,8 @@ class StructRouter(nn.Module):
             hidden_dim=hidden_dim,
             num_layers=3,
             kernel_size=3,
-            dropout=0.1
+            dropout=0.1,
+            max_len=max(seq_len, pred_len, 1024)
         )
         
         # ==================== 2. Multi-Pattern Weight Estimator ====================

@@ -1,0 +1,13 @@
+# @package _global_
+defaults:
+  - /_base_/base
+  - /_base_/datasets/electricity
+  - /_base_/model/mats_base
+  - _self_
+
+experiment:
+  name: "MATS-Full-ELECTRICITY-336"
+  type: main
+
+output_len: 336
+input_len: 96

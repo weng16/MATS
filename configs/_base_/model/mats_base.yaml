@@ -1,13 +1,16 @@
 # @package _global_
 model: src.basicts_adapter.mats_arch.MATSArch
 model_params:
-  hidden_dim: 128
-  use_segment_processing: true
-  use_verification: false
+  hidden_dim: 256
+  use_segment_processing: false
+  use_verification: true
   use_rft: false
   use_revin: true
   channel_independent: false
+<<<<<<< HEAD
   seq_len: ${input_len}
   pred_len: ${output_len}
   input_dim: 7
   output_dim: 7
+=======
+>>>>>>> 230083a (update logs and prompts)

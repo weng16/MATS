@@ -1,0 +1,725 @@
+2026-03-10 06:33:47,061 - BasicTS-launcher - INFO - Launching BasicTS training.
+2026-03-10 06:33:47,241 - easytorch-env - INFO - Use devices 0.
+2026-03-10 06:33:47,446 - easytorch-env - INFO - Disable TF32 mode
+2026-03-10 06:33:47,901 - BasicTS - INFO - Building model.
+/mnt/users/rwl/MATS/src/models/experts.py:491: UserWarning: enable_nested_tensor is True, but self.use_nested_tensor is False because encoder_layer.norm_first was True
+  self.transformer = nn.TransformerEncoder(
+2026-03-10 06:33:51,634 - BasicTS - INFO - Set ckpt save dir: "/mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72"
+2026-03-10 06:33:51,808 - BasicTS-training - INFO - Initializing training.
+2026-03-10 06:33:51,808 - BasicTS-training - INFO - Building train data loader.
+2026-03-10 06:34:21,693 - BasicTS-training - INFO - Set optim: Adam
+2026-03-10 06:34:21,693 - BasicTS-training - INFO - Set lr_scheduler: CosineAnnealingLR
+2026-03-10 06:34:21,694 - BasicTS-training - INFO - Building val data loader.
+2026-03-10 06:34:21,695 - BasicTS-training - INFO - Building test data loader.
+2026-03-10 06:34:21,697 - BasicTS-training - INFO - Total parameters: 10241583
+2026-03-10 06:34:21,697 - BasicTS-training - INFO - Trainable parameters: 10241583
+2026-03-10 06:34:21,697 - BasicTS-training - INFO - Epoch 1 / 100
+2026-03-10 06:42:09,705 - BasicTS-training - INFO - Result <train>: [train/time: 468.01 (s), train/lr: 5.00e-04, train/loss: 0.4175, train/MAE: 0.4175, train/MSE: 0.3874, train/RMSE: 0.6224, train/MAPE: 2.3816, train/WAPE: 0.6893]
+2026-03-10 06:42:10,794 - BasicTS-training - INFO - Start validation.
+2026-03-10 06:44:23,773 - BasicTS-training - INFO - Result <val>: [val/time: 132.98 (s), val/loss: 0.4884, val/MAE: 0.4884, val/MSE: 0.5562, val/RMSE: 0.7458, val/MAPE: 2.2700, val/WAPE: 0.7013]
+2026-03-10 06:44:25,797 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_best_val_MAE.pt saved
+2026-03-10 06:46:36,629 - BasicTS-training - INFO - Result <test>: [test/time: 130.83 (s), test/loss: 0.3956, test/MAE: 0.3956, test/MSE: 0.3966, test/RMSE: 0.6298, test/MAPE: 2.2774, test/WAPE: 0.5835]
+2026-03-10 06:46:39,590 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_001.pt saved
+2026-03-10 06:46:39,591 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 03:03:02
+2026-03-10 06:46:39,591 - BasicTS-training - INFO - Epoch 2 / 100
+2026-03-10 06:54:19,131 - BasicTS-training - INFO - Result <train>: [train/time: 459.54 (s), train/lr: 5.00e-04, train/loss: 0.4100, train/MAE: 0.4100, train/MSE: 0.3750, train/RMSE: 0.6124, train/MAPE: 2.3220, train/WAPE: 0.6792]
+2026-03-10 06:54:20,203 - BasicTS-training - INFO - Start validation.
+2026-03-10 06:56:36,153 - BasicTS-training - INFO - Result <val>: [val/time: 135.95 (s), val/loss: 0.4987, val/MAE: 0.4987, val/MSE: 0.5648, val/RMSE: 0.7515, val/MAPE: 2.1964, val/WAPE: 0.7004]
+2026-03-10 06:58:51,516 - BasicTS-training - INFO - Result <test>: [test/time: 133.94 (s), test/loss: 0.4041, test/MAE: 0.4041, test/MSE: 0.4107, test/RMSE: 0.6409, test/MAPE: 2.1960, test/WAPE: 0.5916]
+2026-03-10 06:58:53,308 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_002.pt saved
+2026-03-10 06:58:53,308 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 03:00:07
+2026-03-10 06:58:53,308 - BasicTS-training - INFO - Epoch 3 / 100
+2026-03-10 07:06:32,049 - BasicTS-training - INFO - Result <train>: [train/time: 458.74 (s), train/lr: 5.00e-04, train/loss: 0.4118, train/MAE: 0.4118, train/MSE: 0.3785, train/RMSE: 0.6152, train/MAPE: 2.3561, train/WAPE: 0.6833]
+2026-03-10 07:06:33,741 - BasicTS-training - INFO - Start validation.
+2026-03-10 07:08:47,831 - BasicTS-training - INFO - Result <val>: [val/time: 134.09 (s), val/loss: 0.4918, val/MAE: 0.4918, val/MSE: 0.5583, val/RMSE: 0.7472, val/MAPE: 2.2347, val/WAPE: 0.7013]
+2026-03-10 07:11:02,261 - BasicTS-training - INFO - Result <test>: [test/time: 133.11 (s), test/loss: 0.3951, test/MAE: 0.3951, test/MSE: 0.3973, test/RMSE: 0.6303, test/MAPE: 2.2612, test/WAPE: 0.5847]
+2026-03-10 07:11:04,388 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_003.pt saved
+2026-03-10 07:11:04,388 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:57:41
+2026-03-10 07:11:04,388 - BasicTS-training - INFO - Epoch 4 / 100
+2026-03-10 07:18:42,621 - BasicTS-training - INFO - Result <train>: [train/time: 458.23 (s), train/lr: 4.99e-04, train/loss: 0.4116, train/MAE: 0.4116, train/MSE: 0.3784, train/RMSE: 0.6151, train/MAPE: 2.3655, train/WAPE: 0.6836]
+2026-03-10 07:18:45,332 - BasicTS-training - INFO - Start validation.
+2026-03-10 07:21:01,351 - BasicTS-training - INFO - Result <val>: [val/time: 136.02 (s), val/loss: 0.4956, val/MAE: 0.4956, val/MSE: 0.5569, val/RMSE: 0.7462, val/MAPE: 2.2648, val/WAPE: 0.7010]
+2026-03-10 07:23:13,916 - BasicTS-training - INFO - Result <test>: [test/time: 131.46 (s), test/loss: 0.4007, test/MAE: 0.4007, test/MSE: 0.4009, test/RMSE: 0.6332, test/MAPE: 2.2336, test/WAPE: 0.5909]
+2026-03-10 07:23:15,626 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_004.pt saved
+2026-03-10 07:23:15,626 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:56:32
+2026-03-10 07:23:15,626 - BasicTS-training - INFO - Epoch 5 / 100
+2026-03-10 07:30:51,732 - BasicTS-training - INFO - Result <train>: [train/time: 456.11 (s), train/lr: 4.98e-04, train/loss: 0.4107, train/MAE: 0.4107, train/MSE: 0.3774, train/RMSE: 0.6143, train/MAPE: 2.3662, train/WAPE: 0.6824]
+2026-03-10 07:30:53,306 - BasicTS-training - INFO - Start validation.
+2026-03-10 07:33:07,912 - BasicTS-training - INFO - Result <val>: [val/time: 134.61 (s), val/loss: 0.4913, val/MAE: 0.4913, val/MSE: 0.5590, val/RMSE: 0.7477, val/MAPE: 2.3207, val/WAPE: 0.7028]
+2026-03-10 07:35:21,947 - BasicTS-training - INFO - Result <test>: [test/time: 132.67 (s), test/loss: 0.3989, test/MAE: 0.3989, test/MSE: 0.4058, test/RMSE: 0.6370, test/MAPE: 2.3140, test/WAPE: 0.5905]
+2026-03-10 07:35:24,339 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_005.pt saved
+2026-03-10 07:35:24,339 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:55:00
+2026-03-10 07:35:24,339 - BasicTS-training - INFO - Epoch 6 / 100
+2026-03-10 07:43:04,397 - BasicTS-training - INFO - Result <train>: [train/time: 460.06 (s), train/lr: 4.97e-04, train/loss: 0.4106, train/MAE: 0.4106, train/MSE: 0.3774, train/RMSE: 0.6144, train/MAPE: 2.3645, train/WAPE: 0.6824]
+2026-03-10 07:43:05,602 - BasicTS-training - INFO - Start validation.
+2026-03-10 07:45:19,081 - BasicTS-training - INFO - Result <val>: [val/time: 133.48 (s), val/loss: 0.4959, val/MAE: 0.4959, val/MSE: 0.5623, val/RMSE: 0.7499, val/MAPE: 2.2904, val/WAPE: 0.7038]
+2026-03-10 07:47:31,054 - BasicTS-training - INFO - Result <test>: [test/time: 131.39 (s), test/loss: 0.3975, test/MAE: 0.3975, test/MSE: 0.4003, test/RMSE: 0.6327, test/MAPE: 2.1963, test/WAPE: 0.5850]
+2026-03-10 07:47:33,782 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_006.pt saved
+2026-03-10 07:47:33,782 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:54:11
+2026-03-10 07:47:33,782 - BasicTS-training - INFO - Epoch 7 / 100
+2026-03-10 07:55:15,594 - BasicTS-training - INFO - Result <train>: [train/time: 461.81 (s), train/lr: 4.96e-04, train/loss: 0.4103, train/MAE: 0.4103, train/MSE: 0.3772, train/RMSE: 0.6142, train/MAPE: 2.3642, train/WAPE: 0.6819]
+2026-03-10 07:55:17,091 - BasicTS-training - INFO - Start validation.
+2026-03-10 07:57:31,388 - BasicTS-training - INFO - Result <val>: [val/time: 134.30 (s), val/loss: 0.4960, val/MAE: 0.4960, val/MSE: 0.5602, val/RMSE: 0.7485, val/MAPE: 2.1898, val/WAPE: 0.7020]
+2026-03-10 07:59:44,303 - BasicTS-training - INFO - Result <test>: [test/time: 131.99 (s), test/loss: 0.3958, test/MAE: 0.3958, test/MSE: 0.3962, test/RMSE: 0.6294, test/MAPE: 2.2628, test/WAPE: 0.5860]
+2026-03-10 07:59:46,468 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_007.pt saved
+2026-03-10 07:59:46,469 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:54:22
+2026-03-10 07:59:46,469 - BasicTS-training - INFO - Epoch 8 / 100
+2026-03-10 08:07:21,893 - BasicTS-training - INFO - Result <train>: [train/time: 455.42 (s), train/lr: 4.94e-04, train/loss: 0.4101, train/MAE: 0.4101, train/MSE: 0.3769, train/RMSE: 0.6140, train/MAPE: 2.3609, train/WAPE: 0.6814]
+2026-03-10 08:07:22,533 - BasicTS-training - INFO - Start validation.
+2026-03-10 08:09:36,861 - BasicTS-training - INFO - Result <val>: [val/time: 134.33 (s), val/loss: 0.4927, val/MAE: 0.4927, val/MSE: 0.5575, val/RMSE: 0.7467, val/MAPE: 2.2548, val/WAPE: 0.6995]
+2026-03-10 08:11:49,911 - BasicTS-training - INFO - Result <test>: [test/time: 131.97 (s), test/loss: 0.3938, test/MAE: 0.3938, test/MSE: 0.3944, test/RMSE: 0.6280, test/MAPE: 2.2199, test/WAPE: 0.5825]
+2026-03-10 08:11:51,755 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_008.pt saved
+2026-03-10 08:11:51,755 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:52:58
+2026-03-10 08:11:51,755 - BasicTS-training - INFO - Epoch 9 / 100
+2026-03-10 08:19:30,479 - BasicTS-training - INFO - Result <train>: [train/time: 458.72 (s), train/lr: 4.92e-04, train/loss: 0.4100, train/MAE: 0.4100, train/MSE: 0.3769, train/RMSE: 0.6139, train/MAPE: 2.3605, train/WAPE: 0.6811]
+2026-03-10 08:19:32,077 - BasicTS-training - INFO - Start validation.
+2026-03-10 08:21:48,888 - BasicTS-training - INFO - Result <val>: [val/time: 136.81 (s), val/loss: 0.4901, val/MAE: 0.4901, val/MSE: 0.5558, val/RMSE: 0.7455, val/MAPE: 2.2917, val/WAPE: 0.7012]
+2026-03-10 08:24:01,682 - BasicTS-training - INFO - Result <test>: [test/time: 131.41 (s), test/loss: 0.3981, test/MAE: 0.3981, test/MSE: 0.4014, test/RMSE: 0.6336, test/MAPE: 2.3340, test/WAPE: 0.5912]
+2026-03-10 08:24:04,175 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_009.pt saved
+2026-03-10 08:24:04,176 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:53:12
+2026-03-10 08:24:04,176 - BasicTS-training - INFO - Epoch 10 / 100
+2026-03-10 08:31:43,308 - BasicTS-training - INFO - Result <train>: [train/time: 459.13 (s), train/lr: 4.90e-04, train/loss: 0.4100, train/MAE: 0.4100, train/MSE: 0.3769, train/RMSE: 0.6139, train/MAPE: 2.3595, train/WAPE: 0.6810]
+2026-03-10 08:31:44,779 - BasicTS-training - INFO - Start validation.
+2026-03-10 08:33:57,600 - BasicTS-training - INFO - Result <val>: [val/time: 132.82 (s), val/loss: 0.5151, val/MAE: 0.5151, val/MSE: 0.5934, val/RMSE: 0.7703, val/MAPE: 2.4003, val/WAPE: 0.7274]
+2026-03-10 08:36:10,873 - BasicTS-training - INFO - Result <test>: [test/time: 131.79 (s), test/loss: 0.4242, test/MAE: 0.4242, test/MSE: 0.4324, test/RMSE: 0.6576, test/MAPE: 2.6884, test/WAPE: 0.6199]
+2026-03-10 08:36:13,613 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_010.pt saved
+2026-03-10 08:36:14,408 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:53:01
+2026-03-10 08:36:14,408 - BasicTS-training - INFO - Epoch 11 / 100
+2026-03-10 08:43:56,440 - BasicTS-training - INFO - Result <train>: [train/time: 462.03 (s), train/lr: 4.88e-04, train/loss: 0.4099, train/MAE: 0.4099, train/MSE: 0.3765, train/RMSE: 0.6136, train/MAPE: 2.3583, train/WAPE: 0.6808]
+2026-03-10 08:43:57,909 - BasicTS-training - INFO - Start validation.
+2026-03-10 08:46:10,688 - BasicTS-training - INFO - Result <val>: [val/time: 132.78 (s), val/loss: 0.4910, val/MAE: 0.4910, val/MSE: 0.5583, val/RMSE: 0.7472, val/MAPE: 2.2899, val/WAPE: 0.7027]
+2026-03-10 08:48:20,290 - BasicTS-training - INFO - Result <test>: [test/time: 128.61 (s), test/loss: 0.3954, test/MAE: 0.3954, test/MSE: 0.3983, test/RMSE: 0.6311, test/MAPE: 2.2735, test/WAPE: 0.5854]
+2026-03-10 08:48:22,828 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_011.pt saved
+2026-03-10 08:48:22,829 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:52:36
+2026-03-10 08:48:22,829 - BasicTS-training - INFO - Epoch 12 / 100
+2026-03-10 08:56:04,231 - BasicTS-training - INFO - Result <train>: [train/time: 461.40 (s), train/lr: 4.85e-04, train/loss: 0.4098, train/MAE: 0.4098, train/MSE: 0.3766, train/RMSE: 0.6137, train/MAPE: 2.3586, train/WAPE: 0.6807]
+2026-03-10 08:56:05,290 - BasicTS-training - INFO - Start validation.
+2026-03-10 08:58:21,257 - BasicTS-training - INFO - Result <val>: [val/time: 135.97 (s), val/loss: 0.4938, val/MAE: 0.4938, val/MSE: 0.5603, val/RMSE: 0.7486, val/MAPE: 2.3234, val/WAPE: 0.7058]
+2026-03-10 09:00:34,692 - BasicTS-training - INFO - Result <test>: [test/time: 132.08 (s), test/loss: 0.4048, test/MAE: 0.4048, test/MSE: 0.4095, test/RMSE: 0.6399, test/MAPE: 2.4235, test/WAPE: 0.5985]
+2026-03-10 09:00:37,084 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_012.pt saved
+2026-03-10 09:00:37,084 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:53:04
+2026-03-10 09:00:37,084 - BasicTS-training - INFO - Epoch 13 / 100
+2026-03-10 09:08:17,934 - BasicTS-training - INFO - Result <train>: [train/time: 460.85 (s), train/lr: 4.82e-04, train/loss: 0.4099, train/MAE: 0.4099, train/MSE: 0.3765, train/RMSE: 0.6136, train/MAPE: 2.3559, train/WAPE: 0.6806]
+2026-03-10 09:08:19,894 - BasicTS-training - INFO - Start validation.
+2026-03-10 09:10:33,513 - BasicTS-training - INFO - Result <val>: [val/time: 133.62 (s), val/loss: 0.4969, val/MAE: 0.4969, val/MSE: 0.5589, val/RMSE: 0.7476, val/MAPE: 2.2854, val/WAPE: 0.7054]
+2026-03-10 09:12:46,340 - BasicTS-training - INFO - Result <test>: [test/time: 131.81 (s), test/loss: 0.3990, test/MAE: 0.3990, test/MSE: 0.3968, test/RMSE: 0.6299, test/MAPE: 2.2368, test/WAPE: 0.5881]
+2026-03-10 09:12:48,107 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_013.pt saved
+2026-03-10 09:12:48,108 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:53:02
+2026-03-10 09:12:48,108 - BasicTS-training - INFO - Epoch 14 / 100
+2026-03-10 09:20:29,528 - BasicTS-training - INFO - Result <train>: [train/time: 461.42 (s), train/lr: 4.79e-04, train/loss: 0.4097, train/MAE: 0.4097, train/MSE: 0.3762, train/RMSE: 0.6134, train/MAPE: 2.3574, train/WAPE: 0.6804]
+2026-03-10 09:20:31,589 - BasicTS-training - INFO - Start validation.
+2026-03-10 09:22:45,856 - BasicTS-training - INFO - Result <val>: [val/time: 134.27 (s), val/loss: 0.4966, val/MAE: 0.4966, val/MSE: 0.5673, val/RMSE: 0.7532, val/MAPE: 2.3094, val/WAPE: 0.7092]
+2026-03-10 09:24:57,443 - BasicTS-training - INFO - Result <test>: [test/time: 129.79 (s), test/loss: 0.4066, test/MAE: 0.4066, test/MSE: 0.4129, test/RMSE: 0.6426, test/MAPE: 2.3899, test/WAPE: 0.5988]
+2026-03-10 09:24:58,805 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_014.pt saved
+2026-03-10 09:24:58,805 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:52:59
+2026-03-10 09:24:58,805 - BasicTS-training - INFO - Epoch 15 / 100
+2026-03-10 09:32:34,847 - BasicTS-training - INFO - Result <train>: [train/time: 456.04 (s), train/lr: 4.76e-04, train/loss: 0.4096, train/MAE: 0.4096, train/MSE: 0.3762, train/RMSE: 0.6133, train/MAPE: 2.3543, train/WAPE: 0.6801]
+2026-03-10 09:32:37,487 - BasicTS-training - INFO - Start validation.
+2026-03-10 09:34:50,849 - BasicTS-training - INFO - Result <val>: [val/time: 133.36 (s), val/loss: 0.4940, val/MAE: 0.4940, val/MSE: 0.5602, val/RMSE: 0.7485, val/MAPE: 2.2674, val/WAPE: 0.7039]
+2026-03-10 09:37:07,124 - BasicTS-training - INFO - Result <test>: [test/time: 135.18 (s), test/loss: 0.3995, test/MAE: 0.3995, test/MSE: 0.3988, test/RMSE: 0.6315, test/MAPE: 2.3931, test/WAPE: 0.5956]
+2026-03-10 09:37:11,558 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_015.pt saved
+2026-03-10 09:37:11,559 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:53:09
+2026-03-10 09:37:11,559 - BasicTS-training - INFO - Epoch 16 / 100
+2026-03-10 09:44:59,129 - BasicTS-training - INFO - Result <train>: [train/time: 467.57 (s), train/lr: 4.73e-04, train/loss: 0.4096, train/MAE: 0.4096, train/MSE: 0.3761, train/RMSE: 0.6133, train/MAPE: 2.3550, train/WAPE: 0.6801]
+2026-03-10 09:45:00,531 - BasicTS-training - INFO - Start validation.
+2026-03-10 09:47:11,652 - BasicTS-training - INFO - Result <val>: [val/time: 131.12 (s), val/loss: 0.4936, val/MAE: 0.4936, val/MSE: 0.5598, val/RMSE: 0.7482, val/MAPE: 2.2827, val/WAPE: 0.7028]
+2026-03-10 09:49:22,299 - BasicTS-training - INFO - Result <test>: [test/time: 129.79 (s), test/loss: 0.3983, test/MAE: 0.3983, test/MSE: 0.4008, test/RMSE: 0.6331, test/MAPE: 2.2491, test/WAPE: 0.5903]
+2026-03-10 09:49:24,428 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_016.pt saved
+2026-03-10 09:49:24,429 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:53:19
+2026-03-10 09:49:24,429 - BasicTS-training - INFO - Epoch 17 / 100
+2026-03-10 09:56:58,219 - BasicTS-training - INFO - Result <train>: [train/time: 453.79 (s), train/lr: 4.69e-04, train/loss: 0.4096, train/MAE: 0.4096, train/MSE: 0.3762, train/RMSE: 0.6133, train/MAPE: 2.3550, train/WAPE: 0.6800]
+2026-03-10 09:56:59,611 - BasicTS-training - INFO - Start validation.
+2026-03-10 09:59:12,000 - BasicTS-training - INFO - Result <val>: [val/time: 132.39 (s), val/loss: 0.4987, val/MAE: 0.4987, val/MSE: 0.5672, val/RMSE: 0.7531, val/MAPE: 2.2345, val/WAPE: 0.7067]
+2026-03-10 10:01:22,419 - BasicTS-training - INFO - Result <test>: [test/time: 128.94 (s), test/loss: 0.4033, test/MAE: 0.4033, test/MSE: 0.4090, test/RMSE: 0.6395, test/MAPE: 2.2907, test/WAPE: 0.5968]
+2026-03-10 10:01:24,538 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_017.pt saved
+2026-03-10 10:01:24,538 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:52:13
+2026-03-10 10:01:24,538 - BasicTS-training - INFO - Epoch 18 / 100
+2026-03-10 10:08:48,627 - BasicTS-training - INFO - Result <train>: [train/time: 444.09 (s), train/lr: 4.65e-04, train/loss: 0.4099, train/MAE: 0.4099, train/MSE: 0.3766, train/RMSE: 0.6137, train/MAPE: 2.3568, train/WAPE: 0.6805]
+2026-03-10 10:08:49,594 - BasicTS-training - INFO - Start validation.
+2026-03-10 10:11:00,472 - BasicTS-training - INFO - Result <val>: [val/time: 130.88 (s), val/loss: 0.4950, val/MAE: 0.4950, val/MSE: 0.5619, val/RMSE: 0.7496, val/MAPE: 2.3300, val/WAPE: 0.7090]
+2026-03-10 10:13:09,083 - BasicTS-training - INFO - Result <test>: [test/time: 127.52 (s), test/loss: 0.4040, test/MAE: 0.4040, test/MSE: 0.4100, test/RMSE: 0.6403, test/MAPE: 2.3813, test/WAPE: 0.6042]
+2026-03-10 10:13:11,037 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_018.pt saved
+2026-03-10 10:13:11,038 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:49:58
+2026-03-10 10:13:11,038 - BasicTS-training - INFO - Epoch 19 / 100
+2026-03-10 10:20:39,097 - BasicTS-training - INFO - Result <train>: [train/time: 448.06 (s), train/lr: 4.61e-04, train/loss: 0.4094, train/MAE: 0.4094, train/MSE: 0.3758, train/RMSE: 0.6130, train/MAPE: 2.3511, train/WAPE: 0.6797]
+2026-03-10 10:20:40,453 - BasicTS-training - INFO - Start validation.
+2026-03-10 10:22:51,677 - BasicTS-training - INFO - Result <val>: [val/time: 131.22 (s), val/loss: 0.4940, val/MAE: 0.4940, val/MSE: 0.5598, val/RMSE: 0.7482, val/MAPE: 2.2386, val/WAPE: 0.7032]
+2026-03-10 10:24:59,858 - BasicTS-training - INFO - Result <test>: [test/time: 126.78 (s), test/loss: 0.3982, test/MAE: 0.3982, test/MSE: 0.3996, test/RMSE: 0.6321, test/MAPE: 2.3093, test/WAPE: 0.5882]
+2026-03-10 10:25:02,054 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_019.pt saved
+2026-03-10 10:25:02,054 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:48:22
+2026-03-10 10:25:02,054 - BasicTS-training - INFO - Epoch 20 / 100
+2026-03-10 10:32:33,386 - BasicTS-training - INFO - Result <train>: [train/time: 451.33 (s), train/lr: 4.57e-04, train/loss: 0.4093, train/MAE: 0.4093, train/MSE: 0.3758, train/RMSE: 0.6130, train/MAPE: 2.3525, train/WAPE: 0.6797]
+2026-03-10 10:32:34,456 - BasicTS-training - INFO - Start validation.
+2026-03-10 10:34:44,533 - BasicTS-training - INFO - Result <val>: [val/time: 130.08 (s), val/loss: 0.4921, val/MAE: 0.4921, val/MSE: 0.5618, val/RMSE: 0.7495, val/MAPE: 2.3357, val/WAPE: 0.7044]
+2026-03-10 10:36:56,072 - BasicTS-training - INFO - Result <test>: [test/time: 130.58 (s), test/loss: 0.3975, test/MAE: 0.3975, test/MSE: 0.4039, test/RMSE: 0.6355, test/MAPE: 2.3514, test/WAPE: 0.5935]
+2026-03-10 10:36:57,699 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_020.pt saved
+2026-03-10 10:36:58,453 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:47:22
+2026-03-10 10:36:58,453 - BasicTS-training - INFO - Epoch 21 / 100
+2026-03-10 10:44:25,974 - BasicTS-training - INFO - Result <train>: [train/time: 447.52 (s), train/lr: 4.52e-04, train/loss: 0.4094, train/MAE: 0.4094, train/MSE: 0.3759, train/RMSE: 0.6131, train/MAPE: 2.3544, train/WAPE: 0.6798]
+2026-03-10 10:44:27,079 - BasicTS-training - INFO - Start validation.
+2026-03-10 10:46:36,403 - BasicTS-training - INFO - Result <val>: [val/time: 129.32 (s), val/loss: 0.4941, val/MAE: 0.4941, val/MSE: 0.5631, val/RMSE: 0.7504, val/MAPE: 2.3429, val/WAPE: 0.7082]
+2026-03-10 10:48:44,773 - BasicTS-training - INFO - Result <test>: [test/time: 127.46 (s), test/loss: 0.3988, test/MAE: 0.3988, test/MSE: 0.3997, test/RMSE: 0.6322, test/MAPE: 2.3260, test/WAPE: 0.5924]
+2026-03-10 10:48:46,863 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_021.pt saved
+2026-03-10 10:48:46,863 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:45:49
+2026-03-10 10:48:46,863 - BasicTS-training - INFO - Epoch 22 / 100
+2026-03-10 10:56:13,592 - BasicTS-training - INFO - Result <train>: [train/time: 446.73 (s), train/lr: 4.48e-04, train/loss: 0.4092, train/MAE: 0.4092, train/MSE: 0.3757, train/RMSE: 0.6129, train/MAPE: 2.3519, train/WAPE: 0.6795]
+2026-03-10 10:56:14,520 - BasicTS-training - INFO - Start validation.
+2026-03-10 10:58:25,431 - BasicTS-training - INFO - Result <val>: [val/time: 130.91 (s), val/loss: 0.5014, val/MAE: 0.5014, val/MSE: 0.5647, val/RMSE: 0.7515, val/MAPE: 2.2953, val/WAPE: 0.7091]
+2026-03-10 11:00:35,628 - BasicTS-training - INFO - Result <test>: [test/time: 128.42 (s), test/loss: 0.4030, test/MAE: 0.4030, test/MSE: 0.3996, test/RMSE: 0.6321, test/MAPE: 2.2679, test/WAPE: 0.5940]
+2026-03-10 11:00:37,764 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_022.pt saved
+2026-03-10 11:00:37,765 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:44:37
+2026-03-10 11:00:37,765 - BasicTS-training - INFO - Epoch 23 / 100
+2026-03-10 11:08:02,701 - BasicTS-training - INFO - Result <train>: [train/time: 444.94 (s), train/lr: 4.43e-04, train/loss: 0.4093, train/MAE: 0.4093, train/MSE: 0.3756, train/RMSE: 0.6129, train/MAPE: 2.3514, train/WAPE: 0.6795]
+2026-03-10 11:08:03,714 - BasicTS-training - INFO - Start validation.
+2026-03-10 11:10:15,037 - BasicTS-training - INFO - Result <val>: [val/time: 131.31 (s), val/loss: 0.4938, val/MAE: 0.4938, val/MSE: 0.5601, val/RMSE: 0.7484, val/MAPE: 2.3278, val/WAPE: 0.7047]
+2026-03-10 11:12:23,774 - BasicTS-training - INFO - Result <test>: [test/time: 128.06 (s), test/loss: 0.3956, test/MAE: 0.3956, test/MSE: 0.3976, test/RMSE: 0.6305, test/MAPE: 2.2655, test/WAPE: 0.5865]
+2026-03-10 11:12:25,624 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_023.pt saved
+2026-03-10 11:12:25,625 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:43:17
+2026-03-10 11:12:25,625 - BasicTS-training - INFO - Epoch 24 / 100
+2026-03-10 11:19:58,022 - BasicTS-training - INFO - Result <train>: [train/time: 452.40 (s), train/lr: 4.38e-04, train/loss: 0.4091, train/MAE: 0.4091, train/MSE: 0.3754, train/RMSE: 0.6127, train/MAPE: 2.3495, train/WAPE: 0.6792]
+2026-03-10 11:19:59,701 - BasicTS-training - INFO - Start validation.
+2026-03-10 11:22:10,214 - BasicTS-training - INFO - Result <val>: [val/time: 130.51 (s), val/loss: 0.5080, val/MAE: 0.5080, val/MSE: 0.5753, val/RMSE: 0.7585, val/MAPE: 2.4180, val/WAPE: 0.7181]
+2026-03-10 11:24:19,922 - BasicTS-training - INFO - Result <test>: [test/time: 128.47 (s), test/loss: 0.4134, test/MAE: 0.4134, test/MSE: 0.4170, test/RMSE: 0.6457, test/MAPE: 2.3506, test/WAPE: 0.6086]
+2026-03-10 11:24:22,428 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_024.pt saved
+2026-03-10 11:24:22,429 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:42:41
+2026-03-10 11:24:22,429 - BasicTS-training - INFO - Epoch 25 / 100
+2026-03-10 11:31:49,390 - BasicTS-training - INFO - Result <train>: [train/time: 446.96 (s), train/lr: 4.32e-04, train/loss: 0.4091, train/MAE: 0.4091, train/MSE: 0.3756, train/RMSE: 0.6129, train/MAPE: 2.3506, train/WAPE: 0.6794]
+2026-03-10 11:31:50,031 - BasicTS-training - INFO - Start validation.
+2026-03-10 11:34:00,180 - BasicTS-training - INFO - Result <val>: [val/time: 130.15 (s), val/loss: 0.5052, val/MAE: 0.5052, val/MSE: 0.5792, val/RMSE: 0.7611, val/MAPE: 2.4622, val/WAPE: 0.7208]
+2026-03-10 11:36:11,032 - BasicTS-training - INFO - Result <test>: [test/time: 129.83 (s), test/loss: 0.4082, test/MAE: 0.4082, test/MSE: 0.4154, test/RMSE: 0.6445, test/MAPE: 2.3686, test/WAPE: 0.6058]
+2026-03-10 11:36:13,126 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_025.pt saved
+2026-03-10 11:36:13,126 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:41:44
+2026-03-10 11:36:13,126 - BasicTS-training - INFO - Epoch 26 / 100
+2026-03-10 11:43:48,591 - BasicTS-training - INFO - Result <train>: [train/time: 455.46 (s), train/lr: 4.27e-04, train/loss: 0.4091, train/MAE: 0.4091, train/MSE: 0.3756, train/RMSE: 0.6129, train/MAPE: 2.3500, train/WAPE: 0.6791]
+2026-03-10 11:43:49,580 - BasicTS-training - INFO - Start validation.
+2026-03-10 11:45:59,684 - BasicTS-training - INFO - Result <val>: [val/time: 130.10 (s), val/loss: 0.4944, val/MAE: 0.4944, val/MSE: 0.5595, val/RMSE: 0.7480, val/MAPE: 2.2230, val/WAPE: 0.7020]
+2026-03-10 11:48:08,308 - BasicTS-training - INFO - Result <test>: [test/time: 127.67 (s), test/loss: 0.3957, test/MAE: 0.3957, test/MSE: 0.3954, test/RMSE: 0.6288, test/MAPE: 2.2172, test/WAPE: 0.5854]
+2026-03-10 11:48:10,302 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_026.pt saved
+2026-03-10 11:48:10,302 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:41:16
+2026-03-10 11:48:10,302 - BasicTS-training - INFO - Epoch 27 / 100
+2026-03-10 11:55:42,057 - BasicTS-training - INFO - Result <train>: [train/time: 451.75 (s), train/lr: 4.21e-04, train/loss: 0.4088, train/MAE: 0.4088, train/MSE: 0.3752, train/RMSE: 0.6126, train/MAPE: 2.3480, train/WAPE: 0.6788]
+2026-03-10 11:55:42,895 - BasicTS-training - INFO - Start validation.
+2026-03-10 11:57:53,858 - BasicTS-training - INFO - Result <val>: [val/time: 130.96 (s), val/loss: 0.4932, val/MAE: 0.4932, val/MSE: 0.5571, val/RMSE: 0.7464, val/MAPE: 2.2350, val/WAPE: 0.7016]
+2026-03-10 12:00:03,370 - BasicTS-training - INFO - Result <test>: [test/time: 128.22 (s), test/loss: 0.3984, test/MAE: 0.3984, test/MSE: 0.3964, test/RMSE: 0.6296, test/MAPE: 2.3082, test/WAPE: 0.5887]
+2026-03-10 12:00:05,472 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_027.pt saved
+2026-03-10 12:00:05,473 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:40:43
+2026-03-10 12:00:05,473 - BasicTS-training - INFO - Epoch 28 / 100
+2026-03-10 12:07:33,090 - BasicTS-training - INFO - Result <train>: [train/time: 447.62 (s), train/lr: 4.15e-04, train/loss: 0.4089, train/MAE: 0.4089, train/MSE: 0.3752, train/RMSE: 0.6125, train/MAPE: 2.3487, train/WAPE: 0.6788]
+2026-03-10 12:07:34,364 - BasicTS-training - INFO - Start validation.
+2026-03-10 12:09:45,110 - BasicTS-training - INFO - Result <val>: [val/time: 130.74 (s), val/loss: 0.5029, val/MAE: 0.5029, val/MSE: 0.5727, val/RMSE: 0.7568, val/MAPE: 2.3327, val/WAPE: 0.7151]
+2026-03-10 12:11:56,031 - BasicTS-training - INFO - Result <test>: [test/time: 129.44 (s), test/loss: 0.4085, test/MAE: 0.4085, test/MSE: 0.4102, test/RMSE: 0.6405, test/MAPE: 2.5128, test/WAPE: 0.6010]
+2026-03-10 12:11:58,327 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_028.pt saved
+2026-03-10 12:11:58,327 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:40:04
+2026-03-10 12:11:58,327 - BasicTS-training - INFO - Epoch 29 / 100
+2026-03-10 12:19:24,963 - BasicTS-training - INFO - Result <train>: [train/time: 446.64 (s), train/lr: 4.09e-04, train/loss: 0.4088, train/MAE: 0.4088, train/MSE: 0.3750, train/RMSE: 0.6124, train/MAPE: 2.3443, train/WAPE: 0.6784]
+2026-03-10 12:19:26,476 - BasicTS-training - INFO - Start validation.
+2026-03-10 12:21:36,308 - BasicTS-training - INFO - Result <val>: [val/time: 129.83 (s), val/loss: 0.4953, val/MAE: 0.4953, val/MSE: 0.5580, val/RMSE: 0.7470, val/MAPE: 2.2536, val/WAPE: 0.7022]
+2026-03-10 12:23:46,508 - BasicTS-training - INFO - Result <test>: [test/time: 129.21 (s), test/loss: 0.3992, test/MAE: 0.3992, test/MSE: 0.3996, test/RMSE: 0.6322, test/MAPE: 2.2325, test/WAPE: 0.5912]
+2026-03-10 12:23:49,251 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_029.pt saved
+2026-03-10 12:23:49,251 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:39:21
+2026-03-10 12:23:49,251 - BasicTS-training - INFO - Epoch 30 / 100
+2026-03-10 12:31:14,486 - BasicTS-training - INFO - Result <train>: [train/time: 445.23 (s), train/lr: 4.03e-04, train/loss: 0.4088, train/MAE: 0.4088, train/MSE: 0.3752, train/RMSE: 0.6125, train/MAPE: 2.3477, train/WAPE: 0.6785]
+2026-03-10 12:31:15,633 - BasicTS-training - INFO - Start validation.
+2026-03-10 12:33:25,678 - BasicTS-training - INFO - Result <val>: [val/time: 130.04 (s), val/loss: 0.4901, val/MAE: 0.4901, val/MSE: 0.5596, val/RMSE: 0.7481, val/MAPE: 2.2881, val/WAPE: 0.7027]
+2026-03-10 12:35:35,379 - BasicTS-training - INFO - Result <test>: [test/time: 128.76 (s), test/loss: 0.3969, test/MAE: 0.3969, test/MSE: 0.4022, test/RMSE: 0.6342, test/MAPE: 2.3090, test/WAPE: 0.5887]
+2026-03-10 12:35:37,812 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_030.pt saved
+2026-03-10 12:35:38,537 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:38:35
+2026-03-10 12:35:38,537 - BasicTS-training - INFO - Epoch 31 / 100
+2026-03-10 12:43:12,738 - BasicTS-training - INFO - Result <train>: [train/time: 454.20 (s), train/lr: 3.97e-04, train/loss: 0.4086, train/MAE: 0.4086, train/MSE: 0.3750, train/RMSE: 0.6123, train/MAPE: 2.3474, train/WAPE: 0.6784]
+2026-03-10 12:43:14,432 - BasicTS-training - INFO - Start validation.
+2026-03-10 12:45:25,027 - BasicTS-training - INFO - Result <val>: [val/time: 130.59 (s), val/loss: 0.5030, val/MAE: 0.5030, val/MSE: 0.5730, val/RMSE: 0.7569, val/MAPE: 2.4417, val/WAPE: 0.7151]
+2026-03-10 12:47:34,659 - BasicTS-training - INFO - Result <test>: [test/time: 128.39 (s), test/loss: 0.4070, test/MAE: 0.4070, test/MSE: 0.4105, test/RMSE: 0.6407, test/MAPE: 2.3818, test/WAPE: 0.6018]
+2026-03-10 12:47:36,036 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_031.pt saved
+2026-03-10 12:47:36,036 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:38:19
+2026-03-10 12:47:36,036 - BasicTS-training - INFO - Epoch 32 / 100
+2026-03-10 12:55:05,960 - BasicTS-training - INFO - Result <train>: [train/time: 449.92 (s), train/lr: 3.91e-04, train/loss: 0.4086, train/MAE: 0.4086, train/MSE: 0.3750, train/RMSE: 0.6123, train/MAPE: 2.3453, train/WAPE: 0.6783]
+2026-03-10 12:55:07,115 - BasicTS-training - INFO - Start validation.
+2026-03-10 12:57:18,462 - BasicTS-training - INFO - Result <val>: [val/time: 131.35 (s), val/loss: 0.5003, val/MAE: 0.5003, val/MSE: 0.5704, val/RMSE: 0.7552, val/MAPE: 2.3738, val/WAPE: 0.7142]
+2026-03-10 12:59:28,378 - BasicTS-training - INFO - Result <test>: [test/time: 129.05 (s), test/loss: 0.4032, test/MAE: 0.4032, test/MSE: 0.4048, test/RMSE: 0.6362, test/MAPE: 2.2951, test/WAPE: 0.5977]
+2026-03-10 12:59:30,186 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_032.pt saved
+2026-03-10 12:59:30,187 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:37:53
+2026-03-10 12:59:30,187 - BasicTS-training - INFO - Epoch 33 / 100
+2026-03-10 13:06:58,753 - BasicTS-training - INFO - Result <train>: [train/time: 448.57 (s), train/lr: 3.84e-04, train/loss: 0.4085, train/MAE: 0.4085, train/MSE: 0.3748, train/RMSE: 0.6122, train/MAPE: 2.3445, train/WAPE: 0.6781]
+2026-03-10 13:07:00,507 - BasicTS-training - INFO - Start validation.
+2026-03-10 13:09:08,689 - BasicTS-training - INFO - Result <val>: [val/time: 128.18 (s), val/loss: 0.4992, val/MAE: 0.4992, val/MSE: 0.5673, val/RMSE: 0.7532, val/MAPE: 2.3921, val/WAPE: 0.7098]
+2026-03-10 13:11:19,643 - BasicTS-training - INFO - Result <test>: [test/time: 130.10 (s), test/loss: 0.4057, test/MAE: 0.4057, test/MSE: 0.4091, test/RMSE: 0.6396, test/MAPE: 2.3737, test/WAPE: 0.6012]
+2026-03-10 13:11:21,943 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_033.pt saved
+2026-03-10 13:11:21,943 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:37:22
+2026-03-10 13:11:21,943 - BasicTS-training - INFO - Epoch 34 / 100
+2026-03-10 13:18:49,511 - BasicTS-training - INFO - Result <train>: [train/time: 447.57 (s), train/lr: 3.77e-04, train/loss: 0.4085, train/MAE: 0.4085, train/MSE: 0.3749, train/RMSE: 0.6123, train/MAPE: 2.3452, train/WAPE: 0.6782]
+2026-03-10 13:18:50,639 - BasicTS-training - INFO - Start validation.
+2026-03-10 13:21:00,750 - BasicTS-training - INFO - Result <val>: [val/time: 130.11 (s), val/loss: 0.4986, val/MAE: 0.4986, val/MSE: 0.5606, val/RMSE: 0.7488, val/MAPE: 2.1844, val/WAPE: 0.7031]
+2026-03-10 13:23:12,102 - BasicTS-training - INFO - Result <test>: [test/time: 130.24 (s), test/loss: 0.4015, test/MAE: 0.4015, test/MSE: 0.3978, test/RMSE: 0.6307, test/MAPE: 2.2522, test/WAPE: 0.5937]
+2026-03-10 13:23:15,025 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_034.pt saved
+2026-03-10 13:23:15,025 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:36:56
+2026-03-10 13:23:15,025 - BasicTS-training - INFO - Epoch 35 / 100
+2026-03-10 13:30:40,829 - BasicTS-training - INFO - Result <train>: [train/time: 445.80 (s), train/lr: 3.70e-04, train/loss: 0.4085, train/MAE: 0.4085, train/MSE: 0.3748, train/RMSE: 0.6122, train/MAPE: 2.3448, train/WAPE: 0.6780]
+2026-03-10 13:30:42,820 - BasicTS-training - INFO - Start validation.
+2026-03-10 13:32:53,018 - BasicTS-training - INFO - Result <val>: [val/time: 130.20 (s), val/loss: 0.5085, val/MAE: 0.5085, val/MSE: 0.5739, val/RMSE: 0.7575, val/MAPE: 2.3275, val/WAPE: 0.7181]
+2026-03-10 13:35:03,548 - BasicTS-training - INFO - Result <test>: [test/time: 129.34 (s), test/loss: 0.4180, test/MAE: 0.4180, test/MSE: 0.4152, test/RMSE: 0.6443, test/MAPE: 2.6250, test/WAPE: 0.6181]
+2026-03-10 13:35:06,349 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_035.pt saved
+2026-03-10 13:35:06,349 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:36:27
+2026-03-10 13:35:06,349 - BasicTS-training - INFO - Epoch 36 / 100
+2026-03-10 13:42:33,017 - BasicTS-training - INFO - Result <train>: [train/time: 446.67 (s), train/lr: 3.63e-04, train/loss: 0.4084, train/MAE: 0.4084, train/MSE: 0.3749, train/RMSE: 0.6123, train/MAPE: 2.3432, train/WAPE: 0.6780]
+2026-03-10 13:42:34,456 - BasicTS-training - INFO - Start validation.
+2026-03-10 13:44:43,884 - BasicTS-training - INFO - Result <val>: [val/time: 129.43 (s), val/loss: 0.5066, val/MAE: 0.5066, val/MSE: 0.5753, val/RMSE: 0.7585, val/MAPE: 2.4251, val/WAPE: 0.7197]
+2026-03-10 13:46:54,907 - BasicTS-training - INFO - Result <test>: [test/time: 129.98 (s), test/loss: 0.4133, test/MAE: 0.4133, test/MSE: 0.4162, test/RMSE: 0.6452, test/MAPE: 2.4656, test/WAPE: 0.6160]
+2026-03-10 13:46:57,589 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_036.pt saved
+2026-03-10 13:46:57,590 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:35:59
+2026-03-10 13:46:57,590 - BasicTS-training - INFO - Epoch 37 / 100
+2026-03-10 13:54:24,512 - BasicTS-training - INFO - Result <train>: [train/time: 446.92 (s), train/lr: 3.56e-04, train/loss: 0.4084, train/MAE: 0.4084, train/MSE: 0.3749, train/RMSE: 0.6123, train/MAPE: 2.3466, train/WAPE: 0.6781]
+2026-03-10 13:54:26,092 - BasicTS-training - INFO - Start validation.
+2026-03-10 13:56:36,451 - BasicTS-training - INFO - Result <val>: [val/time: 130.36 (s), val/loss: 0.5018, val/MAE: 0.5018, val/MSE: 0.5738, val/RMSE: 0.7575, val/MAPE: 2.2927, val/WAPE: 0.7142]
+2026-03-10 13:58:47,833 - BasicTS-training - INFO - Result <test>: [test/time: 130.08 (s), test/loss: 0.4075, test/MAE: 0.4075, test/MSE: 0.4102, test/RMSE: 0.6405, test/MAPE: 2.3731, test/WAPE: 0.5976]
+2026-03-10 13:58:50,366 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_037.pt saved
+2026-03-10 13:58:50,367 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:35:37
+2026-03-10 13:58:50,367 - BasicTS-training - INFO - Epoch 38 / 100
+2026-03-10 14:06:18,866 - BasicTS-training - INFO - Result <train>: [train/time: 448.50 (s), train/lr: 3.49e-04, train/loss: 0.4082, train/MAE: 0.4082, train/MSE: 0.3745, train/RMSE: 0.6120, train/MAPE: 2.3429, train/WAPE: 0.6778]
+2026-03-10 14:06:20,443 - BasicTS-training - INFO - Start validation.
+2026-03-10 14:08:29,031 - BasicTS-training - INFO - Result <val>: [val/time: 128.59 (s), val/loss: 0.5110, val/MAE: 0.5110, val/MSE: 0.5857, val/RMSE: 0.7653, val/MAPE: 2.3621, val/WAPE: 0.7240]
+2026-03-10 14:10:39,991 - BasicTS-training - INFO - Result <test>: [test/time: 129.97 (s), test/loss: 0.4107, test/MAE: 0.4107, test/MSE: 0.4157, test/RMSE: 0.6448, test/MAPE: 2.2320, test/WAPE: 0.6096]
+2026-03-10 14:10:41,671 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_038.pt saved
+2026-03-10 14:10:41,672 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:35:12
+2026-03-10 14:10:41,672 - BasicTS-training - INFO - Epoch 39 / 100
+2026-03-10 14:18:14,126 - BasicTS-training - INFO - Result <train>: [train/time: 452.45 (s), train/lr: 3.42e-04, train/loss: 0.4082, train/MAE: 0.4082, train/MSE: 0.3744, train/RMSE: 0.6119, train/MAPE: 2.3448, train/WAPE: 0.6778]
+2026-03-10 14:18:15,574 - BasicTS-training - INFO - Start validation.
+2026-03-10 14:20:25,376 - BasicTS-training - INFO - Result <val>: [val/time: 129.80 (s), val/loss: 0.5061, val/MAE: 0.5061, val/MSE: 0.5794, val/RMSE: 0.7612, val/MAPE: 2.3522, val/WAPE: 0.7208]
+2026-03-10 14:22:37,457 - BasicTS-training - INFO - Result <test>: [test/time: 130.41 (s), test/loss: 0.4138, test/MAE: 0.4138, test/MSE: 0.4186, test/RMSE: 0.6470, test/MAPE: 2.4466, test/WAPE: 0.6070]
+2026-03-10 14:22:40,195 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_039.pt saved
+2026-03-10 14:22:40,196 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:35:07
+2026-03-10 14:22:40,196 - BasicTS-training - INFO - Epoch 40 / 100
+2026-03-10 14:30:08,905 - BasicTS-training - INFO - Result <train>: [train/time: 448.71 (s), train/lr: 3.35e-04, train/loss: 0.4083, train/MAE: 0.4083, train/MSE: 0.3747, train/RMSE: 0.6121, train/MAPE: 2.3436, train/WAPE: 0.6778]
+2026-03-10 14:30:10,275 - BasicTS-training - INFO - Start validation.
+2026-03-10 14:32:19,487 - BasicTS-training - INFO - Result <val>: [val/time: 129.21 (s), val/loss: 0.4897, val/MAE: 0.4897, val/MSE: 0.5555, val/RMSE: 0.7453, val/MAPE: 2.2789, val/WAPE: 0.7011]
+2026-03-10 14:34:31,907 - BasicTS-training - INFO - Result <test>: [test/time: 131.39 (s), test/loss: 0.3973, test/MAE: 0.3973, test/MSE: 0.3978, test/RMSE: 0.6307, test/MAPE: 2.3583, test/WAPE: 0.5927]
+2026-03-10 14:34:35,098 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_040.pt saved
+2026-03-10 14:34:36,042 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:34:55
+2026-03-10 14:34:36,042 - BasicTS-training - INFO - Epoch 41 / 100
+2026-03-10 14:42:02,294 - BasicTS-training - INFO - Result <train>: [train/time: 446.25 (s), train/lr: 3.27e-04, train/loss: 0.4080, train/MAE: 0.4080, train/MSE: 0.3742, train/RMSE: 0.6118, train/MAPE: 2.3422, train/WAPE: 0.6774]
+2026-03-10 14:42:03,983 - BasicTS-training - INFO - Start validation.
+2026-03-10 14:44:13,900 - BasicTS-training - INFO - Result <val>: [val/time: 129.92 (s), val/loss: 0.4980, val/MAE: 0.4980, val/MSE: 0.5713, val/RMSE: 0.7558, val/MAPE: 2.3331, val/WAPE: 0.7134]
+2026-03-10 14:46:25,753 - BasicTS-training - INFO - Result <test>: [test/time: 130.59 (s), test/loss: 0.4036, test/MAE: 0.4036, test/MSE: 0.4113, test/RMSE: 0.6414, test/MAPE: 2.3154, test/WAPE: 0.5998]
+2026-03-10 14:46:28,048 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_041.pt saved
+2026-03-10 14:46:28,048 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:34:35
+2026-03-10 14:46:28,048 - BasicTS-training - INFO - Epoch 42 / 100
+2026-03-10 14:53:55,117 - BasicTS-training - INFO - Result <train>: [train/time: 447.07 (s), train/lr: 3.20e-04, train/loss: 0.4081, train/MAE: 0.4081, train/MSE: 0.3744, train/RMSE: 0.6119, train/MAPE: 2.3432, train/WAPE: 0.6775]
+2026-03-10 14:53:57,160 - BasicTS-training - INFO - Start validation.
+2026-03-10 14:56:06,660 - BasicTS-training - INFO - Result <val>: [val/time: 129.50 (s), val/loss: 0.5214, val/MAE: 0.5214, val/MSE: 0.6041, val/RMSE: 0.7772, val/MAPE: 2.5630, val/WAPE: 0.7367]
+2026-03-10 14:58:15,761 - BasicTS-training - INFO - Result <test>: [test/time: 128.25 (s), test/loss: 0.4270, test/MAE: 0.4270, test/MSE: 0.4430, test/RMSE: 0.6656, test/MAPE: 2.5189, test/WAPE: 0.6273]
+2026-03-10 14:58:18,580 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_042.pt saved
+2026-03-10 14:58:18,581 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:34:12
+2026-03-10 14:58:18,581 - BasicTS-training - INFO - Epoch 43 / 100
+2026-03-10 15:05:48,751 - BasicTS-training - INFO - Result <train>: [train/time: 450.17 (s), train/lr: 3.12e-04, train/loss: 0.4079, train/MAE: 0.4079, train/MSE: 0.3741, train/RMSE: 0.6116, train/MAPE: 2.3400, train/WAPE: 0.6772]
+2026-03-10 15:05:50,339 - BasicTS-training - INFO - Start validation.
+2026-03-10 15:07:59,807 - BasicTS-training - INFO - Result <val>: [val/time: 129.47 (s), val/loss: 0.4937, val/MAE: 0.4937, val/MSE: 0.5619, val/RMSE: 0.7496, val/MAPE: 2.2749, val/WAPE: 0.7044]
+2026-03-10 15:10:12,302 - BasicTS-training - INFO - Result <test>: [test/time: 130.82 (s), test/loss: 0.3977, test/MAE: 0.3977, test/MSE: 0.4005, test/RMSE: 0.6328, test/MAPE: 2.2449, test/WAPE: 0.5908]
+2026-03-10 15:10:14,439 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_043.pt saved
+2026-03-10 15:10:14,439 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:34:03
+2026-03-10 15:10:14,439 - BasicTS-training - INFO - Epoch 44 / 100
+2026-03-10 15:17:40,092 - BasicTS-training - INFO - Result <train>: [train/time: 445.65 (s), train/lr: 3.05e-04, train/loss: 0.4080, train/MAE: 0.4080, train/MSE: 0.3742, train/RMSE: 0.6117, train/MAPE: 2.3430, train/WAPE: 0.6773]
+2026-03-10 15:17:40,828 - BasicTS-training - INFO - Start validation.
+2026-03-10 15:19:51,077 - BasicTS-training - INFO - Result <val>: [val/time: 130.25 (s), val/loss: 0.5017, val/MAE: 0.5017, val/MSE: 0.5728, val/RMSE: 0.7568, val/MAPE: 2.1935, val/WAPE: 0.7049]
+2026-03-10 15:22:03,284 - BasicTS-training - INFO - Result <test>: [test/time: 131.21 (s), test/loss: 0.4023, test/MAE: 0.4023, test/MSE: 0.4073, test/RMSE: 0.6382, test/MAPE: 2.2416, test/WAPE: 0.5894]
+2026-03-10 15:22:05,754 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_044.pt saved
+2026-03-10 15:22:05,755 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:33:43
+2026-03-10 15:22:05,755 - BasicTS-training - INFO - Epoch 45 / 100
+2026-03-10 15:29:30,176 - BasicTS-training - INFO - Result <train>: [train/time: 444.42 (s), train/lr: 2.97e-04, train/loss: 0.4078, train/MAE: 0.4078, train/MSE: 0.3740, train/RMSE: 0.6115, train/MAPE: 2.3414, train/WAPE: 0.6771]
+2026-03-10 15:29:31,704 - BasicTS-training - INFO - Start validation.
+2026-03-10 15:31:42,533 - BasicTS-training - INFO - Result <val>: [val/time: 130.83 (s), val/loss: 0.4998, val/MAE: 0.4998, val/MSE: 0.5697, val/RMSE: 0.7548, val/MAPE: 2.2429, val/WAPE: 0.7090]
+2026-03-10 15:33:53,942 - BasicTS-training - INFO - Result <test>: [test/time: 130.32 (s), test/loss: 0.3994, test/MAE: 0.3994, test/MSE: 0.4012, test/RMSE: 0.6334, test/MAPE: 2.2000, test/WAPE: 0.5891]
+2026-03-10 15:33:55,891 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_045.pt saved
+2026-03-10 15:33:55,892 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:33:22
+2026-03-10 15:33:55,892 - BasicTS-training - INFO - Epoch 46 / 100
+2026-03-10 15:41:21,875 - BasicTS-training - INFO - Result <train>: [train/time: 445.98 (s), train/lr: 2.89e-04, train/loss: 0.4077, train/MAE: 0.4077, train/MSE: 0.3740, train/RMSE: 0.6115, train/MAPE: 2.3397, train/WAPE: 0.6768]
+2026-03-10 15:41:22,984 - BasicTS-training - INFO - Start validation.
+2026-03-10 15:43:30,458 - BasicTS-training - INFO - Result <val>: [val/time: 127.47 (s), val/loss: 0.4961, val/MAE: 0.4961, val/MSE: 0.5629, val/RMSE: 0.7503, val/MAPE: 2.3012, val/WAPE: 0.7062]
+2026-03-10 15:45:39,766 - BasicTS-training - INFO - Result <test>: [test/time: 128.01 (s), test/loss: 0.4046, test/MAE: 0.4046, test/MSE: 0.4088, test/RMSE: 0.6394, test/MAPE: 2.3312, test/WAPE: 0.5982]
+2026-03-10 15:45:42,157 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_046.pt saved
+2026-03-10 15:45:42,159 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:32:54
+2026-03-10 15:45:42,159 - BasicTS-training - INFO - Epoch 47 / 100
+2026-03-10 15:53:11,876 - BasicTS-training - INFO - Result <train>: [train/time: 449.72 (s), train/lr: 2.81e-04, train/loss: 0.4078, train/MAE: 0.4078, train/MSE: 0.3740, train/RMSE: 0.6116, train/MAPE: 2.3396, train/WAPE: 0.6770]
+2026-03-10 15:53:13,324 - BasicTS-training - INFO - Start validation.
+2026-03-10 15:55:23,780 - BasicTS-training - INFO - Result <val>: [val/time: 130.45 (s), val/loss: 0.4885, val/MAE: 0.4885, val/MSE: 0.5526, val/RMSE: 0.7433, val/MAPE: 2.2638, val/WAPE: 0.6981]
+2026-03-10 15:57:31,426 - BasicTS-training - INFO - Result <test>: [test/time: 126.61 (s), test/loss: 0.3969, test/MAE: 0.3969, test/MSE: 0.3955, test/RMSE: 0.6289, test/MAPE: 2.3793, test/WAPE: 0.5894]
+2026-03-10 15:57:32,781 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_047.pt saved
+2026-03-10 15:57:32,782 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:32:36
+2026-03-10 15:57:32,782 - BasicTS-training - INFO - Epoch 48 / 100
+2026-03-10 16:04:56,407 - BasicTS-training - INFO - Result <train>: [train/time: 443.63 (s), train/lr: 2.74e-04, train/loss: 0.4077, train/MAE: 0.4077, train/MSE: 0.3738, train/RMSE: 0.6114, train/MAPE: 2.3387, train/WAPE: 0.6768]
+2026-03-10 16:04:57,480 - BasicTS-training - INFO - Start validation.
+2026-03-10 16:07:06,577 - BasicTS-training - INFO - Result <val>: [val/time: 129.10 (s), val/loss: 0.5155, val/MAE: 0.5155, val/MSE: 0.5996, val/RMSE: 0.7744, val/MAPE: 2.2788, val/WAPE: 0.7246]
+2026-03-10 16:09:17,219 - BasicTS-training - INFO - Result <test>: [test/time: 129.10 (s), test/loss: 0.4135, test/MAE: 0.4135, test/MSE: 0.4260, test/RMSE: 0.6527, test/MAPE: 2.2679, test/WAPE: 0.6022]
+2026-03-10 16:09:19,554 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_048.pt saved
+2026-03-10 16:09:19,554 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:32:10
+2026-03-10 16:09:19,554 - BasicTS-training - INFO - Epoch 49 / 100
+2026-03-10 16:16:43,960 - BasicTS-training - INFO - Result <train>: [train/time: 444.41 (s), train/lr: 2.66e-04, train/loss: 0.4076, train/MAE: 0.4076, train/MSE: 0.3739, train/RMSE: 0.6115, train/MAPE: 2.3408, train/WAPE: 0.6768]
+2026-03-10 16:16:45,207 - BasicTS-training - INFO - Start validation.
+2026-03-10 16:18:52,489 - BasicTS-training - INFO - Result <val>: [val/time: 127.28 (s), val/loss: 0.5266, val/MAE: 0.5266, val/MSE: 0.5927, val/RMSE: 0.7699, val/MAPE: 2.3399, val/WAPE: 0.7351]
+2026-03-10 16:21:00,946 - BasicTS-training - INFO - Result <test>: [test/time: 127.40 (s), test/loss: 0.4308, test/MAE: 0.4308, test/MSE: 0.4257, test/RMSE: 0.6524, test/MAPE: 2.4117, test/WAPE: 0.6321]
+2026-03-10 16:21:03,925 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_049.pt saved
+2026-03-10 16:21:03,925 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:31:41
+2026-03-10 16:21:03,926 - BasicTS-training - INFO - Epoch 50 / 100
+2026-03-10 16:28:29,948 - BasicTS-training - INFO - Result <train>: [train/time: 446.02 (s), train/lr: 2.58e-04, train/loss: 0.4075, train/MAE: 0.4075, train/MSE: 0.3735, train/RMSE: 0.6112, train/MAPE: 2.3375, train/WAPE: 0.6765]
+2026-03-10 16:28:31,320 - BasicTS-training - INFO - Start validation.
+2026-03-10 16:30:43,356 - BasicTS-training - INFO - Result <val>: [val/time: 132.03 (s), val/loss: 0.5097, val/MAE: 0.5097, val/MSE: 0.5757, val/RMSE: 0.7587, val/MAPE: 2.3000, val/WAPE: 0.7232]
+2026-03-10 16:32:54,220 - BasicTS-training - INFO - Result <test>: [test/time: 129.61 (s), test/loss: 0.4161, test/MAE: 0.4161, test/MSE: 0.4139, test/RMSE: 0.6434, test/MAPE: 2.4489, test/WAPE: 0.6217]
+2026-03-10 16:32:56,193 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_050.pt saved
+2026-03-10 16:32:57,098 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:31:31
+2026-03-10 16:32:57,098 - BasicTS-training - INFO - Epoch 51 / 100
+2026-03-10 16:40:20,149 - BasicTS-training - INFO - Result <train>: [train/time: 443.05 (s), train/lr: 2.50e-04, train/loss: 0.4074, train/MAE: 0.4074, train/MSE: 0.3737, train/RMSE: 0.6113, train/MAPE: 2.3373, train/WAPE: 0.6766]
+2026-03-10 16:40:21,124 - BasicTS-training - INFO - Start validation.
+2026-03-10 16:42:30,895 - BasicTS-training - INFO - Result <val>: [val/time: 129.77 (s), val/loss: 0.5452, val/MAE: 0.5452, val/MSE: 0.6412, val/RMSE: 0.8007, val/MAPE: 2.4675, val/WAPE: 0.7728]
+2026-03-10 16:44:39,621 - BasicTS-training - INFO - Result <test>: [test/time: 127.34 (s), test/loss: 0.4426, test/MAE: 0.4426, test/MSE: 0.4557, test/RMSE: 0.6751, test/MAPE: 2.3433, test/WAPE: 0.6622]
+2026-03-10 16:44:41,330 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_051.pt saved
+2026-03-10 16:44:41,330 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:31:03
+2026-03-10 16:44:41,330 - BasicTS-training - INFO - Epoch 52 / 100
+2026-03-10 16:52:08,783 - BasicTS-training - INFO - Result <train>: [train/time: 447.45 (s), train/lr: 2.42e-04, train/loss: 0.4073, train/MAE: 0.4073, train/MSE: 0.3734, train/RMSE: 0.6111, train/MAPE: 2.3365, train/WAPE: 0.6764]
+2026-03-10 16:52:10,231 - BasicTS-training - INFO - Start validation.
+2026-03-10 16:54:19,946 - BasicTS-training - INFO - Result <val>: [val/time: 129.71 (s), val/loss: 0.5284, val/MAE: 0.5284, val/MSE: 0.6134, val/RMSE: 0.7832, val/MAPE: 2.5975, val/WAPE: 0.7509]
+2026-03-10 16:56:28,275 - BasicTS-training - INFO - Result <test>: [test/time: 126.87 (s), test/loss: 0.4333, test/MAE: 0.4333, test/MSE: 0.4478, test/RMSE: 0.6692, test/MAPE: 2.5156, test/WAPE: 0.6426]
+2026-03-10 16:56:30,573 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_052.pt saved
+2026-03-10 16:56:30,574 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:30:46
+2026-03-10 16:56:30,574 - BasicTS-training - INFO - Epoch 53 / 100
+2026-03-10 17:03:53,221 - BasicTS-training - INFO - Result <train>: [train/time: 442.65 (s), train/lr: 2.34e-04, train/loss: 0.4072, train/MAE: 0.4072, train/MSE: 0.3732, train/RMSE: 0.6109, train/MAPE: 2.3371, train/WAPE: 0.6761]
+2026-03-10 17:03:54,440 - BasicTS-training - INFO - Start validation.
+2026-03-10 17:06:03,475 - BasicTS-training - INFO - Result <val>: [val/time: 129.03 (s), val/loss: 0.6517, val/MAE: 0.6517, val/MSE: 0.8602, val/RMSE: 0.9275, val/MAPE: 3.3438, val/WAPE: 0.8835]
+2026-03-10 17:08:12,796 - BasicTS-training - INFO - Result <test>: [test/time: 127.71 (s), test/loss: 0.5722, test/MAE: 0.5722, test/MSE: 0.7141, test/RMSE: 0.8450, test/MAPE: 3.6367, test/WAPE: 0.7994]
+2026-03-10 17:08:14,744 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_053.pt saved
+2026-03-10 17:08:14,745 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:30:20
+2026-03-10 17:08:14,745 - BasicTS-training - INFO - Epoch 54 / 100
+2026-03-10 17:15:43,755 - BasicTS-training - INFO - Result <train>: [train/time: 449.01 (s), train/lr: 2.26e-04, train/loss: 0.4073, train/MAE: 0.4073, train/MSE: 0.3735, train/RMSE: 0.6112, train/MAPE: 2.3360, train/WAPE: 0.6763]
+2026-03-10 17:15:45,202 - BasicTS-training - INFO - Start validation.
+2026-03-10 17:17:52,641 - BasicTS-training - INFO - Result <val>: [val/time: 127.44 (s), val/loss: 0.5171, val/MAE: 0.5171, val/MSE: 0.5952, val/RMSE: 0.7715, val/MAPE: 2.3606, val/WAPE: 0.7353]
+2026-03-10 17:20:00,647 - BasicTS-training - INFO - Result <test>: [test/time: 127.30 (s), test/loss: 0.4197, test/MAE: 0.4197, test/MSE: 0.4256, test/RMSE: 0.6524, test/MAPE: 2.2689, test/WAPE: 0.6215]
+2026-03-10 17:20:03,478 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_054.pt saved
+2026-03-10 17:20:03,478 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:30:04
+2026-03-10 17:20:03,478 - BasicTS-training - INFO - Epoch 55 / 100
+2026-03-10 17:27:28,318 - BasicTS-training - INFO - Result <train>: [train/time: 444.84 (s), train/lr: 2.19e-04, train/loss: 0.4070, train/MAE: 0.4070, train/MSE: 0.3731, train/RMSE: 0.6108, train/MAPE: 2.3339, train/WAPE: 0.6759]
+2026-03-10 17:27:29,867 - BasicTS-training - INFO - Start validation.
+2026-03-10 17:29:39,790 - BasicTS-training - INFO - Result <val>: [val/time: 129.92 (s), val/loss: 0.6373, val/MAE: 0.6373, val/MSE: 0.8031, val/RMSE: 0.8962, val/MAPE: 3.1318, val/WAPE: 0.8630]
+2026-03-10 17:31:52,041 - BasicTS-training - INFO - Result <test>: [test/time: 130.91 (s), test/loss: 0.5538, test/MAE: 0.5538, test/MSE: 0.6439, test/RMSE: 0.8024, test/MAPE: 3.4946, test/WAPE: 0.7813]
+2026-03-10 17:31:54,173 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_055.pt saved
+2026-03-10 17:31:54,174 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:29:52
+2026-03-10 17:31:54,174 - BasicTS-training - INFO - Epoch 56 / 100
+2026-03-10 17:39:14,401 - BasicTS-training - INFO - Result <train>: [train/time: 440.23 (s), train/lr: 2.11e-04, train/loss: 0.4071, train/MAE: 0.4071, train/MSE: 0.3732, train/RMSE: 0.6109, train/MAPE: 2.3354, train/WAPE: 0.6759]
+2026-03-10 17:39:15,535 - BasicTS-training - INFO - Start validation.
+2026-03-10 17:41:23,903 - BasicTS-training - INFO - Result <val>: [val/time: 128.37 (s), val/loss: 0.5388, val/MAE: 0.5388, val/MSE: 0.6163, val/RMSE: 0.7850, val/MAPE: 2.6197, val/WAPE: 0.7513]
+2026-03-10 17:43:32,871 - BasicTS-training - INFO - Result <test>: [test/time: 127.76 (s), test/loss: 0.4504, test/MAE: 0.4504, test/MSE: 0.4581, test/RMSE: 0.6769, test/MAPE: 2.6447, test/WAPE: 0.6487]
+2026-03-10 17:43:35,844 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_056.pt saved
+2026-03-10 17:43:35,845 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:29:24
+2026-03-10 17:43:35,845 - BasicTS-training - INFO - Epoch 57 / 100
+2026-03-10 17:51:02,672 - BasicTS-training - INFO - Result <train>: [train/time: 446.83 (s), train/lr: 2.03e-04, train/loss: 0.4068, train/MAE: 0.4068, train/MSE: 0.3729, train/RMSE: 0.6106, train/MAPE: 2.3344, train/WAPE: 0.6756]
+2026-03-10 17:51:03,499 - BasicTS-training - INFO - Start validation.
+2026-03-10 17:53:12,381 - BasicTS-training - INFO - Result <val>: [val/time: 128.88 (s), val/loss: 0.5231, val/MAE: 0.5231, val/MSE: 0.6059, val/RMSE: 0.7784, val/MAPE: 2.3897, val/WAPE: 0.7442]
+2026-03-10 17:55:19,921 - BasicTS-training - INFO - Result <test>: [test/time: 126.26 (s), test/loss: 0.4293, test/MAE: 0.4293, test/MSE: 0.4386, test/RMSE: 0.6623, test/MAPE: 2.4227, test/WAPE: 0.6316]
+2026-03-10 17:55:21,750 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_057.pt saved
+2026-03-10 17:55:21,751 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:29:04
+2026-03-10 17:55:21,751 - BasicTS-training - INFO - Epoch 58 / 100
+2026-03-10 18:02:43,895 - BasicTS-training - INFO - Result <train>: [train/time: 442.14 (s), train/lr: 1.95e-04, train/loss: 0.4067, train/MAE: 0.4067, train/MSE: 0.3726, train/RMSE: 0.6104, train/MAPE: 2.3321, train/WAPE: 0.6753]
+2026-03-10 18:02:44,797 - BasicTS-training - INFO - Start validation.
+2026-03-10 18:04:52,719 - BasicTS-training - INFO - Result <val>: [val/time: 127.92 (s), val/loss: 0.4925, val/MAE: 0.4925, val/MSE: 0.5582, val/RMSE: 0.7471, val/MAPE: 2.3113, val/WAPE: 0.7036]
+2026-03-10 18:07:01,707 - BasicTS-training - INFO - Result <test>: [test/time: 127.84 (s), test/loss: 0.4025, test/MAE: 0.4025, test/MSE: 0.3997, test/RMSE: 0.6322, test/MAPE: 2.4786, test/WAPE: 0.5951]
+2026-03-10 18:07:03,863 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_058.pt saved
+2026-03-10 18:07:03,864 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:28:39
+2026-03-10 18:07:03,864 - BasicTS-training - INFO - Epoch 59 / 100
+2026-03-10 18:14:35,213 - BasicTS-training - INFO - Result <train>: [train/time: 451.35 (s), train/lr: 1.88e-04, train/loss: 0.4068, train/MAE: 0.4068, train/MSE: 0.3728, train/RMSE: 0.6106, train/MAPE: 2.3340, train/WAPE: 0.6755]
+2026-03-10 18:14:35,946 - BasicTS-training - INFO - Start validation.
+2026-03-10 18:16:42,735 - BasicTS-training - INFO - Result <val>: [val/time: 126.79 (s), val/loss: 0.4971, val/MAE: 0.4971, val/MSE: 0.5639, val/RMSE: 0.7509, val/MAPE: 2.3147, val/WAPE: 0.7095]
+2026-03-10 18:18:50,437 - BasicTS-training - INFO - Result <test>: [test/time: 126.70 (s), test/loss: 0.4076, test/MAE: 0.4076, test/MSE: 0.4058, test/RMSE: 0.6371, test/MAPE: 2.4671, test/WAPE: 0.5989]
+2026-03-10 18:18:52,874 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_059.pt saved
+2026-03-10 18:18:52,875 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:28:26
+2026-03-10 18:18:52,875 - BasicTS-training - INFO - Epoch 60 / 100
+2026-03-10 18:26:18,091 - BasicTS-training - INFO - Result <train>: [train/time: 445.22 (s), train/lr: 1.80e-04, train/loss: 0.4066, train/MAE: 0.4066, train/MSE: 0.3725, train/RMSE: 0.6103, train/MAPE: 2.3324, train/WAPE: 0.6752]
+2026-03-10 18:26:19,200 - BasicTS-training - INFO - Start validation.
+2026-03-10 18:28:28,104 - BasicTS-training - INFO - Result <val>: [val/time: 128.90 (s), val/loss: 0.5171, val/MAE: 0.5171, val/MSE: 0.5942, val/RMSE: 0.7709, val/MAPE: 2.3033, val/WAPE: 0.7255]
+2026-03-10 18:30:40,281 - BasicTS-training - INFO - Result <test>: [test/time: 130.96 (s), test/loss: 0.4179, test/MAE: 0.4179, test/MSE: 0.4236, test/RMSE: 0.6508, test/MAPE: 2.4928, test/WAPE: 0.6129]
+2026-03-10 18:30:42,736 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_060.pt saved
+2026-03-10 18:30:43,537 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:28:16
+2026-03-10 18:30:43,538 - BasicTS-training - INFO - Epoch 61 / 100
+2026-03-10 18:38:07,443 - BasicTS-training - INFO - Result <train>: [train/time: 443.91 (s), train/lr: 1.73e-04, train/loss: 0.4068, train/MAE: 0.4068, train/MSE: 0.3728, train/RMSE: 0.6106, train/MAPE: 2.3344, train/WAPE: 0.6755]
+2026-03-10 18:38:08,846 - BasicTS-training - INFO - Start validation.
+2026-03-10 18:40:17,294 - BasicTS-training - INFO - Result <val>: [val/time: 128.45 (s), val/loss: 0.4942, val/MAE: 0.4942, val/MSE: 0.5614, val/RMSE: 0.7493, val/MAPE: 2.2824, val/WAPE: 0.7034]
+2026-03-10 18:42:26,945 - BasicTS-training - INFO - Result <test>: [test/time: 128.37 (s), test/loss: 0.4014, test/MAE: 0.4014, test/MSE: 0.4009, test/RMSE: 0.6332, test/MAPE: 2.4264, test/WAPE: 0.5918]
+2026-03-10 18:42:29,034 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_061.pt saved
+2026-03-10 18:42:29,034 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:27:59
+2026-03-10 18:42:29,034 - BasicTS-training - INFO - Epoch 62 / 100
+2026-03-10 18:50:00,039 - BasicTS-training - INFO - Result <train>: [train/time: 451.00 (s), train/lr: 1.65e-04, train/loss: 0.4065, train/MAE: 0.4065, train/MSE: 0.3724, train/RMSE: 0.6103, train/MAPE: 2.3324, train/WAPE: 0.6751]
+2026-03-10 18:50:01,084 - BasicTS-training - INFO - Start validation.
+2026-03-10 18:52:11,859 - BasicTS-training - INFO - Result <val>: [val/time: 130.77 (s), val/loss: 0.4993, val/MAE: 0.4993, val/MSE: 0.5627, val/RMSE: 0.7501, val/MAPE: 2.2835, val/WAPE: 0.7096]
+2026-03-10 18:54:20,344 - BasicTS-training - INFO - Result <test>: [test/time: 127.78 (s), test/loss: 0.4048, test/MAE: 0.4048, test/MSE: 0.4010, test/RMSE: 0.6332, test/MAPE: 2.3767, test/WAPE: 0.6072]
+2026-03-10 18:54:21,765 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_062.pt saved
+2026-03-10 18:54:21,765 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:27:53
+2026-03-10 18:54:21,765 - BasicTS-training - INFO - Epoch 63 / 100
+2026-03-10 19:01:43,598 - BasicTS-training - INFO - Result <train>: [train/time: 441.83 (s), train/lr: 1.58e-04, train/loss: 0.4064, train/MAE: 0.4064, train/MSE: 0.3723, train/RMSE: 0.6102, train/MAPE: 2.3309, train/WAPE: 0.6748]
+2026-03-10 19:01:44,359 - BasicTS-training - INFO - Start validation.
+2026-03-10 19:03:52,913 - BasicTS-training - INFO - Result <val>: [val/time: 128.55 (s), val/loss: 0.5467, val/MAE: 0.5467, val/MSE: 0.6317, val/RMSE: 0.7948, val/MAPE: 2.6472, val/WAPE: 0.7598]
+2026-03-10 19:06:01,943 - BasicTS-training - INFO - Result <test>: [test/time: 127.59 (s), test/loss: 0.4591, test/MAE: 0.4591, test/MSE: 0.4748, test/RMSE: 0.6891, test/MAPE: 2.6646, test/WAPE: 0.6587]
+2026-03-10 19:06:04,147 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_063.pt saved
+2026-03-10 19:06:04,147 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:27:31
+2026-03-10 19:06:04,147 - BasicTS-training - INFO - Epoch 64 / 100
+2026-03-10 19:13:31,269 - BasicTS-training - INFO - Result <train>: [train/time: 447.12 (s), train/lr: 1.51e-04, train/loss: 0.4063, train/MAE: 0.4063, train/MSE: 0.3721, train/RMSE: 0.6100, train/MAPE: 2.3288, train/WAPE: 0.6747]
+2026-03-10 19:13:32,257 - BasicTS-training - INFO - Start validation.
+2026-03-10 19:15:36,204 - BasicTS-training - INFO - Result <val>: [val/time: 123.95 (s), val/loss: 0.5405, val/MAE: 0.5405, val/MSE: 0.6334, val/RMSE: 0.7959, val/MAPE: 2.4556, val/WAPE: 0.7665]
+2026-03-10 19:17:42,830 - BasicTS-training - INFO - Result <test>: [test/time: 125.84 (s), test/loss: 0.4408, test/MAE: 0.4408, test/MSE: 0.4520, test/RMSE: 0.6723, test/MAPE: 2.3885, test/WAPE: 0.6544]
+2026-03-10 19:17:45,598 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_064.pt saved
+2026-03-10 19:17:45,598 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:27:09
+2026-03-10 19:17:45,598 - BasicTS-training - INFO - Epoch 65 / 100
+2026-03-10 19:25:07,306 - BasicTS-training - INFO - Result <train>: [train/time: 441.71 (s), train/lr: 1.44e-04, train/loss: 0.4063, train/MAE: 0.4063, train/MSE: 0.3720, train/RMSE: 0.6099, train/MAPE: 2.3298, train/WAPE: 0.6747]
+2026-03-10 19:25:09,283 - BasicTS-training - INFO - Start validation.
+2026-03-10 19:27:16,420 - BasicTS-training - INFO - Result <val>: [val/time: 127.14 (s), val/loss: 0.4881, val/MAE: 0.4881, val/MSE: 0.5527, val/RMSE: 0.7435, val/MAPE: 2.2842, val/WAPE: 0.6987]
+2026-03-10 19:27:18,167 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_best_val_MAE.pt saved
+2026-03-10 19:29:27,580 - BasicTS-training - INFO - Result <test>: [test/time: 129.41 (s), test/loss: 0.3943, test/MAE: 0.3943, test/MSE: 0.3980, test/RMSE: 0.6309, test/MAPE: 2.2709, test/WAPE: 0.5883]
+2026-03-10 19:29:29,416 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_065.pt saved
+2026-03-10 19:29:29,416 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:26:51
+2026-03-10 19:29:29,416 - BasicTS-training - INFO - Epoch 66 / 100
+2026-03-10 19:36:52,408 - BasicTS-training - INFO - Result <train>: [train/time: 442.99 (s), train/lr: 1.37e-04, train/loss: 0.4061, train/MAE: 0.4061, train/MSE: 0.3720, train/RMSE: 0.6099, train/MAPE: 2.3294, train/WAPE: 0.6745]
+2026-03-10 19:36:54,096 - BasicTS-training - INFO - Start validation.
+2026-03-10 19:39:01,418 - BasicTS-training - INFO - Result <val>: [val/time: 127.32 (s), val/loss: 0.5585, val/MAE: 0.5585, val/MSE: 0.6490, val/RMSE: 0.8056, val/MAPE: 2.7292, val/WAPE: 0.7836]
+2026-03-10 19:41:10,580 - BasicTS-training - INFO - Result <test>: [test/time: 127.53 (s), test/loss: 0.4671, test/MAE: 0.4671, test/MSE: 0.4772, test/RMSE: 0.6908, test/MAPE: 2.6974, test/WAPE: 0.6834]
+2026-03-10 19:41:12,617 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_066.pt saved
+2026-03-10 19:41:12,617 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:26:32
+2026-03-10 19:41:12,617 - BasicTS-training - INFO - Epoch 67 / 100
+2026-03-10 19:48:37,469 - BasicTS-training - INFO - Result <train>: [train/time: 444.85 (s), train/lr: 1.30e-04, train/loss: 0.4061, train/MAE: 0.4061, train/MSE: 0.3718, train/RMSE: 0.6098, train/MAPE: 2.3294, train/WAPE: 0.6745]
+2026-03-10 19:48:38,396 - BasicTS-training - INFO - Start validation.
+2026-03-10 19:50:48,344 - BasicTS-training - INFO - Result <val>: [val/time: 129.95 (s), val/loss: 0.5904, val/MAE: 0.5904, val/MSE: 0.7559, val/RMSE: 0.8694, val/MAPE: 2.6047, val/WAPE: 0.8136]
+2026-03-10 19:52:57,815 - BasicTS-training - INFO - Result <test>: [test/time: 128.15 (s), test/loss: 0.4878, test/MAE: 0.4878, test/MSE: 0.5530, test/RMSE: 0.7436, test/MAPE: 2.6749, test/WAPE: 0.6954]
+2026-03-10 19:52:59,931 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_067.pt saved
+2026-03-10 19:52:59,931 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:26:20
+2026-03-10 19:52:59,932 - BasicTS-training - INFO - Epoch 68 / 100
+2026-03-10 20:00:19,060 - BasicTS-training - INFO - Result <train>: [train/time: 439.13 (s), train/lr: 1.23e-04, train/loss: 0.4060, train/MAE: 0.4060, train/MSE: 0.3719, train/RMSE: 0.6099, train/MAPE: 2.3316, train/WAPE: 0.6745]
+2026-03-10 20:00:20,708 - BasicTS-training - INFO - Start validation.
+2026-03-10 20:02:28,269 - BasicTS-training - INFO - Result <val>: [val/time: 127.56 (s), val/loss: 0.5127, val/MAE: 0.5127, val/MSE: 0.5875, val/RMSE: 0.7665, val/MAPE: 2.3432, val/WAPE: 0.7288]
+2026-03-10 20:04:39,767 - BasicTS-training - INFO - Result <test>: [test/time: 130.28 (s), test/loss: 0.4207, test/MAE: 0.4207, test/MSE: 0.4250, test/RMSE: 0.6519, test/MAPE: 2.3644, test/WAPE: 0.6164]
+2026-03-10 20:04:41,654 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_068.pt saved
+2026-03-10 20:04:41,654 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:26:00
+2026-03-10 20:04:41,654 - BasicTS-training - INFO - Epoch 69 / 100
+2026-03-10 20:12:12,381 - BasicTS-training - INFO - Result <train>: [train/time: 450.73 (s), train/lr: 1.16e-04, train/loss: 0.4058, train/MAE: 0.4058, train/MSE: 0.3715, train/RMSE: 0.6095, train/MAPE: 2.3266, train/WAPE: 0.6740]
+2026-03-10 20:12:13,834 - BasicTS-training - INFO - Start validation.
+2026-03-10 20:14:20,549 - BasicTS-training - INFO - Result <val>: [val/time: 126.71 (s), val/loss: 0.5176, val/MAE: 0.5176, val/MSE: 0.5875, val/RMSE: 0.7665, val/MAPE: 2.5119, val/WAPE: 0.7299]
+2026-03-10 20:16:28,028 - BasicTS-training - INFO - Result <test>: [test/time: 126.44 (s), test/loss: 0.4232, test/MAE: 0.4232, test/MSE: 0.4257, test/RMSE: 0.6525, test/MAPE: 2.5124, test/WAPE: 0.6234]
+2026-03-10 20:16:30,728 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_069.pt saved
+2026-03-10 20:16:30,729 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:25:52
+2026-03-10 20:16:30,729 - BasicTS-training - INFO - Epoch 70 / 100
+2026-03-10 20:23:53,177 - BasicTS-training - INFO - Result <train>: [train/time: 442.45 (s), train/lr: 1.09e-04, train/loss: 0.4058, train/MAE: 0.4058, train/MSE: 0.3715, train/RMSE: 0.6095, train/MAPE: 2.3254, train/WAPE: 0.6740]
+2026-03-10 20:23:54,800 - BasicTS-training - INFO - Start validation.
+2026-03-10 20:26:02,278 - BasicTS-training - INFO - Result <val>: [val/time: 127.48 (s), val/loss: 0.5100, val/MAE: 0.5100, val/MSE: 0.5865, val/RMSE: 0.7658, val/MAPE: 2.3155, val/WAPE: 0.7206]
+2026-03-10 20:28:11,912 - BasicTS-training - INFO - Result <test>: [test/time: 128.82 (s), test/loss: 0.4153, test/MAE: 0.4153, test/MSE: 0.4204, test/RMSE: 0.6484, test/MAPE: 2.4097, test/WAPE: 0.6037]
+2026-03-10 20:28:14,531 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_070.pt saved
+2026-03-10 20:28:15,181 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:25:37
+2026-03-10 20:28:15,181 - BasicTS-training - INFO - Epoch 71 / 100
+2026-03-10 20:35:44,046 - BasicTS-training - INFO - Result <train>: [train/time: 448.86 (s), train/lr: 1.03e-04, train/loss: 0.4056, train/MAE: 0.4056, train/MSE: 0.3713, train/RMSE: 0.6094, train/MAPE: 2.3262, train/WAPE: 0.6737]
+2026-03-10 20:35:44,272 - BasicTS-training - INFO - Start validation.
+2026-03-10 20:37:52,299 - BasicTS-training - INFO - Result <val>: [val/time: 128.03 (s), val/loss: 0.5967, val/MAE: 0.5967, val/MSE: 0.7256, val/RMSE: 0.8518, val/MAPE: 2.9711, val/WAPE: 0.8212]
+2026-03-10 20:39:59,550 - BasicTS-training - INFO - Result <test>: [test/time: 125.78 (s), test/loss: 0.5105, test/MAE: 0.5105, test/MSE: 0.5640, test/RMSE: 0.7510, test/MAPE: 2.9668, test/WAPE: 0.7228]
+2026-03-10 20:40:01,580 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_071.pt saved
+2026-03-10 20:40:01,581 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:25:25
+2026-03-10 20:40:01,581 - BasicTS-training - INFO - Epoch 72 / 100
+2026-03-10 20:47:29,890 - BasicTS-training - INFO - Result <train>: [train/time: 448.31 (s), train/lr: 9.68e-05, train/loss: 0.4056, train/MAE: 0.4056, train/MSE: 0.3712, train/RMSE: 0.6093, train/MAPE: 2.3260, train/WAPE: 0.6737]
+2026-03-10 20:47:30,831 - BasicTS-training - INFO - Start validation.
+2026-03-10 20:49:40,381 - BasicTS-training - INFO - Result <val>: [val/time: 129.55 (s), val/loss: 0.5104, val/MAE: 0.5104, val/MSE: 0.5851, val/RMSE: 0.7649, val/MAPE: 2.3745, val/WAPE: 0.7212]
+2026-03-10 20:51:51,932 - BasicTS-training - INFO - Result <test>: [test/time: 130.51 (s), test/loss: 0.4197, test/MAE: 0.4197, test/MSE: 0.4238, test/RMSE: 0.6510, test/MAPE: 2.5788, test/WAPE: 0.6096]
+2026-03-10 20:51:54,769 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_072.pt saved
+2026-03-10 20:51:54,769 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:25:23
+2026-03-10 20:51:54,770 - BasicTS-training - INFO - Epoch 73 / 100
+2026-03-10 20:59:17,628 - BasicTS-training - INFO - Result <train>: [train/time: 442.86 (s), train/lr: 9.06e-05, train/loss: 0.4054, train/MAE: 0.4054, train/MSE: 0.3710, train/RMSE: 0.6091, train/MAPE: 2.3248, train/WAPE: 0.6735]
+2026-03-10 20:59:18,774 - BasicTS-training - INFO - Start validation.
+2026-03-10 21:01:26,667 - BasicTS-training - INFO - Result <val>: [val/time: 127.89 (s), val/loss: 0.4917, val/MAE: 0.4917, val/MSE: 0.5560, val/RMSE: 0.7456, val/MAPE: 2.2786, val/WAPE: 0.7028]
+2026-03-10 21:03:37,149 - BasicTS-training - INFO - Result <test>: [test/time: 129.62 (s), test/loss: 0.4005, test/MAE: 0.4005, test/MSE: 0.3952, test/RMSE: 0.6287, test/MAPE: 2.4844, test/WAPE: 0.5963]
+2026-03-10 21:03:39,369 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_073.pt saved
+2026-03-10 21:03:39,369 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:25:09
+2026-03-10 21:03:39,369 - BasicTS-training - INFO - Epoch 74 / 100
+2026-03-10 21:11:11,811 - BasicTS-training - INFO - Result <train>: [train/time: 452.44 (s), train/lr: 8.47e-05, train/loss: 0.4053, train/MAE: 0.4053, train/MSE: 0.3710, train/RMSE: 0.6091, train/MAPE: 2.3242, train/WAPE: 0.6734]
+2026-03-10 21:11:13,056 - BasicTS-training - INFO - Start validation.
+2026-03-10 21:13:23,475 - BasicTS-training - INFO - Result <val>: [val/time: 130.42 (s), val/loss: 0.5046, val/MAE: 0.5046, val/MSE: 0.5735, val/RMSE: 0.7573, val/MAPE: 2.3404, val/WAPE: 0.7188]
+2026-03-10 21:15:31,994 - BasicTS-training - INFO - Result <test>: [test/time: 127.47 (s), test/loss: 0.4129, test/MAE: 0.4129, test/MSE: 0.4096, test/RMSE: 0.6400, test/MAPE: 2.6023, test/WAPE: 0.6185]
+2026-03-10 21:15:34,657 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_074.pt saved
+2026-03-10 21:15:34,658 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:25:10
+2026-03-10 21:15:34,658 - BasicTS-training - INFO - Epoch 75 / 100
+2026-03-10 21:23:03,519 - BasicTS-training - INFO - Result <train>: [train/time: 448.86 (s), train/lr: 7.89e-05, train/loss: 0.4053, train/MAE: 0.4053, train/MSE: 0.3707, train/RMSE: 0.6089, train/MAPE: 2.3251, train/WAPE: 0.6733]
+2026-03-10 21:23:04,353 - BasicTS-training - INFO - Start validation.
+2026-03-10 21:25:13,174 - BasicTS-training - INFO - Result <val>: [val/time: 128.82 (s), val/loss: 0.5543, val/MAE: 0.5543, val/MSE: 0.6513, val/RMSE: 0.8071, val/MAPE: 2.7523, val/WAPE: 0.7713]
+2026-03-10 21:27:22,927 - BasicTS-training - INFO - Result <test>: [test/time: 128.58 (s), test/loss: 0.4630, test/MAE: 0.4630, test/MSE: 0.4912, test/RMSE: 0.7008, test/MAPE: 2.7470, test/WAPE: 0.6655]
+2026-03-10 21:27:25,375 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_075.pt saved
+2026-03-10 21:27:25,376 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:25:05
+2026-03-10 21:27:25,376 - BasicTS-training - INFO - Epoch 76 / 100
+2026-03-10 21:34:57,929 - BasicTS-training - INFO - Result <train>: [train/time: 452.55 (s), train/lr: 7.32e-05, train/loss: 0.4051, train/MAE: 0.4051, train/MSE: 0.3707, train/RMSE: 0.6089, train/MAPE: 2.3225, train/WAPE: 0.6730]
+2026-03-10 21:34:58,165 - BasicTS-training - INFO - Start validation.
+2026-03-10 21:37:04,479 - BasicTS-training - INFO - Result <val>: [val/time: 126.31 (s), val/loss: 0.5185, val/MAE: 0.5185, val/MSE: 0.6008, val/RMSE: 0.7751, val/MAPE: 2.4384, val/WAPE: 0.7447]
+2026-03-10 21:39:12,143 - BasicTS-training - INFO - Result <test>: [test/time: 126.65 (s), test/loss: 0.4223, test/MAE: 0.4223, test/MSE: 0.4283, test/RMSE: 0.6544, test/MAPE: 2.3811, test/WAPE: 0.6319]
+2026-03-10 21:39:14,072 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_076.pt saved
+2026-03-10 21:39:14,072 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:24:58
+2026-03-10 21:39:14,072 - BasicTS-training - INFO - Epoch 77 / 100
+2026-03-10 21:46:43,766 - BasicTS-training - INFO - Result <train>: [train/time: 449.69 (s), train/lr: 6.78e-05, train/loss: 0.4050, train/MAE: 0.4050, train/MSE: 0.3705, train/RMSE: 0.6087, train/MAPE: 2.3204, train/WAPE: 0.6728]
+2026-03-10 21:46:44,544 - BasicTS-training - INFO - Start validation.
+2026-03-10 21:48:54,774 - BasicTS-training - INFO - Result <val>: [val/time: 130.23 (s), val/loss: 0.6953, val/MAE: 0.6953, val/MSE: 0.9961, val/RMSE: 0.9981, val/MAPE: 3.6061, val/WAPE: 0.9316]
+2026-03-10 21:51:08,968 - BasicTS-training - INFO - Result <test>: [test/time: 132.53 (s), test/loss: 0.6189, test/MAE: 0.6189, test/MSE: 0.8638, test/RMSE: 0.9294, test/MAPE: 3.9040, test/WAPE: 0.8468]
+2026-03-10 21:51:10,700 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_077.pt saved
+2026-03-10 21:51:10,700 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:25:01
+2026-03-10 21:51:10,701 - BasicTS-training - INFO - Epoch 78 / 100
+2026-03-10 21:58:40,397 - BasicTS-training - INFO - Result <train>: [train/time: 449.70 (s), train/lr: 6.25e-05, train/loss: 0.4049, train/MAE: 0.4049, train/MSE: 0.3704, train/RMSE: 0.6086, train/MAPE: 2.3206, train/WAPE: 0.6727]
+2026-03-10 21:58:41,839 - BasicTS-training - INFO - Start validation.
+2026-03-10 22:00:48,635 - BasicTS-training - INFO - Result <val>: [val/time: 126.79 (s), val/loss: 0.6301, val/MAE: 0.6301, val/MSE: 0.8175, val/RMSE: 0.9041, val/MAPE: 2.7942, val/WAPE: 0.8748]
+2026-03-10 22:03:00,642 - BasicTS-training - INFO - Result <test>: [test/time: 131.06 (s), test/loss: 0.5221, test/MAE: 0.5221, test/MSE: 0.5964, test/RMSE: 0.7722, test/MAPE: 3.5829, test/WAPE: 0.7984]
+2026-03-10 22:03:03,507 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_078.pt saved
+2026-03-10 22:03:03,508 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:24:59
+2026-03-10 22:03:03,508 - BasicTS-training - INFO - Epoch 79 / 100
+2026-03-10 22:10:34,850 - BasicTS-training - INFO - Result <train>: [train/time: 451.34 (s), train/lr: 5.74e-05, train/loss: 0.4049, train/MAE: 0.4049, train/MSE: 0.3702, train/RMSE: 0.6084, train/MAPE: 2.3216, train/WAPE: 0.6726]
+2026-03-10 22:10:35,971 - BasicTS-training - INFO - Start validation.
+2026-03-10 22:12:46,105 - BasicTS-training - INFO - Result <val>: [val/time: 130.13 (s), val/loss: 0.4866, val/MAE: 0.4866, val/MSE: 0.5517, val/RMSE: 0.7428, val/MAPE: 2.2527, val/WAPE: 0.6947]
+2026-03-10 22:12:48,101 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_best_val_MAE.pt saved
+2026-03-10 22:14:59,293 - BasicTS-training - INFO - Result <test>: [test/time: 131.19 (s), test/loss: 0.3912, test/MAE: 0.3912, test/MSE: 0.3927, test/RMSE: 0.6267, test/MAPE: 2.2414, test/WAPE: 0.5833]
+2026-03-10 22:15:01,476 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_079.pt saved
+2026-03-10 22:15:01,476 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:25:03
+2026-03-10 22:15:01,476 - BasicTS-training - INFO - Epoch 80 / 100
+2026-03-10 22:22:27,416 - BasicTS-training - INFO - Result <train>: [train/time: 445.94 (s), train/lr: 5.25e-05, train/loss: 0.4045, train/MAE: 0.4045, train/MSE: 0.3699, train/RMSE: 0.6082, train/MAPE: 2.3187, train/WAPE: 0.6721]
+2026-03-10 22:22:28,944 - BasicTS-training - INFO - Start validation.
+2026-03-10 22:24:37,135 - BasicTS-training - INFO - Result <val>: [val/time: 128.19 (s), val/loss: 0.5024, val/MAE: 0.5024, val/MSE: 0.5715, val/RMSE: 0.7560, val/MAPE: 2.3372, val/WAPE: 0.7144]
+2026-03-10 22:26:50,224 - BasicTS-training - INFO - Result <test>: [test/time: 131.41 (s), test/loss: 0.4098, test/MAE: 0.4098, test/MSE: 0.4054, test/RMSE: 0.6367, test/MAPE: 2.5772, test/WAPE: 0.6064]
+2026-03-10 22:26:52,368 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_080.pt saved
+2026-03-10 22:26:53,459 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:25:00
+2026-03-10 22:26:53,459 - BasicTS-training - INFO - Epoch 81 / 100
+2026-03-10 22:34:28,216 - BasicTS-training - INFO - Result <train>: [train/time: 454.76 (s), train/lr: 4.77e-05, train/loss: 0.4046, train/MAE: 0.4046, train/MSE: 0.3698, train/RMSE: 0.6081, train/MAPE: 2.3188, train/WAPE: 0.6722]
+2026-03-10 22:34:29,643 - BasicTS-training - INFO - Start validation.
+2026-03-10 22:36:37,190 - BasicTS-training - INFO - Result <val>: [val/time: 127.55 (s), val/loss: 0.5240, val/MAE: 0.5240, val/MSE: 0.6002, val/RMSE: 0.7747, val/MAPE: 2.5406, val/WAPE: 0.7396]
+2026-03-10 22:38:46,188 - BasicTS-training - INFO - Result <test>: [test/time: 128.13 (s), test/loss: 0.4285, test/MAE: 0.4285, test/MSE: 0.4353, test/RMSE: 0.6598, test/MAPE: 2.4714, test/WAPE: 0.6291]
+2026-03-10 22:38:48,446 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_081.pt saved
+2026-03-10 22:38:48,447 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:25:01
+2026-03-10 22:38:48,447 - BasicTS-training - INFO - Epoch 82 / 100
+2026-03-10 22:46:23,306 - BasicTS-training - INFO - Result <train>: [train/time: 454.86 (s), train/lr: 4.32e-05, train/loss: 0.4043, train/MAE: 0.4043, train/MSE: 0.3696, train/RMSE: 0.6079, train/MAPE: 2.3167, train/WAPE: 0.6718]
+2026-03-10 22:46:25,430 - BasicTS-training - INFO - Start validation.
+2026-03-10 22:48:35,440 - BasicTS-training - INFO - Result <val>: [val/time: 130.01 (s), val/loss: 0.5797, val/MAE: 0.5797, val/MSE: 0.6986, val/RMSE: 0.8358, val/MAPE: 2.8976, val/WAPE: 0.7998]
+2026-03-10 22:50:46,277 - BasicTS-training - INFO - Result <test>: [test/time: 129.45 (s), test/loss: 0.4916, test/MAE: 0.4916, test/MSE: 0.5420, test/RMSE: 0.7362, test/MAPE: 2.9195, test/WAPE: 0.6991]
+2026-03-10 22:50:47,904 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_082.pt saved
+2026-03-10 22:50:47,904 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:25:07
+2026-03-10 22:50:47,905 - BasicTS-training - INFO - Epoch 83 / 100
+2026-03-10 22:58:19,595 - BasicTS-training - INFO - Result <train>: [train/time: 451.69 (s), train/lr: 3.89e-05, train/loss: 0.4043, train/MAE: 0.4043, train/MSE: 0.3695, train/RMSE: 0.6078, train/MAPE: 2.3161, train/WAPE: 0.6719]
+2026-03-10 22:58:21,657 - BasicTS-training - INFO - Start validation.
+2026-03-10 23:00:31,922 - BasicTS-training - INFO - Result <val>: [val/time: 130.26 (s), val/loss: 0.5996, val/MAE: 0.5996, val/MSE: 0.7406, val/RMSE: 0.8606, val/MAPE: 2.7651, val/WAPE: 0.8582]
+2026-03-10 23:02:43,429 - BasicTS-training - INFO - Result <test>: [test/time: 129.41 (s), test/loss: 0.4993, test/MAE: 0.4993, test/MSE: 0.5339, test/RMSE: 0.7307, test/MAPE: 2.7174, test/WAPE: 0.7709]
+2026-03-10 23:02:45,380 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_083.pt saved
+2026-03-10 23:02:45,381 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:25:11
+2026-03-10 23:02:45,381 - BasicTS-training - INFO - Epoch 84 / 100
+2026-03-10 23:10:21,347 - BasicTS-training - INFO - Result <train>: [train/time: 455.97 (s), train/lr: 3.48e-05, train/loss: 0.4043, train/MAE: 0.4043, train/MSE: 0.3695, train/RMSE: 0.6079, train/MAPE: 2.3183, train/WAPE: 0.6718]
+2026-03-10 23:10:22,441 - BasicTS-training - INFO - Start validation.
+2026-03-10 23:12:34,153 - BasicTS-training - INFO - Result <val>: [val/time: 131.71 (s), val/loss: 0.5067, val/MAE: 0.5067, val/MSE: 0.5811, val/RMSE: 0.7623, val/MAPE: 2.4386, val/WAPE: 0.7227]
+2026-03-10 23:14:47,805 - BasicTS-training - INFO - Result <test>: [test/time: 132.71 (s), test/loss: 0.4072, test/MAE: 0.4072, test/MSE: 0.4141, test/RMSE: 0.6435, test/MAPE: 2.3046, test/WAPE: 0.6071]
+2026-03-10 23:14:49,941 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_084.pt saved
+2026-03-10 23:14:49,942 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:25:23
+2026-03-10 23:14:49,942 - BasicTS-training - INFO - Epoch 85 / 100
+2026-03-10 23:22:16,729 - BasicTS-training - INFO - Result <train>: [train/time: 446.79 (s), train/lr: 3.09e-05, train/loss: 0.4041, train/MAE: 0.4041, train/MSE: 0.3693, train/RMSE: 0.6077, train/MAPE: 2.3146, train/WAPE: 0.6716]
+2026-03-10 23:22:18,375 - BasicTS-training - INFO - Start validation.
+2026-03-10 23:24:29,885 - BasicTS-training - INFO - Result <val>: [val/time: 131.51 (s), val/loss: 0.5318, val/MAE: 0.5318, val/MSE: 0.6042, val/RMSE: 0.7773, val/MAPE: 2.5166, val/WAPE: 0.7485]
+2026-03-10 23:26:44,021 - BasicTS-training - INFO - Result <test>: [test/time: 132.59 (s), test/loss: 0.4410, test/MAE: 0.4410, test/MSE: 0.4427, test/RMSE: 0.6654, test/MAPE: 2.6236, test/WAPE: 0.6540]
+2026-03-10 23:26:46,326 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_085.pt saved
+2026-03-10 23:26:46,327 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:25:25
+2026-03-10 23:26:46,327 - BasicTS-training - INFO - Epoch 86 / 100
+2026-03-10 23:34:17,846 - BasicTS-training - INFO - Result <train>: [train/time: 451.52 (s), train/lr: 2.72e-05, train/loss: 0.4039, train/MAE: 0.4039, train/MSE: 0.3690, train/RMSE: 0.6075, train/MAPE: 2.3172, train/WAPE: 0.6714]
+2026-03-10 23:34:19,373 - BasicTS-training - INFO - Start validation.
+2026-03-10 23:36:31,084 - BasicTS-training - INFO - Result <val>: [val/time: 131.71 (s), val/loss: 0.5505, val/MAE: 0.5505, val/MSE: 0.6505, val/RMSE: 0.8065, val/MAPE: 2.5285, val/WAPE: 0.7722]
+2026-03-10 23:38:41,806 - BasicTS-training - INFO - Result <test>: [test/time: 129.31 (s), test/loss: 0.4523, test/MAE: 0.4523, test/MSE: 0.4608, test/RMSE: 0.6788, test/MAPE: 3.0513, test/WAPE: 0.6802]
+2026-03-10 23:38:43,292 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_086.pt saved
+2026-03-10 23:38:43,293 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:25:27
+2026-03-10 23:38:43,293 - BasicTS-training - INFO - Epoch 87 / 100
+2026-03-10 23:46:13,472 - BasicTS-training - INFO - Result <train>: [train/time: 450.18 (s), train/lr: 2.38e-05, train/loss: 0.4038, train/MAE: 0.4038, train/MSE: 0.3687, train/RMSE: 0.6072, train/MAPE: 2.3131, train/WAPE: 0.6711]
+2026-03-10 23:46:16,749 - BasicTS-training - INFO - Start validation.
+2026-03-10 23:48:31,716 - BasicTS-training - INFO - Result <val>: [val/time: 134.97 (s), val/loss: 0.4949, val/MAE: 0.4949, val/MSE: 0.5622, val/RMSE: 0.7498, val/MAPE: 2.2862, val/WAPE: 0.7043]
+2026-03-10 23:50:46,974 - BasicTS-training - INFO - Result <test>: [test/time: 134.44 (s), test/loss: 0.3998, test/MAE: 0.3998, test/MSE: 0.3978, test/RMSE: 0.6307, test/MAPE: 2.3403, test/WAPE: 0.5883]
+2026-03-10 23:50:48,803 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_087.pt saved
+2026-03-10 23:50:48,804 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:25:40
+2026-03-10 23:50:48,804 - BasicTS-training - INFO - Epoch 88 / 100
+2026-03-10 23:58:33,212 - BasicTS-training - INFO - Result <train>: [train/time: 464.41 (s), train/lr: 2.06e-05, train/loss: 0.4036, train/MAE: 0.4036, train/MSE: 0.3685, train/RMSE: 0.6071, train/MAPE: 2.3112, train/WAPE: 0.6708]
+2026-03-10 23:58:35,363 - BasicTS-training - INFO - Start validation.
+2026-03-11 00:00:51,743 - BasicTS-training - INFO - Result <val>: [val/time: 136.38 (s), val/loss: 0.4978, val/MAE: 0.4978, val/MSE: 0.5652, val/RMSE: 0.7518, val/MAPE: 2.3175, val/WAPE: 0.7104]
+2026-03-11 00:03:05,638 - BasicTS-training - INFO - Result <test>: [test/time: 132.83 (s), test/loss: 0.4019, test/MAE: 0.4019, test/MSE: 0.4011, test/RMSE: 0.6333, test/MAPE: 2.3629, test/WAPE: 0.6062]
+2026-03-11 00:03:08,314 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_088.pt saved
+2026-03-11 00:03:08,315 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:26:08
+2026-03-11 00:03:08,315 - BasicTS-training - INFO - Epoch 89 / 100
+2026-03-11 00:10:43,297 - BasicTS-training - INFO - Result <train>: [train/time: 454.98 (s), train/lr: 1.76e-05, train/loss: 0.4036, train/MAE: 0.4036, train/MSE: 0.3684, train/RMSE: 0.6070, train/MAPE: 2.3132, train/WAPE: 0.6708]
+2026-03-11 00:10:43,875 - BasicTS-training - INFO - Start validation.
+2026-03-11 00:12:56,714 - BasicTS-training - INFO - Result <val>: [val/time: 132.84 (s), val/loss: 0.5049, val/MAE: 0.5049, val/MSE: 0.5761, val/RMSE: 0.7590, val/MAPE: 2.3537, val/WAPE: 0.7140]
+2026-03-11 00:15:12,730 - BasicTS-training - INFO - Result <test>: [test/time: 134.92 (s), test/loss: 0.4125, test/MAE: 0.4125, test/MSE: 0.4115, test/RMSE: 0.6415, test/MAPE: 2.5427, test/WAPE: 0.6011]
+2026-03-11 00:15:14,862 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_089.pt saved
+2026-03-11 00:15:14,862 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:26:21
+2026-03-11 00:15:14,862 - BasicTS-training - INFO - Epoch 90 / 100
+2026-03-11 00:22:43,854 - BasicTS-training - INFO - Result <train>: [train/time: 448.99 (s), train/lr: 1.48e-05, train/loss: 0.4034, train/MAE: 0.4034, train/MSE: 0.3683, train/RMSE: 0.6068, train/MAPE: 2.3107, train/WAPE: 0.6705]
+2026-03-11 00:22:45,280 - BasicTS-training - INFO - Start validation.
+2026-03-11 00:24:56,274 - BasicTS-training - INFO - Result <val>: [val/time: 130.99 (s), val/loss: 0.4946, val/MAE: 0.4946, val/MSE: 0.5604, val/RMSE: 0.7486, val/MAPE: 2.3088, val/WAPE: 0.7052]
+2026-03-11 00:27:09,235 - BasicTS-training - INFO - Result <test>: [test/time: 132.03 (s), test/loss: 0.4001, test/MAE: 0.4001, test/MSE: 0.4036, test/RMSE: 0.6353, test/MAPE: 2.3137, test/WAPE: 0.5997]
+2026-03-11 00:27:10,828 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_090.pt saved
+2026-03-11 00:27:11,785 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:26:23
+2026-03-11 00:27:11,785 - BasicTS-training - INFO - Epoch 91 / 100
+2026-03-11 00:34:43,662 - BasicTS-training - INFO - Result <train>: [train/time: 451.88 (s), train/lr: 1.22e-05, train/loss: 0.4033, train/MAE: 0.4033, train/MSE: 0.3682, train/RMSE: 0.6068, train/MAPE: 2.3104, train/WAPE: 0.6704]
+2026-03-11 00:34:45,261 - BasicTS-training - INFO - Start validation.
+2026-03-11 00:36:58,275 - BasicTS-training - INFO - Result <val>: [val/time: 133.01 (s), val/loss: 0.5283, val/MAE: 0.5283, val/MSE: 0.6044, val/RMSE: 0.7775, val/MAPE: 2.5203, val/WAPE: 0.7445]
+2026-03-11 00:39:11,781 - BasicTS-training - INFO - Result <test>: [test/time: 132.18 (s), test/loss: 0.4396, test/MAE: 0.4396, test/MSE: 0.4491, test/RMSE: 0.6701, test/MAPE: 2.6325, test/WAPE: 0.6533]
+2026-03-11 00:39:13,785 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_091.pt saved
+2026-03-11 00:39:13,786 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:26:30
+2026-03-11 00:39:13,786 - BasicTS-training - INFO - Epoch 92 / 100
+2026-03-11 00:46:41,916 - BasicTS-training - INFO - Result <train>: [train/time: 448.13 (s), train/lr: 9.93e-06, train/loss: 0.4031, train/MAE: 0.4031, train/MSE: 0.3680, train/RMSE: 0.6066, train/MAPE: 2.3089, train/WAPE: 0.6702]
+2026-03-11 00:46:43,413 - BasicTS-training - INFO - Start validation.
+2026-03-11 00:48:56,212 - BasicTS-training - INFO - Result <val>: [val/time: 132.80 (s), val/loss: 0.4976, val/MAE: 0.4976, val/MSE: 0.5652, val/RMSE: 0.7518, val/MAPE: 2.3453, val/WAPE: 0.7120]
+2026-03-11 00:51:08,193 - BasicTS-training - INFO - Result <test>: [test/time: 130.12 (s), test/loss: 0.3982, test/MAE: 0.3982, test/MSE: 0.3989, test/RMSE: 0.6316, test/MAPE: 2.2494, test/WAPE: 0.5951]
+2026-03-11 00:51:10,572 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_092.pt saved
+2026-03-11 00:51:10,572 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:26:32
+2026-03-11 00:51:10,573 - BasicTS-training - INFO - Epoch 93 / 100
+2026-03-11 00:58:42,930 - BasicTS-training - INFO - Result <train>: [train/time: 452.36 (s), train/lr: 7.85e-06, train/loss: 0.4030, train/MAE: 0.4030, train/MSE: 0.3677, train/RMSE: 0.6064, train/MAPE: 2.3079, train/WAPE: 0.6699]
+2026-03-11 00:58:45,120 - BasicTS-training - INFO - Start validation.
+2026-03-11 01:00:55,275 - BasicTS-training - INFO - Result <val>: [val/time: 130.15 (s), val/loss: 0.5036, val/MAE: 0.5036, val/MSE: 0.5737, val/RMSE: 0.7574, val/MAPE: 2.3477, val/WAPE: 0.7155]
+2026-03-11 01:03:06,817 - BasicTS-training - INFO - Result <test>: [test/time: 130.60 (s), test/loss: 0.4100, test/MAE: 0.4100, test/MSE: 0.4087, test/RMSE: 0.6393, test/MAPE: 2.4002, test/WAPE: 0.5999]
+2026-03-11 01:03:09,960 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_093.pt saved
+2026-03-11 01:03:09,960 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:26:36
+2026-03-11 01:03:09,961 - BasicTS-training - INFO - Epoch 94 / 100
+2026-03-11 01:10:55,177 - BasicTS-training - INFO - Result <train>: [train/time: 465.22 (s), train/lr: 6.02e-06, train/loss: 0.4029, train/MAE: 0.4029, train/MSE: 0.3675, train/RMSE: 0.6063, train/MAPE: 2.3068, train/WAPE: 0.6697]
+2026-03-11 01:10:56,665 - BasicTS-training - INFO - Start validation.
+2026-03-11 01:13:09,387 - BasicTS-training - INFO - Result <val>: [val/time: 132.72 (s), val/loss: 0.4887, val/MAE: 0.4887, val/MSE: 0.5548, val/RMSE: 0.7449, val/MAPE: 2.2763, val/WAPE: 0.7006]
+2026-03-11 01:15:25,694 - BasicTS-training - INFO - Result <test>: [test/time: 134.35 (s), test/loss: 0.3938, test/MAE: 0.3938, test/MSE: 0.3921, test/RMSE: 0.6262, test/MAPE: 2.2780, test/WAPE: 0.5843]
+2026-03-11 01:15:29,108 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_094.pt saved
+2026-03-11 01:15:29,109 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:27:02
+2026-03-11 01:15:29,109 - BasicTS-training - INFO - Epoch 95 / 100
+2026-03-11 01:23:11,645 - BasicTS-training - INFO - Result <train>: [train/time: 462.54 (s), train/lr: 4.43e-06, train/loss: 0.4027, train/MAE: 0.4027, train/MSE: 0.3673, train/RMSE: 0.6061, train/MAPE: 2.3058, train/WAPE: 0.6695]
+2026-03-11 01:23:14,768 - BasicTS-training - INFO - Start validation.
+2026-03-11 01:25:27,842 - BasicTS-training - INFO - Result <val>: [val/time: 133.07 (s), val/loss: 0.4836, val/MAE: 0.4836, val/MSE: 0.5464, val/RMSE: 0.7392, val/MAPE: 2.2462, val/WAPE: 0.6931]
+2026-03-11 01:25:31,559 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_best_val_MAE.pt saved
+2026-03-11 01:27:44,571 - BasicTS-training - INFO - Result <test>: [test/time: 133.01 (s), test/loss: 0.3870, test/MAE: 0.3870, test/MSE: 0.3854, test/RMSE: 0.6208, test/MAPE: 2.2286, test/WAPE: 0.5779]
+2026-03-11 01:27:47,940 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_095.pt saved
+2026-03-11 01:27:47,941 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:27:26
+2026-03-11 01:27:47,941 - BasicTS-training - INFO - Epoch 96 / 100
+2026-03-11 01:35:32,174 - BasicTS-training - INFO - Result <train>: [train/time: 464.23 (s), train/lr: 3.08e-06, train/loss: 0.4026, train/MAE: 0.4026, train/MSE: 0.3672, train/RMSE: 0.6060, train/MAPE: 2.3053, train/WAPE: 0.6694]
+2026-03-11 01:35:33,317 - BasicTS-training - INFO - Start validation.
+2026-03-11 01:37:48,665 - BasicTS-training - INFO - Result <val>: [val/time: 135.35 (s), val/loss: 0.4835, val/MAE: 0.4835, val/MSE: 0.5472, val/RMSE: 0.7397, val/MAPE: 2.2436, val/WAPE: 0.6925]
+2026-03-11 01:37:51,543 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_best_val_MAE.pt saved
+2026-03-11 01:40:06,872 - BasicTS-training - INFO - Result <test>: [test/time: 135.33 (s), test/loss: 0.3869, test/MAE: 0.3869, test/MSE: 0.3862, test/RMSE: 0.6215, test/MAPE: 2.2211, test/WAPE: 0.5774]
+2026-03-11 01:40:10,168 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_096.pt saved
+2026-03-11 01:40:10,168 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:27:53
+2026-03-11 01:40:10,168 - BasicTS-training - INFO - Epoch 97 / 100
+2026-03-11 01:47:52,564 - BasicTS-training - INFO - Result <train>: [train/time: 462.40 (s), train/lr: 1.97e-06, train/loss: 0.4025, train/MAE: 0.4025, train/MSE: 0.3671, train/RMSE: 0.6059, train/MAPE: 2.3050, train/WAPE: 0.6693]
+2026-03-11 01:47:56,302 - BasicTS-training - INFO - Start validation.
+2026-03-11 01:50:12,828 - BasicTS-training - INFO - Result <val>: [val/time: 136.53 (s), val/loss: 0.4855, val/MAE: 0.4855, val/MSE: 0.5497, val/RMSE: 0.7414, val/MAPE: 2.2525, val/WAPE: 0.6947]
+2026-03-11 01:52:28,852 - BasicTS-training - INFO - Result <test>: [test/time: 135.24 (s), test/loss: 0.3913, test/MAE: 0.3913, test/MSE: 0.3876, test/RMSE: 0.6226, test/MAPE: 2.3298, test/WAPE: 0.5829]
+2026-03-11 01:52:33,234 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_097.pt saved
+2026-03-11 01:52:33,234 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:28:21
+2026-03-11 01:52:33,234 - BasicTS-training - INFO - Epoch 98 / 100
+2026-03-11 02:00:14,924 - BasicTS-training - INFO - Result <train>: [train/time: 461.69 (s), train/lr: 1.11e-06, train/loss: 0.4025, train/MAE: 0.4025, train/MSE: 0.3671, train/RMSE: 0.6059, train/MAPE: 2.3043, train/WAPE: 0.6692]
+2026-03-11 02:00:19,808 - BasicTS-training - INFO - Start validation.
+2026-03-11 02:02:31,178 - BasicTS-training - INFO - Result <val>: [val/time: 131.37 (s), val/loss: 0.4841, val/MAE: 0.4841, val/MSE: 0.5475, val/RMSE: 0.7399, val/MAPE: 2.2476, val/WAPE: 0.6935]
+2026-03-11 02:04:42,985 - BasicTS-training - INFO - Result <test>: [test/time: 129.89 (s), test/loss: 0.3878, test/MAE: 0.3878, test/MSE: 0.3871, test/RMSE: 0.6221, test/MAPE: 2.2468, test/WAPE: 0.5808]
+2026-03-11 02:04:45,389 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_098.pt saved
+2026-03-11 02:04:45,390 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:28:37
+2026-03-11 02:04:45,390 - BasicTS-training - INFO - Epoch 99 / 100
+2026-03-11 02:11:31,833 - BasicTS-training - INFO - Result <train>: [train/time: 406.44 (s), train/lr: 4.93e-07, train/loss: 0.4024, train/MAE: 0.4024, train/MSE: 0.3669, train/RMSE: 0.6058, train/MAPE: 2.3036, train/WAPE: 0.6691]
+2026-03-11 02:11:33,908 - BasicTS-training - INFO - Start validation.
+2026-03-11 02:13:26,778 - BasicTS-training - INFO - Result <val>: [val/time: 112.87 (s), val/loss: 0.4829, val/MAE: 0.4829, val/MSE: 0.5463, val/RMSE: 0.7391, val/MAPE: 2.2438, val/WAPE: 0.6922]
+2026-03-11 02:13:29,878 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_best_val_MAE.pt saved
+2026-03-11 02:15:25,930 - BasicTS-training - INFO - Result <test>: [test/time: 116.05 (s), test/loss: 0.3868, test/MAE: 0.3868, test/MSE: 0.3859, test/RMSE: 0.6212, test/MAPE: 2.2408, test/WAPE: 0.5784]
+2026-03-11 02:15:29,827 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_099.pt saved
+2026-03-11 02:15:29,828 - BasicTS-training - INFO - The estimated training finish time is 2026-03-11 02:27:24
+2026-03-11 02:15:29,828 - BasicTS-training - INFO - Epoch 100 / 100
+2026-03-11 02:21:53,968 - BasicTS-training - INFO - Result <train>: [train/time: 384.14 (s), train/lr: 1.23e-07, train/loss: 0.4024, train/MAE: 0.4024, train/MSE: 0.3670, train/RMSE: 0.6058, train/MAPE: 2.3040, train/WAPE: 0.6691]
+2026-03-11 02:21:54,822 - BasicTS-training - INFO - Start validation.
+2026-03-11 02:23:26,744 - BasicTS-training - INFO - Result <val>: [val/time: 91.92 (s), val/loss: 0.4834, val/MAE: 0.4834, val/MSE: 0.5466, val/RMSE: 0.7393, val/MAPE: 2.2458, val/WAPE: 0.6925]
+2026-03-11 02:25:00,862 - BasicTS-training - INFO - Result <test>: [test/time: 93.05 (s), test/loss: 0.3868, test/MAE: 0.3868, test/MSE: 0.3864, test/RMSE: 0.6216, test/MAPE: 2.2269, test/WAPE: 0.5783]
+2026-03-11 02:25:03,363 - BasicTS-training - INFO - Checkpoint /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_100.pt saved
+2026-03-11 02:25:04,076 - BasicTS-training - INFO - The training finished at 2026-03-11 02:25:04
+2026-03-11 02:25:04,076 - BasicTS-training - INFO - Evaluating the best model on the test set.
+2026-03-11 02:25:04,076 - BasicTS-training - INFO - Loading Checkpoint from '/mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/MATSArch_best_val_MAE.pt'
+2026-03-11 02:27:01,136 - BasicTS-training - INFO - Result <test>: [test/time: 116.67 (s), test/loss: 0.3868, test/MAE: 0.3868, test/MSE: 0.3859, test/RMSE: 0.6212, test/MAPE: 2.2408, test/WAPE: 0.5784]
+2026-03-11 02:27:01,272 - BasicTS-training - INFO - Test metrics saved to /mnt/users/rwl/MATS/results/main/MATS-Full-ETTm1-192/c7d2f59a7c0b3b9a8629af2416f12c72/test_metrics.json.

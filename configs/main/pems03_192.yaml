@@ -1,0 +1,13 @@
+# @package _global_
+defaults:
+  - /_base_/base
+  - /_base_/datasets/pems03
+  - /_base_/model/mats_base
+  - _self_
+
+experiment:
+  name: "MATS-Full-PEMS03-192"
+  type: main
+
+output_len: 192
+input_len: 96
