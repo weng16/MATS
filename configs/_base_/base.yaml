@@ -1,0 +1,18 @@
+# @package _global_
+seed: 42
+num_epochs: 100
+batch_size: 32
+metrics: ["MAE", "MSE", "RMSE", "MAPE", "WAPE"]
+norm_each_channel: false
+optimizer_params:
+  lr: 5.0e-4
+  weight_decay: 0.01
+lr_scheduler: torch.optim.lr_scheduler.CosineAnnealingLR
+lr_scheduler_params:
+  T_max: 100
+
+# Additional training parameters
+max_grad_norm: 1.0
+prototype_lr_scale: 0.1
+wcomm_lr_scale: 3.0
+dag_warmup_fraction: 0.2

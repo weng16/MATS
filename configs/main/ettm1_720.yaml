@@ -1,0 +1,13 @@
+# @package _global_
+defaults:
+  - /_base_/base
+  - /_base_/datasets/ettm1
+  - /_base_/model/mats_base
+  - _self_
+
+experiment:
+  name: "MATS-Full-ETTm1-720"
+  type: main
+
+output_len: 720
+input_len: 336

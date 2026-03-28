@@ -1,0 +1,39 @@
+\begin{table}[!ht]
+\centering
+\resizebox{1.0\linewidth}{!}{
+\begin{tabular}{l|ccc|ccc}
+\toprule[1.5pt]
+\multirow{2}{*}{\textbf{Methods}} & \multicolumn{3}{c|}{\textbf{Horizon 12}} & \multicolumn{3}{c}{\textbf{Average}} \\
+%\cline{2-7}
+ & \textbf{MAE} & \textbf{RMSE} & \textbf{MAPE(\%)} & \textbf{MAE} & \textbf{RMSE} & \textbf{MAPE(\%)} \\
+\midrule
+\midrule
+Full ViST & 21.21 & 36.23 & 13.86 & 17.59 & 29.88 & 11.15 \\
+\hline
+w/o SFG & 24.86 & 41.59 & 17.84 & 20.65 & 33.69 & 15.67 \\
+ & \textcolor{red}{\small +17.19\%} & \textcolor{red}{\small +14.79\%} & \textcolor{red}{\small +28.72\%} & \textcolor{red}{\small +17.41\%} & \textcolor{red}{\small +12.78\%} & \textcolor{red}{\small +40.49\%} \\
+\hline
+w/o TFG & 26.76 & 44.09 & 17.20 & 20.13 & 33.44 & 13.51 \\
+ & \textcolor{red}{\small +26.17\%} & \textcolor{red}{\small +21.70\%} & \textcolor{red}{\small +24.10\%} & \textcolor{red}{\small +14.44\%} & \textcolor{red}{\small +11.91\%} & \textcolor{red}{\small +21.17\%} \\
+\hline
+w/o STIM & 23.47 & 41.09 & 17.26 & 19.28 & 33.16 & 13.35 \\
+ & \textcolor{red}{\small +10.66\%} & \textcolor{red}{\small +13.41\%} & \textcolor{red}{\small +24.53\%} & \textcolor{red}{\small +9.61\%} & \textcolor{red}{\small +10.98\%} & \textcolor{red}{\small +19.73\%} \\
+\hline
+w/o CVFR & 54.34 & 77.43 & 70.17 & 37.37 & 58.59 & 39.60 \\
+ & \textcolor{red}{\small +156.20\%} & \textcolor{red}{\small +113.72\%} & \textcolor{red}{\small +406.28\%} & \textcolor{red}{\small +112.45\%} & \textcolor{red}{\small +96.08\%} & \textcolor{red}{\small +255.16\%} \\
+\hline
+w/o SCG & 21.84  & 37.45  & 14.78  & 17.67  & 30.11  & 11.50  \\
+ & \textcolor{red}{\small +2.97\%} & \textcolor{red}{\small +3.36\%} & \textcolor{red}{\small +6.64\%} & \textcolor{red}{\small +0.49\%} & \textcolor{red}{\small +0.78\%} & \textcolor{red}{\small +3.10\%} \\
+\hline
+w/o TCG & 23.27  & 41.14  & 16.55  & 19.28  & 34.16  & 13.30  \\
+ & \textcolor{red}{\small +9.69\%} & \textcolor{red}{\small +13.55\%} & \textcolor{red}{\small +19.42\%} & \textcolor{red}{\small +9.62\%} & \textcolor{red}{\small +14.35\%} & \textcolor{red}{\small +19.24\%} \\
+\hline
+w/o CCG & 23.92 & 41.83 & 16.62 & 19.78 & 35.55 & 13.91 \\
+ & \textcolor{red}{\small +12.80\%} & \textcolor{red}{\small +15.47\%} & \textcolor{red}{\small +19.92\%} & \textcolor{red}{\small +12.47\%} & \textcolor{red}{\small +18.99\%} & \textcolor{red}{\small +24.71\%} \\
+\bottomrule
+\end{tabular}
+}
+\caption{Ablation study on the SD dataset comparing ViST against different variants in predicting 12-step and average.
+}
+\label{tab:ablation}
+\end{table}

@@ -1,0 +1,26 @@
+\begin{table}[!ht]
+\centering
+\small
+%\renewcommand{\arraystretch}{1.2}
+\resizebox{1.0\linewidth}{!}{
+\begin{tabular}{l|cccc|cccc}
+\toprule[1.0pt]
+\textbf{Dataset} & \multicolumn{4}{c|}{\textbf{GBA}} & \multicolumn{4}{c}{\textbf{GLA}} \\
+\hline
+\textbf{Methods} & \textbf{BS} & \textbf{Mem} & \textbf{Train} & \textbf{Val} & \textbf{BS} & \textbf{Mem} & \textbf{Train} & \textbf{Val} \\
+\midrule
+\midrule
+DCRNN & 16 & 19.51 & 2654.61 & 350.11 & 8 & 30.90 & 6880.55 & 1486.49 \\
+DGCRN & 16 & 38.71 & 2834.88 & 809.12 & 4 & 34.90 & 11961.95 & 5332.09 \\
+D2STGNN & 4 & 45.10 & 5392.56 & 830.39 & 1 & 16.87 & 24445.55 & 3999.65 \\
+STWave & 16 & 24.44 & 982.40 & 152.55 & 8 & 39.54 & 1582.59 & 253.09 \\
+ASTGCN & 16 & 4.75 & 1246.94 & 217.51 & 8 & 6.75 & 3639.42 & 648.63 \\
+\rowcolor{green!20} {ViST (Ours)} & {16} & 22.26 & {626.58} & {96.27} & {8} & 34.60 & {1227.69} & {176.57} \\
+%\rowcolor{green!20} ViST-V & 16 & 22.26 & 626.58 & 96.27 & 8 & 34.60 & 1227.69 & 176.57 \\
+%ViST & 16 & 36.55 & 1021.24 & 139.85 & 8 & 45.98 & 2341.48 & 315.00 \\
+\hline
+\end{tabular}
+}
+\caption{Memory and efficiency comparisons on two large-scale datasets, GBA (N=2,352) and GLA(N=3,834). BS: the batch size, Mem: CUDA memory (GB) used, Train: training time (seconds per epoch), Val: inference time (in seconds).}
+\label{tab:efficiency}
+\end{table}

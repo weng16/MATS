@@ -1,0 +1,13 @@
+# @package _global_
+defaults:
+  - /_base_/base
+  - /_base_/datasets/weather
+  - /_base_/model/mats_base
+  - _self_
+
+experiment:
+  name: "MATS-Full-Weather-96"
+  type: main
+
+output_len: 96
+input_len: 336

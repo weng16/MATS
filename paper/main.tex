@@ -1,0 +1,84 @@
+\documentclass[sigconf, screen, review, anonymous]{acmart}
+
+\AtBeginDocument{%
+  \providecommand\BibTeX{{%
+    Bib\TeX}}}
+
+\setcopyright{acmlicensed}
+\copyrightyear{2026}
+\acmYear{2026}
+\acmDOI{XXXXXXX.XXXXXXX}
+
+%%
+%% ACM MM 2026
+%%
+
+%%
+%% For managing citations, it is recommended to use bibliography
+%% files in BibTeX format.
+%%
+\usepackage{natbib}
+
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{pifont}
+\usepackage{enumitem}
+\usepackage{tabularx}
+\usepackage{multirow}
+\usepackage[normalem]{ulem}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{bm}
+\usepackage{colortbl}
+\usepackage{color}
+\usepackage{tabularray}
+\usepackage{xspace}
+\usepackage{makecell}
+
+\begin{document}
+
+%%
+%% Title
+%%
+\title{StructRouter: Structure-Aware Multi-Agent Framework for Mixed-Mode Time Series Analysis}
+
+\def\model{StructRouter\xspace}
+
+% Math and result formatting
+\newcommand{\update}[1]{{\textcolor{black}{#1}}}
+\newcommand{\boldres}[1]{{\textbf{\textcolor{red}{#1}}}}
+\newcommand{\secondres}[1]{{\underline{\textcolor{blue}{#1}}}}
+
+% Algorithm macros
+\newcommand{\Function}[2]{\STATE\textbf{function} \text{#1}$(#2)$}
+\newcommand{\EndFunction}{\STATE\textbf{end function}}
+\newcommand{\Comment}[1]{\STATE{\(\triangleright\) #1}}
+
+%%
+%% Anonymous authors for review
+%%
+\author{Anonymous Authors}
+
+\settopmatter{printacmref=false}
+
+%%
+%% Abstract and main content
+%%
+\input{contents/00abstract}
+\maketitle
+\input{contents/01introduction}
+\input{contents/02relatedwork}
+\input{contents/03methodology}
+\input{contents/04experiments}
+\input{contents/05conclusion}
+
+\newpage
+\bibliographystyle{ACM-Reference-Format}
+\bibliography{sample-base}
+
+\appendix
+
+%\input{contents/06appendix}
+
+\end{document}

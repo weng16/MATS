@@ -1,0 +1,25 @@
+\section{Related Work}
+
+\subsection{Time Series Forecasting}
+
+Traditional forecasting methods rely on strong structural assumptions. ARIMA~\cite{box2015time} and exponential smoothing (ETS)~\cite{hyndman2008forecasting} assume a single trend or seasonal decomposition. Spectral methods~\cite{welch1967use} target periodicity through Fourier or wavelet analysis. These approaches excel when the data match their assumptions but struggle when multiple patterns coexist or shift over time---a common scenario in real-world mixed-mode time series.
+
+Deep learning has significantly advanced time series forecasting. Recurrent architectures such as DeepAR~\cite{salinas2019deepar} model temporal dependencies via autoregressive likelihood. Temporal Convolutional Networks (TCNs)~\cite{bai2018empirical} use causal convolutions for efficient sequence modeling. Transformer-based models have achieved state-of-the-art performance: Informer~\cite{zhou2021informer} and Autoformer~\cite{wu2021autoformer} address long-sequence efficiency; FEDformer~\cite{zhou2022fedformer} leverages frequency-domain decomposition; PatchTST~\cite{nie2022time} applies patch-based tokenization; iTransformer~\cite{liu2023itransformer} inverts the attention mechanism to treat variates as tokens. Despite their flexibility, these methods treat all patterns uniformly through attention or convolution and lack explicit modeling of mixed structural patterns.
+
+\textbf{Gap:} No prior work explicitly models mixed structural patterns (trend, seasonality, regime shifts, noise) with learnable prototypes that guide routing. Existing deep learning methods either assume homogeneity or rely on implicit pattern discovery without structural inductive bias.
+
+\subsection{Mixture of Experts for Time Series}
+
+Mixture-of-experts (MoE) architectures route inputs to specialized sub-networks to handle heterogeneity. The classic MoE formulation~\cite{shazeer2017outrageously} uses a gating network to compute expert weights. Switch Transformer~\cite{fedus2022switch} reduces computation by routing each token to a single expert (top-1 routing), achieving scalability in large language models.
+
+In time series, TimesFM~\cite{ekambaram2023timesfm} and TimeMixer~\cite{wang2023timemixer} apply MoE-style designs for forecasting. TimesFM uses a foundation model with mixture components; TimeMixer employs multi-scale mixing for decomposition. However, these approaches typically use \emph{hard routing}: only a subset of experts is activated per input. Hard routing leads to information loss (inactive experts contribute nothing), expert collapse (few experts dominate the routing distribution), and limited interpretability. Moreover, experts operate in isolation without explicit communication.
+
+\textbf{Gap:} Hard routing loses information and exacerbates expert collapse. No prior time series MoE framework enables causal communication between experts or models their interactions through a structural causal model.
+
+\subsection{Causal Discovery and Communication}
+
+Causal discovery aims to learn directed acyclic graphs (DAGs) from observational data. NOTEARS~\cite{zheng2018dags} formulates DAG learning as a continuous optimization problem: the constraint $h(W) = \text{tr}(\exp(W \odot W)) - N = 0$ ensures acyclicity, enabling gradient-based learning of the adjacency matrix. This formulation has been extended to nonlinear settings and applied in various domains.
+
+Multi-agent systems have explored communication protocols for cooperative learning. CommNet~\cite{sukhbaatar2016learning} allows agents to share a continuous communication vector. TarMAC~\cite{das2019tarmac} introduces targeted communication with attention-based addressing. These works focus on reinforcement learning and do not incorporate causal structure or time series forecasting.
+
+\textbf{Gap:} No prior work combines SCM-based causal communication (with DAG constraints) with time series expert routing. The integration of NOTEARS-style DAG learning for inter-expert communication in a forecasting framework remains unexplored.

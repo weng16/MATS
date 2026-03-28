@@ -1,0 +1,11 @@
+\section{Conclusion}
+
+We presented \model, a structure-aware multi-agent framework for mixed-mode time series analysis. \model addresses the limitations of prior MoE approaches by combining (i) prototype-based soft routing that preserves full information and avoids expert collapse, (ii) causal communication among experts via a DAG-constrained structural causal model, and (iii) closed-loop verification with gradient-aware rerouting for self-correction.
+
+Our key contributions include multi-pattern weight estimation with orthogonal prototypes, SCM-based causal communication with the NOTEARS formulation, and a verification agent that performs consistency, validity, and uncertainty checks. Extensive experiments on seven benchmarks (ETTh1, ETTh2, ETTm1, ETTm2, Weather, ECL, Traffic) demonstrate that \model achieves [TODO: key quantitative results---e.g., state-of-the-art or competitive MSE/MAE across prediction lengths 96--720]. Ablations confirm that each component---segment detection, causal communication, verification, and RFT---contributes to performance, and that soft routing consistently outperforms hard routing.
+
+\paragraph{Limitations.}
+\model incurs higher computational cost than single-model baselines due to five experts and the DAG constraint. The NOTEARS formulation adds optimization overhead during training. MC dropout for the verification agent introduces additional inference overhead. Scaling to very long sequences or extremely high-variate settings may require further efficiency improvements.
+
+\paragraph{Future Work.}
+We plan to extend \model to multimodal time series (e.g., combining sensor streams with text or images), and to explore few-shot and zero-shot scenarios where pattern prototypes are learned from limited data or transferred across domains. Integration with foundation models for time series could enable pre-trained structural priors for faster adaptation.

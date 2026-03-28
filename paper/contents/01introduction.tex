@@ -1,0 +1,31 @@
+\section{Introduction}
+
+Time series analysis underpins critical applications across multimedia and intelligent systems: sensor streams from wearable devices, video analytics for traffic and surveillance, and IoT data from smart buildings and industrial monitoring. When such data exhibit \emph{mixed structural patterns}---trends, seasonality, regime shifts, and noise that vary across segments---forecasting becomes particularly challenging. A single model trained on homogeneous assumptions often fails to capture the diversity of patterns present in real-world time series.
+
+Traditional methods make strong structural assumptions. ARIMA and exponential smoothing assume a single trend or seasonal decomposition~\cite{box2015time}. Spectral methods target periodicity. These approaches excel when the data match their assumptions but struggle when multiple patterns coexist or shift over time. Deep learning methods, especially Transformer-based architectures~\cite{vaswani2017attention}, treat all patterns uniformly through attention mechanisms. While flexible, they lack explicit structural modeling and can be data-inefficient when patterns are sparse or localized.
+
+Mixture-of-experts (MoE) approaches, including Switch Transformer~\cite{fedus2022switch} and ST-MoE, address heterogeneity by routing inputs to specialized experts. However, they rely on \emph{hard routing}: only a small subset of experts is activated per input. This design leads to expert collapse (few experts dominate), information loss (inactive experts contribute nothing), and limited interpretability. Moreover, no existing framework jointly addresses three key aspects: (i) structure-aware pattern detection, (ii) soft expert routing that preserves full information, and (iii) interpretable inter-expert communication.
+
+To bridge this gap, we propose \model, a structure-aware multi-agent framework for mixed-mode time series analysis. StructRouter models time series as a mixture of learnable structural patterns with soft routing and causal communication among experts. Our key design choices are:
+
+\textbf{Structure-aware routing.} A learnable encoder extracts structural features from the input. Weight estimation fuses MLP-based routing with prototype similarity: $w = \text{Softmax}(\text{MLP}(z) + \text{softplus}(\lambda) \cdot \text{Sim}(z, P))$, where $P \in \mathbb{R}^{K \times H}$ are orthogonal pattern prototypes. Similar structural patterns receive similar routing weights, providing an inductive bias absent in purely data-driven MoE.
+
+\textbf{Soft expert fusion.} Unlike hard routing, all five experts contribute in every forward pass: $\text{Output} = \sum_i w_i \cdot \text{Expert}_i(x)$. This avoids expert collapse and preserves full information for mixed-mode segments where multiple patterns coexist.
+
+\textbf{Causal communication.} Experts (agents) communicate via a Structural Causal Model (SCM) with a learnable adjacency matrix $W_{\text{comm}}$ constrained to a Directed Acyclic Graph via the NOTEARS formulation: $h(W) = \text{tr}(\exp(W \odot W)) - N = 0$. The resulting DAG yields interpretable causal structure---which expert influences which---and supports do-calculus and counterfactual reasoning.
+
+\textbf{Closed-loop verification.} A verification agent performs three-dimensional checks: Consistency (input--output structure alignment), Validity (statistical and range checks), and Uncertainty (aleatoric and epistemic via Monte Carlo dropout). When verification fails, an Inverse Consistency Check computes a suggested weight adjustment and triggers gradient-aware rerouting. The output retains gradients so that the consistency loss backpropagates through the prediction path, enabling the model to correct routing decisions in a closed loop.
+
+\textbf{Progressive training.} We employ three-stage training: self-supervised structure learning, end-to-end supervised forecasting, and reinforcement fine-tuning (RFT). RevIN~\cite{kim2022reversible} handles distribution shift across segments.
+
+Our main contributions are:
+
+\begin{itemize}[leftmargin=*]
+    \item \textbf{Multi-pattern weight estimation with prototype similarity.} We propose a weight estimator that fuses MLP-based routing with prototype similarity and orthogonal pattern prototypes. Combined with soft-weighted expert fusion, all experts contribute in every forward pass, avoiding expert collapse and preserving full information for mixed-mode time series.
+
+    \item \textbf{SCM causal communication with DAG constraint.} We model expert communication as a Structural Causal Model with a learnable adjacency matrix constrained to a DAG via the NOTEARS formulation. This yields interpretable causal structure over experts and supports do-calculus and counterfactual reasoning, with parsimony through sparse regularization.
+
+    \item \textbf{Closed-loop verification with gradient-aware rerouting.} We introduce a verification agent that performs three-dimensional checks (Consistency, Validity, Uncertainty). When verification fails, an Inverse Consistency Check triggers gradient-aware rerouting, with gradients flowing through the prediction path so the model can correct routing decisions in a closed loop.
+
+    \item \textbf{Comprehensive empirical evaluation.} We conduct extensive experiments on seven benchmark datasets---ETTh1, ETTh2, ETTm1, ETTm2, Weather, ECL, and Traffic---under standard forecasting protocols (prediction lengths 96, 192, 336, 720). We provide ablations on soft vs.\ hard routing, DAG constraint, verification, and three-stage training, demonstrating the contribution of each component. The learned pattern prototypes and causal graphs offer interpretable insights into model behavior across domains.
+\end{itemize}
