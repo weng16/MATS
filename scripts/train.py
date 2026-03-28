@@ -49,21 +49,6 @@ def main(cfg: DictConfig):
     output_len = cfg_dict.pop("output_len", 96)
     cfg_dict["dataset_params"]["input_len"] = input_len
     cfg_dict["dataset_params"]["output_len"] = output_len
-    
-    # 注入数据集划分比例，防止缓存为空
-    if "train_ratio" not in cfg_dict["dataset_params"]:
-        cfg_dict["dataset_params"]["train_ratio"] = 0.7
-    if "val_ratio" not in cfg_dict["dataset_params"]:
-        cfg_dict["dataset_params"]["val_ratio"] = 0.1
-    if "test_ratio" not in cfg_dict["dataset_params"]:
-        cfg_dict["dataset_params"]["test_ratio"] = 0.2
-        
-    if "train_data_ratio" not in cfg_dict["dataset_params"]:
-        cfg_dict["dataset_params"]["train_data_ratio"] = 0.7
-    if "val_data_ratio" not in cfg_dict["dataset_params"]:
-        cfg_dict["dataset_params"]["val_data_ratio"] = 0.1
-    if "test_data_ratio" not in cfg_dict["dataset_params"]:
-        cfg_dict["dataset_params"]["test_data_ratio"] = 0.2
 
     # model_params -> model_config: sync seq_len/pred_len with actual data lengths
     from basicts.configs import BasicTSModelConfig
