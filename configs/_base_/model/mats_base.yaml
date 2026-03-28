@@ -5,12 +5,10 @@ model_params:
   use_segment_processing: false
   use_verification: true
   use_rft: false
+  use_prototype: true
   use_revin: true
   channel_independent: false
-<<<<<<< HEAD
   seq_len: ${input_len}
   pred_len: ${output_len}
   input_dim: 7
   output_dim: 7
-=======
->>>>>>> 230083a (update logs and prompts)

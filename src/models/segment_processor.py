@@ -298,11 +298,12 @@ class SegmentLevelWeightEstimator(nn.Module):
         
         # 找主导模式
         dominant_idx = w.argmax()
-        dominant_pattern = self.PATTERN_NAMES[dominant_idx]
+        dominant_pattern = self.PATTERN_NAMES[dominant_idx] if dominant_idx < len(self.PATTERN_NAMES) else f'pattern_{dominant_idx}'
         
         # 生成描述字符串
         desc_parts = []
-        for i, name in enumerate(self.PATTERN_NAMES):
+        for i in range(len(w)):
+            name = self.PATTERN_NAMES[i] if i < len(self.PATTERN_NAMES) else f'pattern_{i}'
             if w[i] > 0.1:  # 只显示权重>0.1的模式
                 abbr = name[0].upper()  # 首字母缩写
                 desc_parts.append(f"{abbr}:{w[i]:.1f}")

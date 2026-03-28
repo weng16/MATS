@@ -77,16 +77,21 @@ class SoftWeightedExpertFusion(nn.Module):
         self.expert_dropout = expert_dropout
         self.use_expert_residual = use_expert_residual
         
-        # 5个专业化专家网络 (对应图中 Task Expert Pool)
-        # w1: Periodic Expert, w2: Trend Expert, w3: Noise Expert
-        # w4: Abrupt Expert, w5: General Expert
-        self.experts = nn.ModuleDict({
-            'periodic': PeriodicExpert(input_dim, output_dim, hidden_dim),
-            'trend': TrendExpert(input_dim, output_dim, hidden_dim),
-            'noise': NoiseExpert(input_dim, output_dim, hidden_dim),
-            'abrupt': AbruptExpert(input_dim, output_dim, hidden_dim),
-            'general': GeneralExpert(input_dim, output_dim, hidden_dim),
-        })
+        if num_experts == 1:
+            self.experts = nn.ModuleDict({
+                'general': GeneralExpert(input_dim, output_dim, hidden_dim),
+            })
+        else:
+            # 5个专业化专家网络 (对应图中 Task Expert Pool)
+            # w1: Periodic Expert, w2: Trend Expert, w3: Noise Expert
+            # w4: Abrupt Expert, w5: General Expert
+            self.experts = nn.ModuleDict({
+                'periodic': PeriodicExpert(input_dim, output_dim, hidden_dim),
+                'trend': TrendExpert(input_dim, output_dim, hidden_dim),
+                'noise': NoiseExpert(input_dim, output_dim, hidden_dim),
+                'abrupt': AbruptExpert(input_dim, output_dim, hidden_dim),
+                'general': GeneralExpert(input_dim, output_dim, hidden_dim),
+            })
         self.expert_names = list(self.experts.keys())
         
         # 可选的共享专家

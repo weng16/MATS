@@ -129,6 +129,8 @@ class StructRouter(nn.Module):
         use_temporal_causal: bool = False,
         use_verification: bool = True,
         use_rft: bool = True,
+        use_prototype: bool = True,
+        hard_routing: bool = False,
         task_type: str = 'forecast',
         use_revin: bool = True,
         channel_independent: bool = False,
@@ -141,10 +143,13 @@ class StructRouter(nn.Module):
         self.seq_len = seq_len
         self.pred_len = pred_len
         self.num_experts = num_experts
-        self.num_agents = num_agents
+        # In single expert ablation, agents count must match experts count
+        self.num_agents = num_experts if num_experts == 1 else num_agents
         self.use_segment_processing = use_segment_processing
         self.use_verification = use_verification
         self.use_rft = use_rft
+        self.use_prototype = use_prototype
+        self.hard_routing = hard_routing
         self.task_type = self.TASK_TYPES.get(task_type, 0)
         self.channel_independent = channel_independent
 
@@ -168,7 +173,8 @@ class StructRouter(nn.Module):
         self.weight_estimator = MultiPatternWeightEstimator(
             hidden_dim=hidden_dim,
             num_patterns=num_experts,
-            lambda_sim=0.5
+            lambda_sim=0.5,
+            use_prototype=use_prototype
         )
         
         # ==================== 3. Segment Processing ====================
@@ -219,13 +225,13 @@ class StructRouter(nn.Module):
         # ==================== 7. Causal Communication ====================
         if use_temporal_causal:
             self.communication = TemporalCausalSCM(
-                num_agents=num_agents,
+                num_agents=self.num_agents,
                 hidden_dim=hidden_dim,
                 max_lag=max_lag
             )
         else:
             self.communication = CausalCommunicationSCM(
-                num_agents=num_agents,
+                num_agents=self.num_agents,
                 hidden_dim=hidden_dim
             )
         
@@ -371,8 +377,16 @@ class StructRouter(nn.Module):
         )
 
         # ========== Stage 5: Expert Fusion ==========
+        if self.hard_routing:
+            max_idx = expert_weights.argmax(dim=-1)
+            hard_weights = F.one_hot(max_idx, num_classes=expert_weights.shape[-1]).to(expert_weights.dtype)
+            # Straight-through estimator
+            fusion_weights = hard_weights - expert_weights.detach() + expert_weights
+        else:
+            fusion_weights = expert_weights
+
         fused_features, expert_outputs = self.expert_fusion(
-            x, expert_weights, return_expert_outputs=True
+            x, fusion_weights, return_expert_outputs=True
         )
 
         # ========== Stage 6: Prediction ==========
@@ -583,6 +597,7 @@ def create_struct_router(config: Dict) -> StructRouter:
         use_temporal_causal=config.get('use_temporal_causal', False),
         use_verification=config.get('use_verification', True),
         use_rft=config.get('use_rft', True),
+        use_prototype=config.get('use_prototype', True),
         task_type=config.get('task_type', 'forecast'),
         use_revin=config.get('use_revin', True),
         channel_independent=config.get('channel_independent', False),

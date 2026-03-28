@@ -5,8 +5,8 @@
 """
 import subprocess
 
-abl_datasets = ["ETTh1", "Weather"]   # 选2个代表
-abl_types  = ["no_segment", "no_causal", "no_verification", "no_rft", "hard_routing", "single_expert"]
+abl_datasets = ["ETTh1", "ETTm1"]   # Table 3
+abl_types  = ["no_prototype", "no_causal", "no_verification", "hard_routing", "single_expert"]
 pred_len   = 96
 
 print("=========================================")

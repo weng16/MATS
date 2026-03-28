@@ -1,0 +1,175 @@
+nohup: ignoring input
+=========================================
+开始运行: ablation/hard_routing/ettm1_96
+=========================================
+清理缓存中...
+缓存清理完毕。
+2026-03-28 03:08:13,338 - BasicTS-launcher - INFO - Launching BasicTS training.
+2026-03-28 03:08:13,340 - easytorch-env - INFO - Use devices 0.
+2026-03-28 03:08:13,355 - easytorch-env - INFO - Disable TF32 mode
+2026-03-28 03:08:13,360 - BasicTS - INFO - Building model.
+/mlx_devbox/users/wangwenzhuo.46/playground/MATS_/src/models/experts.py:491: UserWarning: enable_nested_tensor is True, but self.use_nested_tensor is False because encoder_layer.norm_first was True
+  self.transformer = nn.TransformerEncoder(
+2026-03-28 03:08:13,788 - BasicTS - INFO - Set ckpt save dir: "/mlx_devbox/users/wangwenzhuo.46/playground/MATS_/results/ablation/hard_routing/ABL-HardRouting-ETTm1-96/db452b64963c1f59f803290e0cdc9503"
+2026-03-28 03:08:13,788 - BasicTS-training - INFO - Initializing training.
+2026-03-28 03:08:13,788 - BasicTS-training - INFO - Building train data loader.
+2026-03-28 03:08:13,789 - BasicTS-training - ERROR - Traceback (most recent call last):
+  File "/mlx_devbox/users/wangwenzhuo.46/playground/.venv/lib/python3.11/site-packages/basicts/launcher.py", line 109, in training_func
+    runner.train()
+  File "/mlx_devbox/users/wangwenzhuo.46/playground/.venv/lib/python3.11/site-packages/basicts/runners/basicts_runner.py", line 304, in train
+    self.on_train_start()
+  File "/mlx_devbox/users/wangwenzhuo.46/playground/.venv/lib/python3.11/site-packages/basicts/runners/basicts_runner.py", line 540, in on_train_start
+    self._init_train()
+  File "/mlx_devbox/users/wangwenzhuo.46/playground/.venv/lib/python3.11/site-packages/basicts/runners/basicts_runner.py", line 216, in _init_train
+    self.train_data_loader = Builder._build_data_loader(self.cfg, BasicTSMode.TRAIN, self.logger)
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mlx_devbox/users/wangwenzhuo.46/playground/.venv/lib/python3.11/site-packages/basicts/runners/builder.py", line 92, in _build_data_loader
+    dataset = Builder._build_dataset(cfg, mode)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mlx_devbox/users/wangwenzhuo.46/playground/.venv/lib/python3.11/site-packages/basicts/runners/builder.py", line 141, in _build_dataset
+    return cfg.dataset_type(**dataset_params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: BasicTSForecastingDataset.__init__() got an unexpected keyword argument 'train_ratio'
+
+Error executing job with overrides: []
+Traceback (most recent call last):
+  File "/mlx_devbox/users/wangwenzhuo.46/playground/MATS_/scripts/train.py", line 102, in main
+    basicts.BasicTSLauncher.launch_training(ts_cfg)
+  File "/mlx_devbox/users/wangwenzhuo.46/playground/.venv/lib/python3.11/site-packages/basicts/launcher.py", line 58, in launch_training
+    train_dist(cfg)
+  File "/mlx_devbox/users/wangwenzhuo.46/playground/.venv/lib/python3.11/site-packages/basicts/launcher.py", line 113, in training_func
+    raise e
+  File "/mlx_devbox/users/wangwenzhuo.46/playground/.venv/lib/python3.11/site-packages/basicts/launcher.py", line 109, in training_func
+    runner.train()
+  File "/mlx_devbox/users/wangwenzhuo.46/playground/.venv/lib/python3.11/site-packages/basicts/runners/basicts_runner.py", line 304, in train
+    self.on_train_start()
+  File "/mlx_devbox/users/wangwenzhuo.46/playground/.venv/lib/python3.11/site-packages/basicts/runners/basicts_runner.py", line 540, in on_train_start
+    self._init_train()
+  File "/mlx_devbox/users/wangwenzhuo.46/playground/.venv/lib/python3.11/site-packages/basicts/runners/basicts_runner.py", line 216, in _init_train
+    self.train_data_loader = Builder._build_data_loader(self.cfg, BasicTSMode.TRAIN, self.logger)
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mlx_devbox/users/wangwenzhuo.46/playground/.venv/lib/python3.11/site-packages/basicts/runners/builder.py", line 92, in _build_data_loader
+    dataset = Builder._build_dataset(cfg, mode)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mlx_devbox/users/wangwenzhuo.46/playground/.venv/lib/python3.11/site-packages/basicts/runners/builder.py", line 141, in _build_dataset
+    return cfg.dataset_type(**dataset_params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: BasicTSForecastingDataset.__init__() got an unexpected keyword argument 'train_ratio'
+
+Set the environment variable HYDRA_FULL_ERROR=1 for a complete stack trace.
+=========================================
+开始运行: ablation/single_expert/etth1_96
+=========================================
+清理缓存中...
+缓存清理完毕。
+2026-03-28 03:08:17,041 - BasicTS-launcher - INFO - Launching BasicTS training.
+2026-03-28 03:08:17,044 - easytorch-env - INFO - Use devices 0.
+2026-03-28 03:08:17,072 - easytorch-env - INFO - Disable TF32 mode
+2026-03-28 03:08:17,074 - BasicTS - INFO - Building model.
+/mlx_devbox/users/wangwenzhuo.46/playground/MATS_/src/models/experts.py:491: UserWarning: enable_nested_tensor is True, but self.use_nested_tensor is False because encoder_layer.norm_first was True
+  self.transformer = nn.TransformerEncoder(
+2026-03-28 03:08:17,313 - BasicTS - INFO - Set ckpt save dir: "/mlx_devbox/users/wangwenzhuo.46/playground/MATS_/results/ablation/single_expert/ABL-SingleExpert-ETTh1-96/0b1ebd6e0986827ae124942fbc191211"
+2026-03-28 03:08:17,313 - BasicTS-training - INFO - Initializing training.
+2026-03-28 03:08:17,314 - BasicTS-training - INFO - Building train data loader.
+2026-03-28 03:08:17,314 - BasicTS-training - ERROR - Traceback (most recent call last):
+  File "/mlx_devbox/users/wangwenzhuo.46/playground/.venv/lib/python3.11/site-packages/basicts/launcher.py", line 109, in training_func
+    runner.train()
+  File "/mlx_devbox/users/wangwenzhuo.46/playground/.venv/lib/python3.11/site-packages/basicts/runners/basicts_runner.py", line 304, in train
+    self.on_train_start()
+  File "/mlx_devbox/users/wangwenzhuo.46/playground/.venv/lib/python3.11/site-packages/basicts/runners/basicts_runner.py", line 540, in on_train_start
+    self._init_train()
+  File "/mlx_devbox/users/wangwenzhuo.46/playground/.venv/lib/python3.11/site-packages/basicts/runners/basicts_runner.py", line 216, in _init_train
+    self.train_data_loader = Builder._build_data_loader(self.cfg, BasicTSMode.TRAIN, self.logger)
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mlx_devbox/users/wangwenzhuo.46/playground/.venv/lib/python3.11/site-packages/basicts/runners/builder.py", line 92, in _build_data_loader
+    dataset = Builder._build_dataset(cfg, mode)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mlx_devbox/users/wangwenzhuo.46/playground/.venv/lib/python3.11/site-packages/basicts/runners/builder.py", line 141, in _build_dataset
+    return cfg.dataset_type(**dataset_params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: BasicTSForecastingDataset.__init__() got an unexpected keyword argument 'train_ratio'
+
+Error executing job with overrides: []
+Traceback (most recent call last):
+  File "/mlx_devbox/users/wangwenzhuo.46/playground/MATS_/scripts/train.py", line 102, in main
+    basicts.BasicTSLauncher.launch_training(ts_cfg)
+  File "/mlx_devbox/users/wangwenzhuo.46/playground/.venv/lib/python3.11/site-packages/basicts/launcher.py", line 58, in launch_training
+    train_dist(cfg)
+  File "/mlx_devbox/users/wangwenzhuo.46/playground/.venv/lib/python3.11/site-packages/basicts/launcher.py", line 113, in training_func
+    raise e
+  File "/mlx_devbox/users/wangwenzhuo.46/playground/.venv/lib/python3.11/site-packages/basicts/launcher.py", line 109, in training_func
+    runner.train()
+  File "/mlx_devbox/users/wangwenzhuo.46/playground/.venv/lib/python3.11/site-packages/basicts/runners/basicts_runner.py", line 304, in train
+    self.on_train_start()
+  File "/mlx_devbox/users/wangwenzhuo.46/playground/.venv/lib/python3.11/site-packages/basicts/runners/basicts_runner.py", line 540, in on_train_start
+    self._init_train()
+  File "/mlx_devbox/users/wangwenzhuo.46/playground/.venv/lib/python3.11/site-packages/basicts/runners/basicts_runner.py", line 216, in _init_train
+    self.train_data_loader = Builder._build_data_loader(self.cfg, BasicTSMode.TRAIN, self.logger)
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mlx_devbox/users/wangwenzhuo.46/playground/.venv/lib/python3.11/site-packages/basicts/runners/builder.py", line 92, in _build_data_loader
+    dataset = Builder._build_dataset(cfg, mode)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mlx_devbox/users/wangwenzhuo.46/playground/.venv/lib/python3.11/site-packages/basicts/runners/builder.py", line 141, in _build_dataset
+    return cfg.dataset_type(**dataset_params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: BasicTSForecastingDataset.__init__() got an unexpected keyword argument 'train_ratio'
+
+Set the environment variable HYDRA_FULL_ERROR=1 for a complete stack trace.
+=========================================
+开始运行: ablation/single_expert/ettm1_96
+=========================================
+清理缓存中...
+缓存清理完毕。
+2026-03-28 03:08:20,521 - BasicTS-launcher - INFO - Launching BasicTS training.
+2026-03-28 03:08:20,523 - easytorch-env - INFO - Use devices 0.
+2026-03-28 03:08:20,538 - easytorch-env - INFO - Disable TF32 mode
+2026-03-28 03:08:20,540 - BasicTS - INFO - Building model.
+/mlx_devbox/users/wangwenzhuo.46/playground/MATS_/src/models/experts.py:491: UserWarning: enable_nested_tensor is True, but self.use_nested_tensor is False because encoder_layer.norm_first was True
+  self.transformer = nn.TransformerEncoder(
+2026-03-28 03:08:20,759 - BasicTS - INFO - Set ckpt save dir: "/mlx_devbox/users/wangwenzhuo.46/playground/MATS_/results/ablation/single_expert/ABL-SingleExpert-ETTm1-96/5db7a979ccdba28e0bdd2e0bc45c9d62"
+2026-03-28 03:08:20,760 - BasicTS-training - INFO - Initializing training.
+2026-03-28 03:08:20,760 - BasicTS-training - INFO - Building train data loader.
+2026-03-28 03:08:20,761 - BasicTS-training - ERROR - Traceback (most recent call last):
+  File "/mlx_devbox/users/wangwenzhuo.46/playground/.venv/lib/python3.11/site-packages/basicts/launcher.py", line 109, in training_func
+    runner.train()
+  File "/mlx_devbox/users/wangwenzhuo.46/playground/.venv/lib/python3.11/site-packages/basicts/runners/basicts_runner.py", line 304, in train
+    self.on_train_start()
+  File "/mlx_devbox/users/wangwenzhuo.46/playground/.venv/lib/python3.11/site-packages/basicts/runners/basicts_runner.py", line 540, in on_train_start
+    self._init_train()
+  File "/mlx_devbox/users/wangwenzhuo.46/playground/.venv/lib/python3.11/site-packages/basicts/runners/basicts_runner.py", line 216, in _init_train
+    self.train_data_loader = Builder._build_data_loader(self.cfg, BasicTSMode.TRAIN, self.logger)
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mlx_devbox/users/wangwenzhuo.46/playground/.venv/lib/python3.11/site-packages/basicts/runners/builder.py", line 92, in _build_data_loader
+    dataset = Builder._build_dataset(cfg, mode)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mlx_devbox/users/wangwenzhuo.46/playground/.venv/lib/python3.11/site-packages/basicts/runners/builder.py", line 141, in _build_dataset
+    return cfg.dataset_type(**dataset_params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: BasicTSForecastingDataset.__init__() got an unexpected keyword argument 'train_ratio'
+
+Error executing job with overrides: []
+Traceback (most recent call last):
+  File "/mlx_devbox/users/wangwenzhuo.46/playground/MATS_/scripts/train.py", line 102, in main
+    basicts.BasicTSLauncher.launch_training(ts_cfg)
+  File "/mlx_devbox/users/wangwenzhuo.46/playground/.venv/lib/python3.11/site-packages/basicts/launcher.py", line 58, in launch_training
+    train_dist(cfg)
+  File "/mlx_devbox/users/wangwenzhuo.46/playground/.venv/lib/python3.11/site-packages/basicts/launcher.py", line 113, in training_func
+    raise e
+  File "/mlx_devbox/users/wangwenzhuo.46/playground/.venv/lib/python3.11/site-packages/basicts/launcher.py", line 109, in training_func
+    runner.train()
+  File "/mlx_devbox/users/wangwenzhuo.46/playground/.venv/lib/python3.11/site-packages/basicts/runners/basicts_runner.py", line 304, in train
+    self.on_train_start()
+  File "/mlx_devbox/users/wangwenzhuo.46/playground/.venv/lib/python3.11/site-packages/basicts/runners/basicts_runner.py", line 540, in on_train_start
+    self._init_train()
+  File "/mlx_devbox/users/wangwenzhuo.46/playground/.venv/lib/python3.11/site-packages/basicts/runners/basicts_runner.py", line 216, in _init_train
+    self.train_data_loader = Builder._build_data_loader(self.cfg, BasicTSMode.TRAIN, self.logger)
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mlx_devbox/users/wangwenzhuo.46/playground/.venv/lib/python3.11/site-packages/basicts/runners/builder.py", line 92, in _build_data_loader
+    dataset = Builder._build_dataset(cfg, mode)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mlx_devbox/users/wangwenzhuo.46/playground/.venv/lib/python3.11/site-packages/basicts/runners/builder.py", line 141, in _build_dataset
+    return cfg.dataset_type(**dataset_params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: BasicTSForecastingDataset.__init__() got an unexpected keyword argument 'train_ratio'
+
+Set the environment variable HYDRA_FULL_ERROR=1 for a complete stack trace.

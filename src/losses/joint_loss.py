@@ -176,8 +176,11 @@ class SparsityLoss(nn.Module):
     def forward(self, weights: torch.Tensor) -> torch.Tensor:
         """
         参数:
-            weights: [B, K] 权重向量，sum=1
+            weights: [B, K] 或 [B, L, K] 专家权重
         """
+        if weights.size(-1) <= 1:
+            return torch.tensor(0.0, device=weights.device)
+            
         if self.mode == 'entropy':
             # 计算熵
             entropy = -(weights * torch.log(weights + 1e-8)).sum(dim=-1).mean()
@@ -277,6 +280,9 @@ class LoadBalanceLoss(nn.Module):
             weights: [B, K] 专家权重
             router_logits: [B, K] 路由器的原始logits (用于auxiliary loss)
         """
+        if weights.size(-1) <= 1:
+            return torch.tensor(0.0, device=weights.device)
+            
         # 计算平均使用率
         avg_weights = weights.mean(dim=0)  # [K]
         

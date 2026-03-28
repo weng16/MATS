@@ -42,7 +42,8 @@ class MultiPatternWeightEstimator(nn.Module):
         num_patterns: int = 5,
         lambda_sim: float = 0.5,
         temperature: float = 1.0,
-        use_gumbel: bool = False
+        use_gumbel: bool = False,
+        use_prototype: bool = True
     ):
         """
         参数:
@@ -51,6 +52,7 @@ class MultiPatternWeightEstimator(nn.Module):
             lambda_sim: 平衡MLP直接预测和原型匹配的权重
             temperature: Softmax温度参数
             use_gumbel: 是否使用Gumbel-Softmax (训练时可微采样)
+            use_prototype: 是否使用原型匹配 (消融实验用)
         """
         super().__init__()
         
@@ -58,6 +60,7 @@ class MultiPatternWeightEstimator(nn.Module):
         self.num_patterns = num_patterns
         self.temperature = temperature
         self.use_gumbel = use_gumbel
+        self.use_prototype = use_prototype
         
         # 可学习模式原型 - 每种模式的"标准"特征表示
         # 初始化为正交向量以促进区分性
@@ -126,12 +129,15 @@ class MultiPatternWeightEstimator(nn.Module):
         # 方式1: MLP直接预测
         mlp_logits = self.weight_mlp(z)  # [B, 5]
         
-        # 方式2: 与原型的相似度
-        sim_logits = self.compute_prototype_similarity(z)  # [B, 5]
-        
         # 融合两种方式 (可学习权重)
-        combined_logits = mlp_logits + F.softplus(self.lambda_sim) * sim_logits
-        
+        if self.use_prototype:
+            # 方式2: 与原型的相似度
+            sim_logits = self.compute_prototype_similarity(z)  # [B, 5]
+            combined_logits = mlp_logits + F.softplus(self.lambda_sim) * sim_logits
+        else:
+            sim_logits = torch.zeros_like(mlp_logits)
+            combined_logits = mlp_logits
+            
         # 温度缩放
         scaled_logits = combined_logits / self.temperature
         
@@ -168,8 +174,9 @@ class MultiPatternWeightEstimator(nn.Module):
         weights = self.forward(z)
         
         assignments = {}
-        for i, name in enumerate(self.PATTERN_NAMES):
-            assignments[name] = weights[:, i]
+        for i in range(weights.shape[-1]):
+            name = self.PATTERN_NAMES[i] if i < len(self.PATTERN_NAMES) else f'pattern_{i}'
+            assignments[name] = weights[..., i]
         
         return assignments
     
@@ -179,6 +186,9 @@ class MultiPatternWeightEstimator(nn.Module):
         
         通过最小化原型间的相似度来促进区分性
         """
+        if not self.use_prototype:
+            return torch.tensor(0.0, device=self.pattern_prototypes.device)
+            
         proto_norm = F.normalize(self.pattern_prototypes, dim=-1)
         similarity_matrix = torch.matmul(proto_norm, proto_norm.T)
         

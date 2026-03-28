@@ -12,7 +12,7 @@ from omegaconf import DictConfig, OmegaConf
 import basicts
 import importlib
 from basicts.configs import BasicTSForecastingConfig
-from src.basicts_adapter.mats_arch import MATSArch
+from src.basicts_adapter.mats_arch import MATSArch, GlobalZScoreScaler
 
 def resolve_class(path: str):
     """把 'torch.optim.lr_scheduler.CosineAnnealingLR' 解析成 class"""
@@ -49,6 +49,21 @@ def main(cfg: DictConfig):
     output_len = cfg_dict.pop("output_len", 96)
     cfg_dict["dataset_params"]["input_len"] = input_len
     cfg_dict["dataset_params"]["output_len"] = output_len
+    
+    # 注入数据集划分比例，防止缓存为空
+    if "train_ratio" not in cfg_dict["dataset_params"]:
+        cfg_dict["dataset_params"]["train_ratio"] = 0.7
+    if "val_ratio" not in cfg_dict["dataset_params"]:
+        cfg_dict["dataset_params"]["val_ratio"] = 0.1
+    if "test_ratio" not in cfg_dict["dataset_params"]:
+        cfg_dict["dataset_params"]["test_ratio"] = 0.2
+        
+    if "train_data_ratio" not in cfg_dict["dataset_params"]:
+        cfg_dict["dataset_params"]["train_data_ratio"] = 0.7
+    if "val_data_ratio" not in cfg_dict["dataset_params"]:
+        cfg_dict["dataset_params"]["val_data_ratio"] = 0.1
+    if "test_data_ratio" not in cfg_dict["dataset_params"]:
+        cfg_dict["dataset_params"]["test_data_ratio"] = 0.2
 
     # model_params -> model_config: sync seq_len/pred_len with actual data lengths
     from basicts.configs import BasicTSModelConfig
@@ -61,7 +76,11 @@ def main(cfg: DictConfig):
     project_root = Path(__file__).resolve().parent.parent
     dataset_name = cfg_dict.get("dataset_name", "ETTh1")
     if data_path:
-        cfg_dict["data_file_path"] = str(Path(data_path).parent)
+        # data_path 可能是相对路径，比如 ./data/ETTm1/ETTm1.csv
+        p = Path(data_path)
+        if not p.is_absolute():
+            p = project_root / p
+        cfg_dict["data_file_path"] = str(p.parent)
     else:
         cfg_dict["data_file_path"] = str(project_root / "data" / dataset_name)
 
@@ -70,6 +89,10 @@ def main(cfg: DictConfig):
         cfg_dict["lr_scheduler"] = resolve_class(cfg_dict["lr_scheduler"])
     if isinstance(cfg_dict.get("optimizer"), str):
         cfg_dict["optimizer"] = resolve_class(cfg_dict["optimizer"])
+
+    # Fix the global scaler bug by injecting our custom scaler
+    if not cfg_dict.get("norm_each_channel", True):
+        cfg_dict["scaler"] = GlobalZScoreScaler
 
     ts_cfg = BasicTSForecastingConfig(**cfg_dict)
     

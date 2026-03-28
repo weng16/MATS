@@ -1,0 +1,17 @@
+# @package _global_
+defaults:
+  - /_base_/base
+  - /_base_/datasets/ettm1
+  - /_base_/model/mats_base
+  - _self_
+
+experiment:
+  name: "ABL-SingleExpert-ETTm1-96"
+  type: ablation
+  ablation_type: single_expert
+
+output_len: 96
+input_len: 96
+
+model_params:
+  num_experts: 1
